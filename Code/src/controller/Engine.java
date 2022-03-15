@@ -3,8 +3,6 @@ package controller;
 import java.io.FileNotFoundException;
 import java.sql.ResultSet;
 
-//import com.mysql.cj.xdevapi.Result;
-
 import util.DBConnector;
 import util.Parser;
 
@@ -17,7 +15,7 @@ public class Engine {
 		db.connect();
 		
 		Parser parser;		
-		parser = new Parser("1-create-database.sql");
+		parser = new Parser("db-create-database.sql");
 
 		ResultSet rs;
 
@@ -33,7 +31,7 @@ public class Engine {
 					
 		}
 
-		parser = new Parser("3-populate-data.sql");
+		parser = new Parser("db-populate-data.sql");
 
 		sqlrunning = true;
 		while (sqlrunning){
@@ -46,7 +44,7 @@ public class Engine {
 			
 		}
 
-		parser = new Parser("4-run-queries.sql");
+		parser = new Parser("db-run-queries.sql");
 
 		sqlrunning = true;
 		rs = null;
