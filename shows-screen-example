@@ -1,0 +1,9 @@
++-----------------+------+
+| AccountNumber  | AccountType    | City           | FName          | LName          | Balance        | LName          | LName          
++-----------------+------+
+| 100000         | S              | London         | Cust1FN        | Cust1LN        | 10             | Emp1LN         | Manager1LN      |
+| 100001         | S              | London         | Cust2FN        | Cust2LN        | 20             | Emp1LN         | Manager1LN      |
+| 100002         | S              | Paris          | Cust3FN        | Cust3LN        | 20             | Emp2LN         | Manager1LN      |
+| 100003         | S              | Paris          | Cust3FN        | Cust3LN        | 30             | Emp2LN         | Manager1LN      |
+| 100004         | S              | Paris          | Cust4FN        | Cust4LN        | 40             | Emp3LN         | Manager2LN      |
++-----------------+------+
