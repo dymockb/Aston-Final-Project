@@ -77,7 +77,7 @@ public class Parser
     public String getSQL() {
         String inputLine;   // will hold the full input line
 
-        System.out.print("> ");     // print prompt
+        //System.out.print("> ");     // print prompt
 
         inputLine = reader.next();
         //printInput(inputLine);
