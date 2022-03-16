@@ -28,7 +28,7 @@ public class Engine {
 		db = new DBConnector();
 		searchQueries = new ArrayList<String>();
 
-		parser = new Parser("run-theatre-queries.sql");
+		parser = new Parser("./ZuleyhaSQL/run-theatre-queries.sql");
 
 		Boolean sqlrunning = true;
 		rs = null;
@@ -48,7 +48,7 @@ public class Engine {
 
 		db.connect();
 				
-		parser = new Parser(".ZuleyhaSQL/create-theatre.sql");
+		parser = new Parser("./ZuleyhaSQL/create-theatre.sql");
 
 		boolean sqlrunning = true;
 		while (sqlrunning){
@@ -64,7 +64,7 @@ public class Engine {
 
 		
 
-		parser = new Parser("theatre-add-data.sql");
+		parser = new Parser("./ZuleyhaSQL/theatre-add-data.sql");
 
 		sqlrunning = true;
 		while (sqlrunning){
@@ -109,10 +109,6 @@ public class Engine {
 			}
 
 		}
-
-		
-
-
 
 		db.close();
 
