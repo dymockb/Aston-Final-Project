@@ -2,68 +2,127 @@ package controller;
 
 import java.io.FileNotFoundException;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import util.DBConnector;
 import util.Parser;
 
+
 public class Engine {
 
+	String createDatabaseFile;
+	String populateDataBaseFile;
+	String runQueriesFile;
+
+	ArrayList<String> searchQueries;
 	
+	String sqlString;
+	String userInput;
+	
+	DBConnector db;
+	ResultSet rs;
+	Parser parser;
 
-	public static void main(String[] args) throws FileNotFoundException {
-		DBConnector db = new DBConnector();
+	public Engine() throws FileNotFoundException {
+
+		db = new DBConnector();
+		searchQueries = new ArrayList<String>();
+
+		parser = new Parser("run-theatre-queries.sql");
+
+		Boolean sqlrunning = true;
+		rs = null;
+		while (sqlrunning){
+			sqlString = parser.getSQL();
+			//System.out.println("sql: " + sql);
+			if(sqlString.equals("END")){
+				sqlrunning = false;
+			} else {
+				searchQueries.add(sqlString);
+			} 	
+		}
+
+	}
+
+	public void openForBusiness() throws FileNotFoundException {
+
 		db.connect();
-		
-		Parser parser;		
-		parser = new Parser("db-create-database.sql");
-
-		ResultSet rs;
+				
+		parser = new Parser(".ZuleyhaSQL/create-theatre.sql");
 
 		boolean sqlrunning = true;
 		while (sqlrunning){
-			String sql = parser.getSQL();
+			sqlString = parser.getSQL();
 			//System.out.println("sql: " + sql);
-			if(sql.equals("END")){
+			if(sqlString.equals("END")){
 				sqlrunning = false;
 			} else {
-				db.runQuery(sql);
+				db.runQuery(sqlString);
 			} 
 					
 		}
 
-		parser = new Parser("db-populate-data.sql");
+		
+
+		parser = new Parser("theatre-add-data.sql");
 
 		sqlrunning = true;
 		while (sqlrunning){
-			String sql = parser.getSQL();
-			if(sql.equals("END")){
+			sqlString = parser.getSQL();
+			if(sqlString.equals("END")){
 				sqlrunning = false;
 			} else {
-				db.runQuery(sql);
+				db.runQuery(sqlString);
 			} 
 			
 		}
 
-		parser = new Parser("db-run-queries.sql");
+		
 
-		sqlrunning = true;
-		rs = null;
-		while (sqlrunning){
-			String sql = parser.getSQL();
-			//System.out.println("sql: " + sql);
-			if(sql.equals("END")){
-				sqlrunning = false;
-			} else {
-				rs = db.runQuery(sql);
+		parser = new Parser();
+
+		Boolean userActive = true;
+
+		while(userActive){
+
+			userInput = parser.getInput("commands-list");
+
+			if (userInput.equals("q")) {
+				System.out.println("quit.");
+				userActive = false;
+			} else if (userInput.equals("s")){
+				rs = db.runQuery(searchQueries.get(0));
 				if(rs == null){
 					System.out.println("Nothing to print.");
 				} else {
 					db.printResults(rs);									
 				}
-			} 	
+			} else if (userInput.equals("a")) {
+				rs = db.runQuery(searchQueries.get(0));
+				if(rs == null){
+					System.out.println("Nothing to print.");
+				} else {
+					db.printResults(rs);									
+				}
+			} else {
+				System.out.println("Invalid command");				
+			}
+
 		}
 
+		
+
+
+
 		db.close();
+
+	}
+
+	public static void main(String[] args) throws FileNotFoundException {
+		
+		//DBConnector db = new DBConnector();
+		Engine engine = new Engine();
+		engine.openForBusiness();
 
 	}
 

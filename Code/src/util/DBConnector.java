@@ -58,9 +58,9 @@ public class DBConnector {
 					results.beforeFirst(); // not rs.first() because the rs.next() below will move on, missing the first
 											// element
 				}
-				System.out.println(sql + "\n Success.  Result set has " + rowcount + " rows");
+				//System.out.println(sql + "\n Success.  Result set has " + rowcount + " rows");
 			} else {
-				System.out.println(sql + "\n Success.  No results returned");
+				//System.out.println(sql + "\n Success.  No results returned");
 			}
 			/* */
 			return results;
@@ -83,7 +83,7 @@ public class DBConnector {
 				System.out.print(createSubString(rsmd.getColumnName(i)));
 				//System.out.print(String.format("%-10s", rsmd.getColumnName(i)));
 			}
-			System.out.println(" |");
+			System.out.print(" |");
 			System.out.println("\n+-----------------");
 			// while there is another row
 			while (rs.next()) {
