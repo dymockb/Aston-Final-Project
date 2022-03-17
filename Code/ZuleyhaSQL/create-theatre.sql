@@ -4,18 +4,18 @@ USE theatreroyal;
 
 CREATE TABLE TypeOfShow (
 ID INT PRIMARY KEY,
-Name VARCHAR(25) NOT NULL,
+ShowType VARCHAR(25) NOT NULL,
 LiveMusic TINYINT 
 );
 
 CREATE TABLE ShowDetail (
 ID INT PRIMARY KEY,
-Name VARCHAR(25) NOT NULL,
-TYPEID INT,
-Description VARCHAR(50), 
+ShowName VARCHAR(25) NOT NULL,
+ShowTypeID INT,
+ShowDescription VARCHAR(50), 
 Duration INT,
-EnglishLanguage TINYINT,
-FOREIGN KEY (TYPEID) references TypeOfShow(ID)
+ShowLanguage TINYINT,
+FOREIGN KEY (ShowTypeID) references TypeOfShow(ID)
 );
 
 CREATE TABLE Performance (

@@ -14,6 +14,8 @@ import java.io.FileNotFoundException;
 public class Parser 
 {
     private Scanner reader;         // source of command input
+    private String fileName;
+    private File file;
     //private boolean testingOn;
 
     /**
@@ -26,13 +28,22 @@ public class Parser
     }
     
 
-    /** */
-    public Parser(String testFile) throws FileNotFoundException
+    /** 
+    public Parser(String filePath, String fileName) throws FileNotFoundException
     {
-        File file= new File(testFile);
-        reader = new Scanner(file).useDelimiter(";");
+        File file = new File(filePath);
+        reader = new Scanner(file);
+        this.fileName = fileName;
+        //.useDelimiter(";");
         //testingOn = true;
     }
+    */
+    
+    public void addFile(String filePath, String fileName) throws FileNotFoundException {
+        file = new File(filePath);
+        reader = new Scanner(file);
+        this.fileName = fileName;
+    };
 
     //private void printInput(String input){
     //    if(testingOn){
@@ -75,6 +86,9 @@ public class Parser
     }
 
     public String getSQL() {
+        
+        reader.useDelimiter(";");
+        
         String inputLine;   // will hold the full input line
 
         //System.out.print("> ");     // print prompt
@@ -82,6 +96,38 @@ public class Parser
         inputLine = reader.next();
         //printInput(inputLine);
         return inputLine;
+    }
+
+    /** The file name used in the Parser constructor must
+     *  match the database tablename */
+    public String createSqlDataFromCSV(){
+    
+        String sqlString = "INSERT INTO " + fileName + " (";
+
+        String columnTitles = reader.nextLine();
+
+        sqlString += columnTitles + ") VALUES ";
+
+        String tableDataRow = "";
+
+        while(reader.hasNextLine()){
+            tableDataRow = reader.nextLine();
+            sqlString += "(" + tableDataRow + "),";
+            //System.out.println(tableDataRow);
+        }
+
+        sqlString = sqlString.substring(0,sqlString.length() - 1) + ";";
+
+        System.out.println(sqlString);
+        
+        return sqlString;
+    
+    };
+
+    public void closeScanner(){
+
+        reader.close();
+
     }
     
 

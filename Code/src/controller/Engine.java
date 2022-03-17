@@ -21,19 +21,19 @@ public class Engine {
 	
 	DBConnector db;
 	ResultSet rs;
-	Parser parser;
 
 	public Engine() throws FileNotFoundException {
 
 		db = new DBConnector();
 		searchQueries = new ArrayList<String>();
 
-		parser = new Parser("./ZuleyhaSQL/run-theatre-queries.sql");
+		Parser sqlQueriesParser = new Parser();
+		sqlQueriesParser.addFile("./ZuleyhaSQL/run-theatre-queries.sql", "run-theatre-queries");
 
 		Boolean sqlrunning = true;
 		rs = null;
 		while (sqlrunning){
-			sqlString = parser.getSQL();
+			sqlString = sqlQueriesParser.getSQL();
 			//System.out.println("sql: " + sql);
 			if(sqlString.equals("END")){
 				sqlrunning = false;
@@ -42,17 +42,21 @@ public class Engine {
 			} 	
 		}
 
+		sqlQueriesParser.closeScanner();
+
 	}
 
 	public void openForBusiness() throws FileNotFoundException {
 
 		db.connect();
 				
-		parser = new Parser("./ZuleyhaSQL/create-theatre.sql");
+		//Parser createDbParser = new Parser("./ZuleyhaSQL/create-theatre.sql", "create-theatre");
+		Parser createDbParser = new Parser();
+		createDbParser.addFile("./ZuleyhaSQL/create-theatre.sql", "create-theatre");
 
 		boolean sqlrunning = true;
 		while (sqlrunning){
-			sqlString = parser.getSQL();
+			sqlString = createDbParser.getSQL();
 			//System.out.println("sql: " + sql);
 			if(sqlString.equals("END")){
 				sqlrunning = false;
@@ -62,13 +66,23 @@ public class Engine {
 					
 		}
 
+		createDbParser.closeScanner();
+
+		//Parser addTableDataParser = new Parser("./ZuleyhaSQL/theatre-add-data.sql", "theatre-add-data");
 		
+		Parser addTableDataParser = new Parser();
+		addTableDataParser.addFile("./csvFiles/TypeOfShow.csv", "TypeOfShow");
+		//addTableDataParser.createSqlDataFromCSV();
+		db.runQuery(addTableDataParser.createSqlDataFromCSV());
+		addTableDataParser.addFile("./csvFiles/ShowDetail.csv", "ShowDetail");
+		db.runQuery(addTableDataParser.createSqlDataFromCSV());
 
-		parser = new Parser("./ZuleyhaSQL/theatre-add-data.sql");
+		addTableDataParser.closeScanner();
 
+		/*
 		sqlrunning = true;
 		while (sqlrunning){
-			sqlString = parser.getSQL();
+			sqlString = addTableDataParser.getSQL();
 			if(sqlString.equals("END")){
 				sqlrunning = false;
 			} else {
@@ -76,16 +90,15 @@ public class Engine {
 			} 
 			
 		}
+		*/
 
-		
-
-		parser = new Parser();
+		Parser userInputParser = new Parser();
 
 		Boolean userActive = true;
 
 		while(userActive){
 
-			userInput = parser.getInput("commands-list");
+			userInput = userInputParser.getInput("commands-list");
 
 			if (userInput.equals("q")) {
 				System.out.println("quit.");
@@ -109,6 +122,8 @@ public class Engine {
 			}
 
 		}
+
+		userInputParser.closeScanner();
 
 		db.close();
 
