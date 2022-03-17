@@ -67,6 +67,13 @@ public class Parser
             System.out.println("q - quit");
             System.out.print("> ");           
             inputLine = reader.nextLine();            
+        } else if (request.equals("browse-table")){
+            System.out.println("Available Commands:");
+            System.out.println("f - go forward");
+            System.out.println("r - return to start");
+            System.out.println("q - quit browsing");
+            System.out.print("> ");           
+            inputLine = reader.nextLine();            
         } else {
             inputLine = "";
         }

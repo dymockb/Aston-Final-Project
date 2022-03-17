@@ -2,10 +2,10 @@ package controller;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.sql.SQLException;
+//import java.sql.SQLException;
 import java.io.File;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
+//import java.sql.ResultSetMetaData;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.HashMap;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -33,7 +33,11 @@ public class Engine {
 	public static void main(String[] args) throws FileNotFoundException {
 		
 		Engine engine = new Engine();
+
+		//Run from file:
 		//engine.openForBusiness("inputFromFile");
+
+		//Run with UserInput:
 		engine.openForBusiness("userInput");
 
 	}
@@ -42,32 +46,6 @@ public class Engine {
 
 		db = new DBConnector();
 		printer = new ScreenPrinter();
-
-		/*
-		searchQueries = new ArrayList<String>();
-
-		Parser sqlQueriesParser = new Parser();
-		sqlQueriesParser.addFile("./ZuleyhaSQL/run-theatre-queries.sql", "run-theatre-queries");
-
-		Boolean sqlrunning = true;
-		rs = null;
-		while (sqlrunning){
-			sqlString = sqlQueriesParser.getSQL();
-			if(sqlString.equals("END")){
-				sqlrunning = false;
-			} else {
-				searchQueries.add(sqlString);
-			public static void main(String[] args) throws FileNotFoundException {
-		
-		Engine engine = new Engine();
-		engine.openForBusiness();
-
-	}	} 	
-		}
-
-		sqlQueriesParser.closeScanner();
-
-		*/
 
 		mapper = new ObjectMapper();
 		File file = new File("./jsonFiles/theatre-queries.json");
@@ -143,20 +121,10 @@ public class Engine {
 				userActive = false;
 			} else if (userInput.equals("b")){
 				rs = db.runQuery(sqlQueries.get("browse-shows"));
-				printer.printResults(rs);
-				//if(rs == null){
-				//	System.out.println("Nothing to print.");
-				//} else {
-				//	db.printResults(rs);									
-				//}
+				printer.browseTable(rs, 5);
 			} else if (userInput.equals("a")) {
 				rs = db.runQuery(sqlQueries.get("select-all-shows"));
 				printer.printResults(rs);
-				//if(rs == null){
-			    //System.out.println("Nothing to print.");
-				//} else {
-				//	db.printResults(rs);									
-				//}
 			} else {
 				System.out.println("Invalid command");				
 			}
@@ -168,56 +136,5 @@ public class Engine {
 		db.close();
 
 	}
-
-	/*
-	private void printSqlResult(ResultSet result){
-		if(result == null){
-			System.out.println("Nothing to print.");
-		} else {
-	
-			try {
-				
-				ResultSetMetaData rsmd = result.getMetaData();
-				int cols = rsmd.getColumnCount();
-				System.out.println("+-----------------");
-				for (int i = 1; i <= cols; i ++){
-					System.out.print("| ");
-					System.out.print(createSubString(rsmd.getColumnName(i)));
-					//System.out.print(String.format("%-10s", rsmd.getColumnName(i)));
-				}
-				System.out.print(" |");
-				System.out.println("\n+-----------------");
-				// while there is another row
-				while (rs.next()) {
-					for (int i = 1; i <= cols; i ++){
-						System.out.print("| ");
-						System.out.print(createSubString(rs.getString(i)));
-						//System.out.print(String.format("%-10s", rs.getString(i)));
-					}
-					System.out.println(" |");	
-				}
-				//bottom border of the output
-				System.out.println("+-----------------");
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			
-		}        inputLine
-	}
-
-
-	public String createSubString(String text){
-		if (text == null){
-			return String.format("%-12s", "");
-		} else if (text.length() >= 9){
-			return String.format("%-12s", text.substring(0,9) + "...");
-		} else {
-			return String.format("%-12s", text);			
-		}
-	}
-	
-	*/
-
-
 
 }
