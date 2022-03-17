@@ -2,8 +2,10 @@ package controller;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.io.File;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 //import java.util.ArrayList;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.HashMap;
@@ -115,8 +117,9 @@ public class Engine {
 			if (userInput.equals("q")) {
 				System.out.println("quit.");
 				userActive = false;
-			} else if (userInput.equals("s")){
-				//rs = db.runQuery(searchQueries.get(0));
+			} else if (userInput.equals("b")){
+				rs = db.runQuery(sqlQueries.get("browse-shows"));
+				printSqlResult(rs);
 				//if(rs == null){
 				//	System.out.println("Nothing to print.");
 				//} else {
@@ -124,11 +127,12 @@ public class Engine {
 				//}
 			} else if (userInput.equals("a")) {
 				rs = db.runQuery(sqlQueries.get("select-all-shows"));
-				if(rs == null){
-					System.out.println("Nothing to print.");
-				} else {
-					db.printResults(rs);									
-				}
+				printSqlResult(rs);
+				//if(rs == null){
+			    //System.out.println("Nothing to print.");
+				//} else {
+				//	db.printResults(rs);									
+				//}
 			} else {
 				System.out.println("Invalid command");				
 			}
@@ -140,6 +144,52 @@ public class Engine {
 		db.close();
 
 	}
+
+	private void printSqlResult(ResultSet result){
+		if(result == null){
+			System.out.println("Nothing to print.");
+		} else {
+			//db.printResults(result);
+			try {
+				//get the headers and output them
+				ResultSetMetaData rsmd = result.getMetaData();
+				int cols = rsmd.getColumnCount();
+				System.out.println("+-----------------");
+				for (int i = 1; i <= cols; i ++){
+					System.out.print("| ");
+					System.out.print(createSubString(rsmd.getColumnName(i)));
+					//System.out.print(String.format("%-10s", rsmd.getColumnName(i)));
+				}
+				System.out.print(" |");
+				System.out.println("\n+-----------------");
+				// while there is another row
+				while (rs.next()) {
+					for (int i = 1; i <= cols; i ++){
+						System.out.print("| ");
+						System.out.print(createSubString(rs.getString(i)));
+						//System.out.print(String.format("%-10s", rs.getString(i)));
+					}
+					System.out.println(" |");	
+				}
+				//bottom border of the output
+				System.out.println("+-----------------");
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+		}
+	}
+
+
+	public String createSubString(String text){
+		if (text == null){
+			return String.format("%-12s", "");
+		} else if (text.length() >= 9){
+			return String.format("%-12s", text.substring(0,9) + "...");
+		} else {
+			return String.format("%-12s", text);			
+		}
+	} 
 
 	public static void main(String[] args) throws FileNotFoundException {
 		

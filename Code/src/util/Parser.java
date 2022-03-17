@@ -72,6 +72,7 @@ public class Parser
         } else if (request.equals("commands-list")){
             System.out.println("Available Commands:");
             System.out.println("a - display all shows");
+            System.out.println("b - browse shows");
             System.out.println("q - quit");
             System.out.print("> ");     // print prompt            
             inputLine = reader.nextLine();            

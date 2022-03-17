@@ -75,6 +75,7 @@ CITY VARCHAR(20),
 DATEOFBIRTH DATE,
 JOB VARCHAR(20)
 );
+
 INSERT INTO Customer (name, address, creditcard) VALUE('Maya Dee', 'Birmingham',1111111111);
 INSERT INTO Customer (name, address, creditcard) VALUE('Camaren David', 'London',1111111111);
 INSERT INTO Customer (name, address, creditcard) VALUE('Jakson North', 'London',1111111111);
