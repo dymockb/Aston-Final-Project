@@ -6,14 +6,15 @@ import java.sql.SQLException;
 import java.io.File;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
-//import java.util.ArrayList;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.HashMap;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.core.JsonGenerationException;
+
 import util.DBConnector;
 import util.Parser;
+import util.ScreenPrinter;
 
 
 public class Engine {
@@ -21,18 +22,26 @@ public class Engine {
 	private ObjectMapper mapper; 
 	private HashMap<String, String> sqlQueries;
 	//http://tutorials.jenkov.com/java-json/jackson-objectmapper.html
-
-	//private ArrayList<String> searchQueries;
 	
 	private String sqlString;
 	private String userInput;
+	private ScreenPrinter printer;
 	
 	private DBConnector db;
 	private ResultSet rs;
 
+	public static void main(String[] args) throws FileNotFoundException {
+		
+		Engine engine = new Engine();
+		//engine.openForBusiness("inputFromFile");
+		engine.openForBusiness("userInput");
+
+	}
+
 	public Engine() throws FileNotFoundException {
 
 		db = new DBConnector();
+		printer = new ScreenPrinter();
 
 		/*
 		searchQueries = new ArrayList<String>();
@@ -48,8 +57,16 @@ public class Engine {
 				sqlrunning = false;
 			} else {
 				searchQueries.add(sqlString);
-			} 	
+			public static void main(String[] args) throws FileNotFoundException {
+		
+		Engine engine = new Engine();
+		engine.openForBusiness();
+
+	}	} 	
 		}
+
+		sqlQueriesParser.closeScanner();
+
 		*/
 
 		mapper = new ObjectMapper();
@@ -71,16 +88,16 @@ public class Engine {
 		  e.printStackTrace();
 		}
 
-		//sqlQueriesParser.closeScanner();
+		
 
 	}
 
-	public void openForBusiness() throws FileNotFoundException {
+	public void openForBusiness(String inputType) throws FileNotFoundException {
 
 		db.connect();
 				
 		Parser createDbParser = new Parser();
-		createDbParser.addFile("./ZuleyhaSQL/create-theatre.sql", "create-theatre");
+		createDbParser.addFile("./ZuleyhaSQL/create-theatre.sql");
 
 		boolean sqlrunning = true;
 		while (sqlrunning){
@@ -98,15 +115,22 @@ public class Engine {
 		
 		Parser addTableDataParser = new Parser();
 
-		addTableDataParser.addFile("./csvFiles/TypeOfShow.csv", "TypeOfShow");
-		db.runQuery(addTableDataParser.createSqlDataFromCSV());
+		addTableDataParser.addFile("./csvFiles/TypeOfShow.csv");
+		db.runQuery(addTableDataParser.createSqlDataFromCSV("TypeOfShow"));
 
-		addTableDataParser.addFile("./csvFiles/ShowDetail.csv", "ShowDetail");
-		db.runQuery(addTableDataParser.createSqlDataFromCSV());
+		addTableDataParser.addFile("./csvFiles/ShowDetail.csv");
+		db.runQuery(addTableDataParser.createSqlDataFromCSV("ShowDetail"));
 
 		addTableDataParser.closeScanner();
 
-		Parser userInputParser = new Parser();
+		Parser userInputParser;
+
+		if(inputType.equals("inputFromFile")){
+			userInputParser = new Parser();
+			userInputParser.addFile("./txtFiles/userInput.txt");
+		} else {
+			userInputParser = new Parser();
+		}	
 
 		Boolean userActive = true;
 
@@ -119,7 +143,7 @@ public class Engine {
 				userActive = false;
 			} else if (userInput.equals("b")){
 				rs = db.runQuery(sqlQueries.get("browse-shows"));
-				printSqlResult(rs);
+				printer.printResults(rs);
 				//if(rs == null){
 				//	System.out.println("Nothing to print.");
 				//} else {
@@ -127,7 +151,7 @@ public class Engine {
 				//}
 			} else if (userInput.equals("a")) {
 				rs = db.runQuery(sqlQueries.get("select-all-shows"));
-				printSqlResult(rs);
+				printer.printResults(rs);
 				//if(rs == null){
 			    //System.out.println("Nothing to print.");
 				//} else {
@@ -145,13 +169,14 @@ public class Engine {
 
 	}
 
+	/*
 	private void printSqlResult(ResultSet result){
 		if(result == null){
 			System.out.println("Nothing to print.");
 		} else {
-			//db.printResults(result);
+	
 			try {
-				//get the headers and output them
+				
 				ResultSetMetaData rsmd = result.getMetaData();
 				int cols = rsmd.getColumnCount();
 				System.out.println("+-----------------");
@@ -177,7 +202,7 @@ public class Engine {
 				e.printStackTrace();
 			}
 			
-		}
+		}        inputLine
 	}
 
 
@@ -189,14 +214,10 @@ public class Engine {
 		} else {
 			return String.format("%-12s", text);			
 		}
-	} 
-
-	public static void main(String[] args) throws FileNotFoundException {
-		
-		//DBConnector db = new DBConnector();
-		Engine engine = new Engine();
-		engine.openForBusiness();
-
 	}
+	
+	*/
+
+
 
 }
