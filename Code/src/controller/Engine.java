@@ -3,6 +3,10 @@ package controller;
 import java.io.FileNotFoundException;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import com.fasterxml.jackson.databind.ObjectMapper;
+//import ObjectMapper;
+
+//import java.util.HashMap;
 
 import util.DBConnector;
 import util.Parser;
@@ -10,17 +14,20 @@ import util.Parser;
 
 public class Engine {
 
-	String createDatabaseFile;
-	String populateDataBaseFile;
-	String runQueriesFile;
+	//private String createDatabaseFile;
+	//private String populateDataBaseFile;
+	//private String runQueriesFile;
 
-	ArrayList<String> searchQueries;
+	private ObjectMapper ObjectMapper; 
+	//http://tutorials.jenkov.com/java-json/jackson-objectmapper.html
+
+	private ArrayList<String> searchQueries;
 	
-	String sqlString;
-	String userInput;
+	private String sqlString;
+	private String userInput;
 	
-	DBConnector db;
-	ResultSet rs;
+	private DBConnector db;
+	private ResultSet rs;
 
 	public Engine() throws FileNotFoundException {
 
@@ -41,6 +48,7 @@ public class Engine {
 				searchQueries.add(sqlString);
 			} 	
 		}
+
 
 		sqlQueriesParser.closeScanner();
 
@@ -72,8 +80,8 @@ public class Engine {
 		
 		Parser addTableDataParser = new Parser();
 		addTableDataParser.addFile("./csvFiles/TypeOfShow.csv", "TypeOfShow");
-		//addTableDataParser.createSqlDataFromCSV();
 		db.runQuery(addTableDataParser.createSqlDataFromCSV());
+
 		addTableDataParser.addFile("./csvFiles/ShowDetail.csv", "ShowDetail");
 		db.runQuery(addTableDataParser.createSqlDataFromCSV());
 
