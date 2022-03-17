@@ -36,9 +36,9 @@ public class Parser
         this.fileName = fileName;
         //.useDelimiter(";");
         //testingOn = true;
-    }
+    }INSERT INTO ShowDetail (ShowName,ShowTypeID,ShowDescription,Duration,ShowLanguage) VALUES ("Romeo and Juliet",1,"Theatre show",120,1),("Beauty and the Beast",2,"Musical show",150,1),("Mamma Mia!",3,"ABBA + Musical show",110,),("Andrea Bocelli",4,"Andrea Bocelli + Concert",100,1),("Aida",5,"Opera",105,2),("Madam Butterfly",6,"Name of the performance + Opera",160,3),("Rigoletto",6,"Name of the performance + Opera",90,),("Elton John",4,"Name of the performance + Concert",75,1),("Cyrano de Bergerac",1,"Theatre show",90,),("Lion King",2,"Musical show",100,),("We Will Rock You",3,"Name of the performance + Musical show",80,);
     */
-    
+
     public void addFile(String filePath, String fileName) throws FileNotFoundException {
         file = new File(filePath);
         reader = new Scanner(file);
@@ -118,7 +118,7 @@ public class Parser
 
         sqlString = sqlString.substring(0,sqlString.length() - 1) + ";";
 
-        System.out.println(sqlString);
+        //System.out.println(sqlString);
         
         return sqlString;
     
