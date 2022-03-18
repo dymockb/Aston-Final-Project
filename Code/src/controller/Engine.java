@@ -5,6 +5,7 @@ package controller;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+//import java.util.NoSuchElementException;
 import java.io.File;
 import java.util.HashMap;
 //import java.sql.ResultSet;
@@ -30,6 +31,7 @@ public class Engine {
 	private ScreenPrinter printer;
 	private DBConnector db;
 	private UserInterface userInterface;
+	private Parser inputParser;
 
 	//private ResultSet rs;
 
@@ -49,9 +51,10 @@ public class Engine {
 
 		db = new DBConnector();
 		printer = new ScreenPrinter();
+		inputParser = new Parser();
 
 		mapper = new ObjectMapper();
-		File file = new File("./jsonFiles/theatre-queries.json");
+		File file = new File("./database-files/json-files/theatre-queries.json");
 		try
 		{
 		  
@@ -81,16 +84,17 @@ public class Engine {
 				
 		addTableData();
 
-		Parser userInputParser;
+		//Parser inputParser;
 
 		if(inputType.equals("inputFromFile")){
-			userInputParser = new Parser();
-			userInputParser.addFile("./txtFiles/userInput.txt");
-		} else {
-			userInputParser = new Parser();
-		}
+			//inputParser = new Parser();
+			inputParser.addFile("./txt-files/user-input.txt");
+		} 
+		//else {
+		//	inputParser = new Parser();
+		//}
 
-		userInterface.setInputParser(userInputParser);
+		userInterface.setInputParser(inputParser);
 
 		Boolean userActive = true;
 		//String userInput;
@@ -102,7 +106,7 @@ public class Engine {
 
 		}
 
-		userInputParser.closeScanner();
+		inputParser.closeScanner();
 
 		db.close();
 
@@ -111,18 +115,28 @@ public class Engine {
 	private void createdb() throws FileNotFoundException {
 
 		Parser createDbParser = new Parser();
-		createDbParser.addFile("./ZuleyhaSQL/create-theatre.sql");
+		createDbParser.addFile("./database-files/zuleyha-db-files/version2/create-database.sql");
 
 		boolean sqlrunning = true;
 		while (sqlrunning){
+
 			String sqlString = createDbParser.getSQL();
-		
+
 			if(sqlString.equals("END")){
 				sqlrunning = false;
 			} else {
 				db.runQuery(sqlString);
 			}
-					
+
+			/*
+
+			if (sqlString.contains(";")){
+				db.runQuery(sqlString);
+			} else {
+				sqlrunning = false;
+			}
+			*/
+			
 		}
 
 		createDbParser.closeScanner();
@@ -133,11 +147,19 @@ public class Engine {
 				
 		Parser addTableDataParser = new Parser();
 
-		addTableDataParser.addFile("./csvFiles/TypeOfShow.csv");
+		addTableDataParser.addFile("./database-files/zuleyha-db-files/version2/csv-files/LiveMusic.csv");
+		db.runQuery(addTableDataParser.createSqlDataFromCSV("LiveMusic"));
+
+		addTableDataParser.addFile("./database-files/zuleyha-db-files/version2/csv-files/ShowLanguage.csv");
+		db.runQuery(addTableDataParser.createSqlDataFromCSV("ShowLanguage"));
+
+		addTableDataParser.addFile("./database-files/zuleyha-db-files/version2/csv-files/TypeOfShow.csv");
 		db.runQuery(addTableDataParser.createSqlDataFromCSV("TypeOfShow"));
 
-		addTableDataParser.addFile("./csvFiles/ShowDetail.csv");
+		addTableDataParser.addFile("./database-files/zuleyha-db-files/version2/csv-files/ShowDetail.csv");
 		db.runQuery(addTableDataParser.createSqlDataFromCSV("ShowDetail"));
+
+
 
 		addTableDataParser.closeScanner();
 

@@ -1,6 +1,0 @@
-{
-    "select-all-shows": "select * from ShowDetail;",
-    "browse-shows": "SELECT ShowDetail.ID, ShowName, ShowDescription, ShowType, Duration FROM ShowDetail JOIN TypeOfShow ON TypeOfShow.ID = ShowDetail.ShowTypeID;",
-    "select-from-ShowDetail": "SELECT selection FROM ShowDetail WHERE condition"
-}
-
