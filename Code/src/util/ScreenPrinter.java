@@ -10,6 +10,8 @@ public class ScreenPrinter {
 		
 	}
 
+	/*
+
 	public void browseTable(ResultSet rs, int rowsPerScreen) {
 		
 		int startingRow = 1;
@@ -47,6 +49,8 @@ public class ScreenPrinter {
 		}
 	}
 
+	*/
+
 	public void printResults(ResultSet rs) {
 		try {
 			//get the headers and output them
@@ -79,7 +83,7 @@ public class ScreenPrinter {
 
 	}
 
-	private void printColumnTitles(ResultSetMetaData rsmd){
+	public void printColumnTitles(ResultSetMetaData rsmd){
 
 		try {
 			int cols = rsmd.getColumnCount();
@@ -117,7 +121,7 @@ public class ScreenPrinter {
 		}
 	}
 
-	private String createSubString(String text){
+	public String createSubString(String text){
 		if (text == null){
 			return String.format("%-12s", "");
 		} else if (text.length() >= 9){

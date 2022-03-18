@@ -20,6 +20,7 @@ public class UserInterface
     private ScreenPrinter printer;
     private HashMap<String,String> sqlQueries;
     private Parser parser;
+    private ResultProcessor resultProcessor;
 
     /**
      * .    
@@ -29,6 +30,7 @@ public class UserInterface
         this.db = db;
         this.printer = printer;
         this.sqlQueries = sqlQueries;
+        resultProcessor = new ResultProcessor();
 
     }
 
@@ -58,9 +60,19 @@ public class UserInterface
 
     private void browseShows(){
         rs = db.runQuery(sqlQueries.get("browse-shows"));
+
         Boolean browsing = true;
+
         while(browsing){
-            browsing = queryResults.browseTable(rs, 5);
+
+            resultProcessor.browseTable(rs, 5);
+            
+            String userInput = parser.getInput("browse-table");
+
+            if(userInput.equals("q")){
+                browsing = false;
+            }
+
         }
 
     }
