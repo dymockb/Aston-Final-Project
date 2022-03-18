@@ -16,6 +16,7 @@ public class Parser
     private Scanner reader;
     private File file;
     private boolean testingOn;
+    private Responder responder;
 
     /**
      * Create a parser to read from the terminal window.
@@ -24,6 +25,7 @@ public class Parser
     {
         reader = new Scanner(System.in);
         testingOn = false;
+        responder = new Responder();
     }
     
 
@@ -49,38 +51,20 @@ public class Parser
 
     public String getInput(String request)
     {
-        
-        String inputLine;
-        
-        if (request.equals("username")){
-            System.out.println("Please enter your database username: ");
-            System.out.print("> ");                 
+
+        //Boolean gettingInput = true;
+        String inputLine = null;
+        //while(gettingInput){
+            responder.showCommands(request);
             inputLine = reader.nextLine();
-        } else if (request.equals("password")) {
-            System.out.println("Please enter your database password: ");
-            System.out.print("> ");           
-            inputLine = reader.nextLine();
-        } else if (request.equals("commands-list")){
-            System.out.println("Available Commands:");
-            System.out.println("a - display all shows");
-            System.out.println("b - browse shows");
-            System.out.println("q - quit");
-            System.out.print("> ");           
-            inputLine = reader.nextLine();            
-        } else if (request.equals("browse-table")){
-            System.out.println("Available Commands:");
-            System.out.println("f - go forward");
-            System.out.println("r - return to start");
-            System.out.println("q - quit browsing");
-            System.out.print("> ");           
-            inputLine = reader.nextLine();            
-        } else {
-            inputLine = "";
-        }
+        //    if(!inputLine.equals("Invalid command.")){
+        //        gettingInput = false;
+        //    }
+        //}
 
         printInput(inputLine);
         return inputLine;
-
+ 
     }
 
     public String getSQL() {

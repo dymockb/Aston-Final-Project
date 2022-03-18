@@ -18,17 +18,6 @@ public class ScreenPrinter {
 		try {
 			ResultSetMetaData rsmd = rs.getMetaData();
 			printColumnTitles(rsmd);
-			/*
-			int cols = rsmd.getColumnCount();
-			
-			System.out.println("+-----------------");
-			for (int i = 1; i <= cols; i ++){
-				System.out.print("| ");
-				System.out.print(createSubString(rsmd.getColumnName(i)));
-			}
-			System.out.print(" |");
-			System.out.println("\n+-----------------");
-			*/
 			
 			int cols = rsmd.getColumnCount();
 			int lastRowOfCurrentTable = rowsPerScreen;
@@ -52,14 +41,11 @@ public class ScreenPrinter {
 				printColumnTitles(rsmd);
 			}
 
-			//bottom border of the output
 			System.out.println("+-----------------");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-
-
 
 	public void printResults(ResultSet rs) {
 		try {
@@ -73,22 +59,6 @@ public class ScreenPrinter {
 			printColumnTitles(rsmd);
 
 			printTableData(rs, 0, numberOfRows, numberOfCols);
-			
-			/*
-			int cols = rsmd.getColumnCount();
-
-			rs.first();
-			while (rs.next()) {
-				for (int i = 1; i <= cols; i ++){
-					System.out.print("| ");
-					System.out.print(createSubString(rs.getString(i)));
-					//System.out.print(String.format("%-10s", rs.getString(i)));
-				}
-				System.out.println(" |");	
-			}			
-			System.out.println("+-----------------");
-			*/
-
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -117,7 +87,6 @@ public class ScreenPrinter {
 			for (int i = 1; i <= cols; i ++){
 				System.out.print("| ");
 				System.out.print(createSubString(rsmd.getColumnName(i)));
-				//System.out.print(String.format("%-10s", rsmd.getColumnName(i)));
 			}
 			System.out.print(" |");
 			System.out.println("\n+-----------------");

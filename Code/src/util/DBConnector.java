@@ -21,7 +21,7 @@ public class DBConnector {
 
 			String username = parser.getInput("username");
 			String password = parser.getInput("password");
-
+			
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/",username, password);			
 
 		} catch (SQLException e) {
