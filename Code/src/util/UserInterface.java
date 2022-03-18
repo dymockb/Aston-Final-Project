@@ -58,7 +58,11 @@ public class UserInterface
 
     private void browseShows(){
         rs = db.runQuery(sqlQueries.get("browse-shows"));
-        printer.browseTable(rs, 5);
+        Boolean browsing = true;
+        while(browsing){
+            browsing = queryResults.browseTable(rs, 5);
+        }
+
     }
 
     private void selectAllShows(){
