@@ -115,7 +115,7 @@ public class Engine {
 	private void createdb() throws FileNotFoundException {
 
 		Parser createDbParser = new Parser();
-		createDbParser.addFile("./database-files/zuleyha-db-files/version2/create-database.sql");
+		createDbParser.addFile("./database-files/zuleyha-db-files/version2/testdb.sql");
 
 		boolean sqlrunning = true;
 		while (sqlrunning){
@@ -127,15 +127,6 @@ public class Engine {
 			} else {
 				db.runQuery(sqlString);
 			}
-
-			/*
-
-			if (sqlString.contains(";")){
-				db.runQuery(sqlString);
-			} else {
-				sqlrunning = false;
-			}
-			*/
 			
 		}
 
@@ -155,6 +146,9 @@ public class Engine {
 
 		addTableDataParser.addFile("./database-files/zuleyha-db-files/version2/csv-files/TypeOfShow.csv");
 		db.runQuery(addTableDataParser.createSqlDataFromCSV("TypeOfShow"));
+
+		addTableDataParser.addFile("./database-files/zuleyha-db-files/version2/csv-files/PriceBand.csv");
+		db.runQuery(addTableDataParser.createSqlDataFromCSV("PriceBand"));
 
 		addTableDataParser.addFile("./database-files/zuleyha-db-files/version2/csv-files/ShowDetail.csv");
 		db.runQuery(addTableDataParser.createSqlDataFromCSV("ShowDetail"));
