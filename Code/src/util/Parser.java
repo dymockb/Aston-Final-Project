@@ -49,11 +49,11 @@ public class Parser
         }
     }
 
-    public String getInput(String request)
+    public String getInput(String request, String keyword)
     {
 
         String inputLine = null;
-        responder.displayCommands(request);
+        responder.displayCommands(request, keyword);
         inputLine = reader.nextLine();
         printInput(inputLine);
         return inputLine;

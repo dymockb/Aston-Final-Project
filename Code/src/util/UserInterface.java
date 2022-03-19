@@ -38,7 +38,7 @@ public class UserInterface
 
     public Boolean mainMenu(){
 
-        String command = parser.getInput("main-menu");
+        String command = parser.getInput("main-menu", "Main menu");
         
         Boolean returnType = true;
         
@@ -58,23 +58,52 @@ public class UserInterface
 
     private void browseShows(){
 
-        rs = db.runQuery(sqlQueries.get("browse-shows"));
+        String userInput;
+        Boolean browsing;
 
-        Boolean browsing = true;
-
+        browsing = true;
         while(browsing){
 
-            resultProcessor.browseTable(rs);
-            
-            String userInput = parser.getInput("browse-table");
+            userInput = parser.getInput("choose-browsing-mode", "");
 
-            if(userInput.equals("q")){
+            if (userInput.equals("s")){
+                System.out.println("Search for show by name or keyword not built yet"); 
+            } else if (userInput.equals("a")) {
+
+                rs = db.runQuery(sqlQueries.get("browse-shows"));
+
+                Boolean browsingTable = true;
+        
+                while(browsingTable){
+        
+                    resultProcessor.browseTable(rs);
+                    
+                    userInput = parser.getInput("browse-table", "show");
+        
+                    if(userInput.equals("q")){
+                        browsingTable = false;
+                    } else {
+                        printer.invalidCommand();
+                        browsingTable = false;
+                    }
+        
+                }
+
+
+
+            } else if (userInput.equals("c")) {
+                System.out.println("Display shows by category not built yet");
+            } else if (userInput.equals("d")) {
+                System.out.println("Display shows by performance date not built yet");
+            } else if (userInput.equals("q")) {
                 browsing = false;
             } else {
                 printer.invalidCommand();
             }
 
         }
+
+
 
     }
 
