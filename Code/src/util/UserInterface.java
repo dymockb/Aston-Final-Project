@@ -3,8 +3,6 @@ package util;
 import java.sql.ResultSet;
 import java.util.HashMap;
 
-//import javax.swing.plaf.basic.BasicInternalFrameTitlePane.SystemMenuBar;
-
 /**
  * 
  * This responds to the user input 
@@ -48,8 +46,8 @@ public class UserInterface
             returnType = false;
         } else if (command.equals("b")){
             browseShows();
-        } else if (command.equals("a")) {
-            selectAllShows();
+        } else if (command.equals("l")){
+            System.out.println("The admin login interface isn't built yet.");
         } else {
             System.out.println("Invalid Command.");
         }
@@ -59,28 +57,34 @@ public class UserInterface
     }
 
     private void browseShows(){
+
         rs = db.runQuery(sqlQueries.get("browse-shows"));
 
         Boolean browsing = true;
 
         while(browsing){
 
-            resultProcessor.browseTable(rs, 5);
+            resultProcessor.browseTable(rs);
             
             String userInput = parser.getInput("browse-table");
 
             if(userInput.equals("q")){
                 browsing = false;
+            } else {
+                printer.invalidCommand();
             }
 
         }
 
     }
 
+
+    /*
     private void selectAllShows(){
         rs = db.runQuery(sqlQueries.get("select-all-shows"));
         printer.printResults(rs);
     }
+    */
 
 
 }

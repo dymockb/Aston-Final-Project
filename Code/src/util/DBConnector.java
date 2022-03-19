@@ -72,6 +72,8 @@ public class DBConnector {
 
 	}
 
+	/*
+
 	public void printResults(ResultSet rs) {
 		try {
 			//get the headers and output them
@@ -111,6 +113,7 @@ public class DBConnector {
 			return String.format("%-12s", text);			
 		}
 	} 
+	*/
 	
 
 	public void close() {

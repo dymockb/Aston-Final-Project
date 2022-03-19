@@ -22,28 +22,37 @@ public class ResultProcessor
 
     }
 
-    public void browseTable(ResultSet rs, int noOfRows) {
+    public void browseTable(ResultSet rs) {
 
         try {
 
 			ResultSetMetaData rsmd = rs.getMetaData();
-			printer.printColumnTitles(rsmd);
 			
-			int cols = rsmd.getColumnCount();
+			int noOfRows = getNumberOfRows(rs);
+			int noOfCols = rsmd.getColumnCount();
+			int startingRow = 1;
+			int rowsToDisplay = 5;
 
-            int currentRow = 1;
+			printer.printTableHeading(noOfRows, startingRow, rowsToDisplay);
 
-			while (rs.next() && currentRow <= noOfRows){
+			printer.printColumnTitles(rsmd);
 
-				for (int i = 1; i <= cols; i ++){
+			printer.printTableData(rs, startingRow, rowsToDisplay, noOfCols);
+
+			/*
+			while (rs.next() && startingRow <= rowsToDisplay){
+
+				for (int i = 1; i <= noOfCols; i ++){
 					System.out.print("| ");
 					System.out.print(printer.createSubString(rs.getString(i)));
 				}
 				System.out.println(" |");
+				//this variabls is wrong / out of date/ unused:
                 currentRow++;	
 			}
+			*/
 
-			System.out.println("+-----------------");
+			//System.out.println("+-----------------");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

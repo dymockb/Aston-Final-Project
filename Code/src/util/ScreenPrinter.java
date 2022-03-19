@@ -51,37 +51,32 @@ public class ScreenPrinter {
 
 	*/
 
+	/*
 	public void printResults(ResultSet rs) {
 		try {
 			//get the headers and output them
 			ResultSetMetaData rsmd = rs.getMetaData();
-			int numberOfRows = getNumberOfRows(rs);
-			int numberOfCols = rsmd.getColumnCount();
+			//int numberOfRows = getNumberOfRows(rs);
+			//int numberOfCols = rsmd.getColumnCount();
 
-			System.out.println("Showing results from " + 0 + " to " + numberOfRows);
+			//System.out.println("Showing results from " + 0 + " to " + numberOfRows);
 
 			printColumnTitles(rsmd);
 
-			printTableData(rs, 0, numberOfRows, numberOfCols);
+			//printTableData(rs, 0, numberOfRows, numberOfCols);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	}	
-
-	private int getNumberOfRows(ResultSet rs){
-		
-		int output = 0;
-		try {
-			rs.last();
-			output = rs.getRow();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return output;
-
 	}
+	*/
+	
+
+	public void printTableHeading(int noOfRows, int startingRow, int rowsToDisplay){
+
+		System.out.println("Showing rows " + startingRow + " to " + rowsToDisplay + " out of " + noOfRows + ".");
+
+	}	
 
 	public void printColumnTitles(ResultSetMetaData rsmd){
 
@@ -99,17 +94,18 @@ public class ScreenPrinter {
 		}
 	}
 
-	private void printTableData(ResultSet rs, int startingRow, int numberOfRows, int numberOfCols){
+	public void printTableData(ResultSet rs, int startingRow, int numberOfRows, int numberOfCols){
 
 		try {
 
 			rs.beforeFirst();;
-			while (rs.next()) {
+			while (rs.next() && startingRow <= numberOfRows) {
 				for (int i = 1; i <= numberOfCols; i ++){
 					System.out.print("| ");
 					System.out.print(createSubString(rs.getString(i)));
 				}
 				System.out.println(" |");	
+				startingRow ++;
 			}	
 
 			System.out.println("+-----------------");
@@ -129,6 +125,10 @@ public class ScreenPrinter {
 		} else {
 			return String.format("%-12s", text);			
 		}
+	}
+
+	public void invalidCommand(){
+		System.out.println("Invalid Command.");
 	}
 
 }

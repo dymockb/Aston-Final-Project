@@ -1,3 +1,10 @@
 ShowName,TypeOfShowID,ShowDescription,Duration,LanguageID,StartDate,EndDate,LiveMusicID,PriceID
 "Romeo and Juliet",1,"Theatre show",120,1,"2022-04-01","2022-05-03",3,1
-"Beauty and the Beast'",2,"Musical show",150,1,"2022-04-01","2022-05-13",1,2
+"Beauty and the Beast'",2,"Musical show",150,1,"2022-04-01","2022-05-13",1,1
+"Phantom of the Opera",1,"Theatre show",300,2,"2022-04-01","2022-05-13",1,1
+"Les Miserables",2,"Musical show",50,3,"2022-04-05","2022-05-13",1,1
+"Charlie and the Chocolate Factory",1,"Theatre show",200,1,"2022-04-03","2022-05-13",2,2
+"Paint Drying",2,"Musical show",3000,1,"2022-04-02","2022-05-13",1,2
+"ABBA",2,"Musical show",20,2,"2022-04-03","2022-05-13",1,2
+"The Mousetrap",2,"Theatre show",20,2,"2022-04-07","2022-05-13",1,2
+"Rolling Stones Live",1,"Musical show",40,2,"2022-04-03","2022-05-13",2,2

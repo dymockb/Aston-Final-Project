@@ -55,7 +55,7 @@ public class Parser
         //Boolean gettingInput = true;
         String inputLine = null;
         //while(gettingInput){
-            responder.showCommands(request);
+            responder.displayCommands(request);
             inputLine = reader.nextLine();
         //    if(!inputLine.equals("Invalid command.")){
         //        gettingInput = false;
