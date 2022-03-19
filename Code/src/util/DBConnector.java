@@ -1,6 +1,7 @@
 package util;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class DBConnector {
 	private Connection conn;
@@ -14,8 +15,9 @@ public class DBConnector {
 	public void connect() {
 		try {
 
-			String username = parser.getInput("username", "database");
-			String password = parser.getInput("password", "database");
+			ArrayList<Boolean> switches = new ArrayList<Boolean>();
+			String username = parser.getInput("username", "database", switches);
+			String password = parser.getInput("password", "database", switches);
 			
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/",username, password);			
 

@@ -8,9 +8,9 @@ public class ScreenPrinter {
 		
 	}
 
-	public void printTableHeading(int noOfRows, int startingRow, int rowsToDisplay){
+	public void printTableHeading(int startingRow, int rowsToDisplay, int noOfRows){
 
-		System.out.println("Showing rows " + startingRow + " to " + rowsToDisplay + " out of " + noOfRows + ".");
+		System.out.println("Showing rows " + (startingRow + 1) + " to " + rowsToDisplay + " out of " + noOfRows + ".");
 
 	}	
 
@@ -19,6 +19,8 @@ public class ScreenPrinter {
 		try {
 			int cols = rsmd.getColumnCount();
 			System.out.println("+-----------------");
+			System.out.print("| ");
+			System.out.print(createSubString(" # "));			
 			for (int i = 1; i <= cols; i ++){
 				System.out.print("| ");
 				System.out.print(createSubString(rsmd.getColumnName(i)));
@@ -34,8 +36,20 @@ public class ScreenPrinter {
 
 		try {
 
-			//rs.beforeFirst();
-			while (rs.next() && startingRow <= numberOfRows) {
+			if ( !(startingRow == rs.getRow()) ){
+
+				while (rs.next()) {
+					if(startingRow == rs.getRow()){			
+						break;
+					}			   
+				}
+			} 
+
+			while (rs.next() && startingRow < numberOfRows) {
+
+				System.out.print("| ");
+				System.out.print(createSubString("" + rs.getRow()));
+
 				for (int i = 1; i <= numberOfCols; i ++){
 					System.out.print("| ");
 					System.out.print(createSubString(rs.getString(i)));
@@ -51,6 +65,14 @@ public class ScreenPrinter {
 			e.printStackTrace();
 
 		}
+	}
+
+	public void rowSelectionNotAvailableMessage(){
+		System.out.println("That selection is not available please try again.");
+	}
+
+	public void endOfTableMessage(){
+		System.out.println("No more entries available.");
 	}
 
 	public String createSubString(String text){

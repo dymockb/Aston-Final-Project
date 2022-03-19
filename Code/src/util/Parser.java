@@ -3,7 +3,7 @@ package util;
 import java.io.File;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
-
+import java.util.ArrayList;
 /**
  * 
  * This parser reads user input 
@@ -49,11 +49,11 @@ public class Parser
         }
     }
 
-    public String getInput(String request, String keyword)
+    public String getInput(String request, String keyword, ArrayList<Boolean> switches)
     {
 
         String inputLine = null;
-        responder.displayCommands(request, keyword);
+        responder.displayCommands(request, keyword, switches);
         inputLine = reader.nextLine();
         printInput(inputLine);
         return inputLine;

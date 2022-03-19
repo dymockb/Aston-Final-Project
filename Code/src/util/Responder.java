@@ -1,5 +1,7 @@
 package util;
 
+import java.util.ArrayList;
+
 /**
  * 
  * This responds to the user input 
@@ -18,7 +20,7 @@ public class Responder
 
     }
 
-    public void displayCommands(String request, String keyword) {
+    public void displayCommands(String request, String keyword, ArrayList<Boolean> switches) {
 
         if (request.equals("username")){
 
@@ -47,7 +49,15 @@ public class Responder
         if (request.equals("browse-table")){
             System.out.println("Available Commands:");
             System.out.println("Please select a " + keyword + " using an ID number (not working yet)");
-            System.out.println("q - go back");
+            
+            if (switches.size() > 0 && !(switches.get(0) == true) ){
+            
+            System.out.println("f - go forward");
+            
+            }
+
+            System.out.println("r - return to top of results");
+            System.out.println("q - quit & return to previous menu");
             System.out.print("> ");           
                        
         }
@@ -61,6 +71,15 @@ public class Responder
             System.out.println("q - quit browsing");
             System.out.print("> ");             
         }
+
+        if (request.equals("unique-show")) {
+
+            System.out.println("Available Commands:");
+            System.out.println("b - book tickets for this show (not working)");
+            System.out.println("q - quit and go back to previous menu");
+            System.out.print("> "); 
+
+        } 
 
 
     }

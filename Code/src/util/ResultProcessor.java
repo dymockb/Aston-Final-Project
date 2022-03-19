@@ -24,7 +24,7 @@ public class ResultProcessor
 
     }
 
-    public void browseTable(ResultSet rs) {
+    public void browseTable(ResultSet rs, int startingRow, int rowsToDisplay) {
 
         try {
 
@@ -32,22 +32,20 @@ public class ResultProcessor
 			
 			int noOfRows = getNumberOfRows(rs);
 			int noOfCols = rsmd.getColumnCount();
-			int startingRow = 1;
-			int rowsToDisplay = 7;
 
-			printer.printTableHeading(noOfRows, startingRow, rowsToDisplay);
+			int endingRow = (startingRow + rowsToDisplay) < noOfRows ? startingRow + rowsToDisplay : noOfRows; 	
 
+			printer.printTableHeading(startingRow, endingRow, noOfRows);
 			printer.printColumnTitles(rsmd);
-
-			printer.printTableData(rs, startingRow, rowsToDisplay, noOfCols);
-
+			printer.printTableData(rs, startingRow, endingRow, noOfCols);
+					
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
     }
 
-    private int getNumberOfRows(ResultSet rs){
+    public int getNumberOfRows(ResultSet rs){
 		
 		int output = 0;
 		try {
@@ -58,6 +56,29 @@ public class ResultProcessor
 			e.printStackTrace();
 		}
 
+		return output;
+
+	}
+
+	public String getShowByRowNumber(ResultSet rs, int selectedRow){
+
+		String output = "";
+		try {
+		
+			rs.beforeFirst();
+			while(rs.next()){
+				if (rs.getRow() == selectedRow){
+					break;
+				}
+
+			}
+
+			output = rs.getString(1);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 		return output;
 
 	}
