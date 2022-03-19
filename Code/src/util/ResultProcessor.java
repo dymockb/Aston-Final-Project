@@ -13,9 +13,11 @@ public class ResultProcessor
 {
 
     private ScreenPrinter printer;
+
     /**
      * Methods to interact with SQL query results .    
      * */ 
+
     public ResultProcessor() {
 
         printer = new ScreenPrinter();
@@ -39,20 +41,6 @@ public class ResultProcessor
 
 			printer.printTableData(rs, startingRow, rowsToDisplay, noOfCols);
 
-			/*
-			while (rs.next() && startingRow <= rowsToDisplay){
-
-				for (int i = 1; i <= noOfCols; i ++){
-					System.out.print("| ");
-					System.out.print(printer.createSubString(rs.getString(i)));
-				}
-				System.out.println(" |");
-				//this variabls is wrong / out of date/ unused:
-                currentRow++;	
-			}
-			*/
-
-			//System.out.println("+-----------------");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -65,6 +53,7 @@ public class ResultProcessor
 		try {
 			rs.last();
 			output = rs.getRow();
+			rs.beforeFirst();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

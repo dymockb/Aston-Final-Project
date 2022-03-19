@@ -1,14 +1,9 @@
 package controller;
 
-//import java.sql.SQLException;
-//import java.sql.ResultSetMetaData;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
-//import java.util.NoSuchElementException;
 import java.io.File;
 import java.util.HashMap;
-//import java.sql.ResultSet;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -25,25 +20,21 @@ public class Engine {
 	private ObjectMapper mapper; 
 	private HashMap<String, String> sqlQueries;
 	//http://tutorials.jenkov.com/java-json/jackson-objectmapper.html
-	
-	//private String sqlString;
-	//private String userInput;
+
 	private ScreenPrinter printer;
 	private DBConnector db;
 	private UserInterface userInterface;
 	private Parser inputParser;
-
-	//private ResultSet rs;
 
 	public static void main(String[] args) throws FileNotFoundException {
 		
 		Engine engine = new Engine();
 
 		//Run from file:
-		//engine.openForBusiness("inputFromFile");
+		engine.openForBusiness("inputFromFile");
 
 		//Run with UserInput:
-		engine.openForBusiness("userInput");
+		//engine.openForBusiness("userInput");
 
 	}
 
@@ -60,9 +51,8 @@ public class Engine {
 		  
 		  sqlQueries = mapper.readValue(file, new TypeReference<HashMap<String, String>>(){});
 		   
-		  //Print JSON output
-		  //System.out.println("sql hashmap:");
 		  //System.out.println(sqlQueries);
+
 		} 
 		catch (JsonGenerationException e) {
 		  e.printStackTrace();
@@ -79,37 +69,22 @@ public class Engine {
 	public void openForBusiness(String inputType) throws FileNotFoundException {
 
 		db.connect();
-
-		createdb();
-				
+		createdb();				
 		addTableData();
 
-		//Parser inputParser;
-
 		if(inputType.equals("inputFromFile")){
-			//inputParser = new Parser();
 			inputParser.addFile("./txt-files/user-input.txt");
 		} 
-		//else {
-		//	inputParser = new Parser();
-		//}
 
 		userInterface.setInputParser(inputParser);
 
 		Boolean userActive = true;
-		//String userInput;
-
 		while(userActive){
-
-			//userInput = userInputParser.getInput("commands-list");
 			userActive = userInterface.mainMenu();
-
 		}
 
 		inputParser.closeScanner();
-
 		db.close();
-
 	}
 
 	private void createdb() throws FileNotFoundException {

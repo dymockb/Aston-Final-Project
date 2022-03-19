@@ -49,7 +49,7 @@ public class UserInterface
         } else if (command.equals("l")){
             System.out.println("The admin login interface isn't built yet.");
         } else {
-            System.out.println("Invalid Command.");
+            printer.invalidCommand();
         }
 
         return returnType;

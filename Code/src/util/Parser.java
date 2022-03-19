@@ -52,16 +52,9 @@ public class Parser
     public String getInput(String request)
     {
 
-        //Boolean gettingInput = true;
         String inputLine = null;
-        //while(gettingInput){
-            responder.displayCommands(request);
-            inputLine = reader.nextLine();
-        //    if(!inputLine.equals("Invalid command.")){
-        //        gettingInput = false;
-        //    }
-        //}
-
+        responder.displayCommands(request);
+        inputLine = reader.nextLine();
         printInput(inputLine);
         return inputLine;
  
