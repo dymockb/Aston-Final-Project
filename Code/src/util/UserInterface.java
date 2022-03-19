@@ -88,7 +88,7 @@ public class UserInterface
                     resultProcessor.browseTable(rs, startingRow, rowsToDisplay);
                     userInput = parser.getInput("browse-table", "show", switches);
         
-                    if(userInput.equals("q")){
+                    if (userInput.equals("b")){
 
                         browsingTable = false;
 
@@ -107,8 +107,9 @@ public class UserInterface
                             switches.set(0, true);
                         }
 
-                    } else if (Integer.parseInt(userInput) > -99){
-
+                    //} else if (Integer.valueOf(userInput) instanceof Integer){
+                    } else if (isInteger(userInput)){
+                            
                         int selectedRow = Integer.parseInt(userInput);                       
 
                         if (selectedRow <= numberOfRows){
@@ -128,7 +129,7 @@ public class UserInterface
                     } else {
 
                         printer.invalidCommand();
-                        browsingTable = false;
+                        //browsingTable = false;
 
                     }
         
@@ -142,7 +143,7 @@ public class UserInterface
 
                 System.out.println("Display shows by performance date not built yet");
 
-            } else if (userInput.equals("q")) {
+            } else if (userInput.equals("b")) {
 
                 browsing = false;
 
@@ -182,6 +183,16 @@ public class UserInterface
 
         }
 
+    }
+
+    public boolean isInteger( String input ) {
+        try {
+            Integer.parseInt( input );
+            return true;
+        }
+        catch( Exception e ) {
+            return false;
+        }
     }
 
 }

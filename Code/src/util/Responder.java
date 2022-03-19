@@ -57,7 +57,7 @@ public class Responder
             }
 
             System.out.println("r - return to top of results");
-            System.out.println("q - quit & return to previous menu");
+            System.out.println("b - go back to previous menu");
             System.out.print("> ");           
                        
         }
@@ -68,7 +68,7 @@ public class Responder
             System.out.println("a - display shows in alphabetical order. (in progress)");
             System.out.println("c - display shows by category (e.g musical, opera). (not working)");
             System.out.println("d - display shows by performance date. (not working)");
-            System.out.println("q - quit browsing");
+            System.out.println("b - go back to previous screen");
             System.out.print("> ");             
         }
 
