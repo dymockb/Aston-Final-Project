@@ -33,7 +33,7 @@ public class ResultProcessor
 			int noOfRows = getNumberOfRows(rs);
 			int noOfCols = rsmd.getColumnCount();
 			int startingRow = 1;
-			int rowsToDisplay = 5;
+			int rowsToDisplay = 7;
 
 			printer.printTableHeading(noOfRows, startingRow, rowsToDisplay);
 

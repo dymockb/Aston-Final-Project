@@ -67,10 +67,12 @@ public class UserInterface
             userInput = parser.getInput("choose-browsing-mode", "");
 
             if (userInput.equals("s")){
+
                 System.out.println("Search for show by name or keyword not built yet"); 
+
             } else if (userInput.equals("a")) {
 
-                rs = db.runQuery(sqlQueries.get("browse-shows"));
+                rs = db.runQuery(sqlQueries.get("browse-shows-in-alphabetical-order"));
 
                 Boolean browsingTable = true;
         

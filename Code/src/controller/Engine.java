@@ -79,8 +79,11 @@ public class Engine {
 		userInterface.setInputParser(inputParser);
 
 		Boolean userActive = true;
+		
 		while(userActive){
+
 			userActive = userInterface.mainMenu();
+
 		}
 
 		inputParser.closeScanner();
