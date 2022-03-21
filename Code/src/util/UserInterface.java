@@ -5,6 +5,10 @@ import java.util.HashMap;
 import java.util.ArrayList;
 import java.lang.Integer;
 
+//import model.Explore;
+import model.Browse;
+import model.PerformanceTable;
+
 /**
  * 
  * This responds to the user input 
@@ -22,7 +26,7 @@ public class UserInterface
     private Parser parser;
     private ResultProcessor resultProcessor;
     private ArrayList<Boolean> switches;
-
+    private Browse browse;
     /**
      * .    
      * */ 
@@ -51,7 +55,9 @@ public class UserInterface
         if (command.equals("q")){
             returnType = false;
         } else if (command.equals("b")){
+ 
             browseShows();
+   
         } else if (command.equals("l")){
             System.out.println("The admin login interface isn't built yet.");
         } else {
@@ -75,6 +81,75 @@ public class UserInterface
                 System.out.println("Search for show by name or keyword not built yet"); 
 
             } else if (userInput.equals("a")) {
+
+                browse = new Browse(db, sqlQueries.get("browse-shows-in-alphabetical-order"));
+
+                browse.fetchData();
+                ResultSet results = browse.returnResults();
+                PerformanceTable allPerformances = new PerformanceTable(results);
+                int numberOfRows = allPerformances.getNumberOfRows();
+
+                Boolean browsingTable = true;
+                int startingRow = 0;
+                int rowsToDisplay = 2;
+        
+                while(browsingTable){
+
+                    allPerformances.browseTable(startingRow, rowsToDisplay);
+                    userInput = parser.getInput("browse-table", "show", switches);
+
+                    if (userInput.equals("b")){
+
+                        browsingTable = false;
+
+                    } else if (userInput.equals("r")){
+
+                        startingRow = 0;
+                        switches.set(0, false);
+
+                    } else if (userInput.equals("f")){
+
+                        if (startingRow + rowsToDisplay < numberOfRows){
+                            startingRow += rowsToDisplay;           
+                        }
+
+                        if (startingRow + rowsToDisplay >= numberOfRows){
+                            switches.set(0, true);
+                        }
+
+                    //} else if (Integer.valueOf(userInput) instanceof Integer){
+                    } else if (isInteger(userInput)){
+                            
+                        int selectedRow = Integer.parseInt(userInput);                       
+
+                        if (selectedRow <= numberOfRows){
+
+                            System.out.println("Row " + selectedRow + " selected. SQL needed to fetch the show.");
+
+                            int showID = Integer.parseInt(resultProcessor.getShowByRowNumber(rs, selectedRow));
+
+                            viewUniqueShow(showID);
+
+                        } else {
+
+                            printer.rowSelectionNotAvailableMessage();
+
+                        }
+
+                    } else {
+
+                        printer.invalidCommand();
+                        //browsingTable = false;
+
+                    }
+
+
+                }                
+
+
+
+
+                /** 
 
                 rs = db.runQuery(sqlQueries.get("browse-shows-in-alphabetical-order"));
                 int numberOfRows = resultProcessor.getNumberOfRows(rs);
@@ -134,6 +209,8 @@ public class UserInterface
                     }
         
                 }
+
+                 */
 
             } else if (userInput.equals("c")) {
 

@@ -44,6 +44,9 @@ public class Engine {
 		printer = new ScreenPrinter();
 		inputParser = new Parser();
 
+		//File testfile = new File(".");
+		//for(String fileNames : testfile.list()) System.out.println(fileNames);
+
 		mapper = new ObjectMapper();
 		File file = new File("./database-files/json-files/theatre-queries.json");
 		try
