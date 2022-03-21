@@ -1,18 +1,22 @@
 package model;
 
 import java.sql.*;
-import util.Parser;
-//import util.ScreenPrinter;
+import util.ScreenPrinter;
 
-public class PerformanceTable extends Table {
+public abstract class Table {
 
-    //private ScreenPrinter printer;
+    protected ResultSet rs;
+    protected ScreenPrinter printer;
 
-    public PerformanceTable(ResultSet rs, Parser parser){
-        super(rs, parser);
+    public Table(ResultSet rs){
+
+        this.rs = rs;
+        printer = new ScreenPrinter();
+
     }
 
-	/** 
+    //public abstract void startBrowsing(int startingRow, int rowsToDisplay);
+
     public void startBrowsing(int startingRow, int rowsToDisplay) {
 
         try {
@@ -27,16 +31,34 @@ public class PerformanceTable extends Table {
 			printer.printTableHeading(startingRow, endingRow, noOfRows);
 			printer.printColumnTitles(rsmd);
 			printer.printTableData(rs, startingRow, endingRow, noOfCols);
+
+            
 					
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
     }
-	 */
 
-    public void selectRow(){
+    //protected int getNumberOfRows(ResultSet rs){
+    public int getNumberOfRows(){	
 
-    }
+		int output = 0;
+		try {
+			rs.last();
+			output = rs.getRow();
+			rs.beforeFirst();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return output;
+
+	}
     
+    public abstract void selectRow();
+
+
+    
+
 }

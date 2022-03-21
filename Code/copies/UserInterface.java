@@ -86,19 +86,18 @@ public class UserInterface
 
                 browse.fetchData();
                 ResultSet results = browse.returnResults();
-                PerformanceTable allPerformances = new PerformanceTable(results, parser);
-                //int numberOfRows = allPerformances.getNumberOfRows();
+                PerformanceTable allPerformances = new PerformanceTable(results);
+                int numberOfRows = allPerformances.getNumberOfRows();
 
+                Boolean browsingTable = true;
                 int startingRow = 0;
                 int rowsToDisplay = 2;
-
-                allPerformances.startBrowsing(startingRow, rowsToDisplay);
-                /**
-                Boolean browsingTable = true;                
+        
                 while(browsingTable){
 
                     allPerformances.startBrowsing(startingRow, rowsToDisplay);
 
+                    /** */
                     userInput = parser.getInput("browse-table", "show", switches);
 
                     if (userInput.equals("b")){
@@ -145,11 +144,14 @@ public class UserInterface
                         //browsingTable = false;
 
                     }
+                    /** */
 
-                } 
-                 */               
+                }                
 
-                /*
+
+
+
+                /** 
 
                 rs = db.runQuery(sqlQueries.get("browse-shows-in-alphabetical-order"));
                 int numberOfRows = resultProcessor.getNumberOfRows(rs);
