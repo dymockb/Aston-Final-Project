@@ -72,6 +72,8 @@ public class Engine {
 		createdb();				
 		addTableData();
 
+		//CREATE A NEW USER
+
 		if(inputType.equals("inputFromFile")){
 			inputParser.addFile("./txt-files/user-input.txt");
 		} 
@@ -88,6 +90,7 @@ public class Engine {
 
 		inputParser.closeScanner();
 		db.close();
+
 	}
 
 	private void createdb() throws FileNotFoundException {
