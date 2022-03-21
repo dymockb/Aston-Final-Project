@@ -3,6 +3,7 @@ package util;
 import java.sql.*;
 import java.util.ArrayList;
 
+
 public class DBConnector {
 	private Connection conn;
 	private Parser parser;
