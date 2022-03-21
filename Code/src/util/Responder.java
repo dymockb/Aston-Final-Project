@@ -41,6 +41,7 @@ public class Responder
             System.out.println(keyword + ": Available Commands:");
             System.out.println("l - login as admin user (not working yet)");
             System.out.println("b - browse shows and book tickets (in progress)");
+            System.out.println("t - buy a ticket");
             System.out.println("q - quit");
             System.out.print("> "); 
 

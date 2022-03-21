@@ -8,13 +8,13 @@ public class ScreenPrinter {
 		
 	}
 
-	public void printTableHeading(int startingRow, int rowsToDisplay, int noOfRows){
+	public void printTableTitle(int startingRow, int endingRow, int noOfRows){
 
-		System.out.println("Showing rows " + (startingRow + 1) + " to " + rowsToDisplay + " out of " + noOfRows + ".");
+		System.out.println("Showing rows " + (startingRow + 1) + " to " + endingRow + " out of " + noOfRows + ".");
 
 	}	
 
-	public void printColumnTitles(ResultSetMetaData rsmd){
+	public void printColumnHeadings(ResultSetMetaData rsmd){
 
 		try {
 			int cols = rsmd.getColumnCount();
@@ -32,9 +32,26 @@ public class ScreenPrinter {
 		}
 	}
 
+	public void printColDivider(){
+		System.out.print("| ");
+	}
+
+	public void printDivider(){
+		System.out.println("\n+-----------------");
+	}
+
+	public void printCell(String contents){
+
+		System.out.print(createSubString(contents));
+
+	}
+
 	public void printTableData(ResultSet rs, int startingRow, int numberOfRows, int numberOfCols){
 
+
 		try {
+
+			rs.beforeFirst();
 
 			if ( !(startingRow == rs.getRow()) ){
 

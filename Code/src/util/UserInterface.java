@@ -60,6 +60,10 @@ public class UserInterface
    
         } else if (command.equals("l")){
             System.out.println("The admin login interface isn't built yet.");
+        } else if (command.equals("t")) {
+
+            System.out.println("Code for buying a ticket in progress");
+
         } else {
             printer.invalidCommand();
         }
@@ -89,10 +93,10 @@ public class UserInterface
                 PerformanceTable allPerformances = new PerformanceTable(results, parser);
                 //int numberOfRows = allPerformances.getNumberOfRows();
 
-                int startingRow = 0;
-                int rowsToDisplay = 2;
+                //int startingRow = 0;
+                //int rowsToDisplay = 2;
 
-                allPerformances.startBrowsing(startingRow, rowsToDisplay);
+                allPerformances.startBrowsing();
                 /**
                 Boolean browsingTable = true;                
                 while(browsingTable){

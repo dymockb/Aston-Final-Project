@@ -24,6 +24,8 @@ public class ResultProcessor
 
     }
 
+	/** 
+
     public void browseTable(ResultSet rs, int startingRow, int rowsToDisplay) {
 
         try {
@@ -44,6 +46,8 @@ public class ResultProcessor
 		}
 
     }
+
+ */
 
     public int getNumberOfRows(ResultSet rs){
 		
