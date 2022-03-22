@@ -36,6 +36,15 @@ public class Table {
         printer = new ScreenPrinter();
         switches.add(false);
 
+        try {
+
+            rsmd = rs.getMetaData();
+            numberOfCols = rsmd.getColumnCount();
+
+        } catch  (SQLException e) {
+			e.printStackTrace();
+		}
+
 
     }
 
@@ -161,9 +170,8 @@ public class Table {
 
         try {
 
-        rsmd = rs.getMetaData();
-
-        numberOfCols = rsmd.getColumnCount();
+        //rsmd = rs.getMetaData();
+        //numberOfCols = rsmd.getColumnCount();
 
         endingRow = (startingRow + rowsToDisplay) < numberOfRows ? (startingRow + rowsToDisplay) : numberOfRows; 	
 
@@ -206,6 +214,7 @@ public class Table {
 
     }
 
+    /** 
     public boolean isInteger( String input ) {
         try {
             Integer.parseInt( input );
@@ -215,6 +224,7 @@ public class Table {
             return false;
         }
     }
+    /** */
     
     public String getFirstCellofSelectedRowInResultSet(){
 

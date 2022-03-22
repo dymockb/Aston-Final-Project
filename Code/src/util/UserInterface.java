@@ -7,6 +7,7 @@ import java.lang.Integer;
 
 //import model.Browse;
 import model.Table;
+import model.Show;
 //import util.IsInteger;
 
 /**
@@ -97,11 +98,14 @@ public class UserInterface
 
                 if (selectedShowID != -1){
                     System.out.println("The selected show is: " + selectedShowID);
-                    rs = db.runQuery(sqlQueries.get("get-show-by-ID") + selectedShowID + ";");                
+                    rs = db.runQuery(sqlQueries.get("get-show-by-ID") + selectedShowID + ";");  
 
-                    tableName = "Selected Show";
-                    Table selectedShow = new Table(rs, parser, tableName);
-                    selectedShow.startBrowsing();
+                    //tableName = "Selected Show";
+                    //Table selectedShow = new Table(rs, parser, tableName);
+                    //selectedShow.startBrowsing();
+                    Show aShowClass = new Show(rs);
+                    aShowClass.getPerformances();
+
                 }
                 
 
