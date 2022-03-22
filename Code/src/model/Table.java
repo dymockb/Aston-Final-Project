@@ -19,6 +19,10 @@ public abstract class Table {
     protected int rowsToDisplay;
     protected int startingRow;
     protected int endingRow;
+
+    protected int selectedRow;
+
+    protected int columnToHide;
  
     ArrayList<Boolean> switches = new ArrayList<Boolean>();
 
@@ -32,16 +36,16 @@ public abstract class Table {
 
     }
 
-    //public abstract void startBrowsing(int startingRow, int rowsToDisplay);
-
-    public void startBrowsing() {
+    public int startBrowsing() {
 
             String userInput;
             numberOfRows = getNumberOfRows();
-            rowsToDisplay = 2;
+            rowsToDisplay = 5;
             System.out.println("rows to display: " + rowsToDisplay);
 
             Boolean browsingTable = true;
+
+            int selectedRowNumber = -1;
 
             while(browsingTable){
 
@@ -68,18 +72,16 @@ public abstract class Table {
                                 switches.set(0, true);
                             }
     
-                        //} else if (Integer.valueOf(userInput) instanceof Integer){
                         } else if (isInteger(userInput)){
                                 
-                            int selectedRow = Integer.parseInt(userInput);                       
+                            selectedRow = Integer.parseInt(userInput);                       
     
                             if (selectedRow <= numberOfRows){
     
-                                System.out.println("Row " + selectedRow + " selected. SQL needed to fetch the show.");
+                                System.out.println("Row " + selectedRow + " selected.");
     
-                                int showID = Integer.parseInt(getShowByRowNumber(rs, selectedRow));
-    
-                                viewUniqueShow(showID);
+                                selectedRowNumber = Integer.parseInt(getFirstCellofSelectedRowInResultSet());
+                                browsingTable = false;
     
                             } else {
     
@@ -90,16 +92,16 @@ public abstract class Table {
                         } else {
     
                             printer.invalidCommand();
-                            //browsingTable = false;
     
                         }
     
-            }            
+            }  
+            
+            return selectedRowNumber;
             
 
     }
 
-    //protected int getNumberOfRows(ResultSet rs){
     public int getNumberOfRows(){	
 
 		int output = 0;
@@ -115,74 +117,6 @@ public abstract class Table {
 
 	}
 
-    /** 
-    private void printRows(){
-
-        try {
-
-			rsmd = rs.getMetaData();
-			
-			//int noOfRows = getNumberOfRows();
-			numberOfCols = rsmd.getColumnCount();
-
-			endingRow = (startingRow + rowsToDisplay) < numberOfRows ? startingRow + rowsToDisplay : numberOfRows; 	
-
-            printTitle();
-            printColumnHeadings();
-            printRows();
-
-			//printer.printTableHeading(startingRow, endingRow, numberOfRows);
-			//printer.printColumnTitles(rsmd);
-			//printer.printTableData(rs, startingRow, endingRow, noOfCols);
-
-   
-                rs.beforeFirst();
-                
-                if ( !(startingRow == rs.getRow()) ){
-    
-                    while (rs.next()) {
-                        if(startingRow == rs.getRow()){			
-                            break;
-                        }			   
-                    }
-                } 
-    
-                while (rs.next() && startingRow < numberOfRows) {
-    
-                    System.out.print("| ");
-                    System.out.print(createSubString("" + rs.getRow()));
-    
-                    for (int i = 1; i <= numberOfCols; i ++){
-                        System.out.print("| ");
-                        System.out.print(createSubString(rs.getString(i)));
-                    }
-                    System.out.println(" |");	
-                    startingRow ++;
-                }	
-    
-                System.out.println("+-----------------");
-    
-            
-            
-        } catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-
-    }
-
-    */
-
-    public boolean isInteger( String input ) {
-        try {
-            Integer.parseInt( input );
-            return true;
-        }
-        catch( Exception e ) {
-            return false;
-        }
-    }
-
     private void printTitle(){
 
         printer.printTableTitle(startingRow, endingRow, numberOfRows);
@@ -191,26 +125,25 @@ public abstract class Table {
 
     private void printColumnHeadings(){
 
-        //printer.printColumnHeadings(rsmd);
-
         try {
             int cols = rsmd.getColumnCount();
             printer.printDivider();
-            //System.out.println("+-----------------");
-            //System.out.print("| ");
             printer.printColDivider();
-            printer.printCell(" # ");
-            //System.out.print(createSubString(" # "));			
+            printer.printIndexCell(" # ");		
             for (int i = 1; i <= cols; i ++){
-                //System.out.print("| ");
                 printer.printColDivider();
-                printer.printCell(rsmd.getColumnName(i));
-                //System.out.print(createSubString(rsmd.getColumnName(i)));
+                if(!rsmd.getColumnName(i).equals("ID")){
+                    printer.printCell(rsmd.getColumnName(i));
+                }
+                if(rsmd.getColumnName(i).equals("ID")){
+                    columnToHide = i;
+                }
+                
+
             }
             printer.printColDivider();
-            //System.out.print(" |");
             printer.printDivider();
-            //System.out.println("\n+-----------------");
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -223,17 +156,14 @@ public abstract class Table {
         try {
 
         rsmd = rs.getMetaData();
-        
-        //int noOfRows = getNumberOfRows();
+
         numberOfCols = rsmd.getColumnCount();
 
         endingRow = (startingRow + rowsToDisplay) < numberOfRows ? (startingRow + rowsToDisplay) : numberOfRows; 	
 
         printTitle();
         printColumnHeadings();
-        //printRows();
-
-        
+                
         rs.beforeFirst();
         
         if ( !(startingRow == rs.getRow()) ){
@@ -249,97 +179,58 @@ public abstract class Table {
         while (rs.next() && rs.getRow() <= endingRow) {
 
             printer.printColDivider();
-            //System.out.print("| ");
-            printer.printCell("" + rs.getRow());
-            //System.out.print(createSubString("" + rs.getRow()));
-
+            printer.printIndexCell(String.valueOf(rs.getRow()));
+            
             for (int i = 1; i <= numberOfCols; i ++){
                 printer.printColDivider();
-                printer.printCell(rs.getString(i));
+                if (i != columnToHide){
+                    printer.printCell(rs.getString(i));
+                }
+
             }
             printer.printColDivider();
             printer.printDivider();
-            //startingRow ++;
 
         }
 
-        
-            //printer.printDivider();
-
-            /** 
-
-            System.out.print("| ");
-            System.out.print(createSubString("" + rs.getRow()));
-
-            for (int i = 1; i <= numberOfCols; i ++){
-                System.out.print("| ");
-                System.out.print(createSubString(rs.getString(i)));
-            }
-            System.out.println(" |");	
-            startingRow ++;
-        }	
-
-        System.out.println("+-----------------");
-
-         */
         } catch (SQLException e) {
 			e.printStackTrace();
 		}
 
     }
 
-    public String getShowByRowNumber(ResultSet rs, int selectedRow){
+    public boolean isInteger( String input ) {
+        try {
+            Integer.parseInt( input );
+            return true;
+        }
+        catch( Exception e ) {
+            return false;
+        }
+    }
+    
+    public String getFirstCellofSelectedRowInResultSet(){
 
-		String output = "";
-		try {
-		
-			rs.beforeFirst();
-			while(rs.next()){
-				if (rs.getRow() == selectedRow){
-					break;
-				}
-
-			}
-
-			output = rs.getString(1);
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		return output;
-
-	}
-
-    public void viewUniqueShow(int showID){
-
-        Boolean viewingShow = true;
-
-        System.out.println("the show ID is: " + showID);
-
-        while (viewingShow) {
-            
-            String userInput = parser.getInput("unique-show", "TBC", switches);
-            
-            if (userInput.equals("b")){
-
-                System.out.println("Browse available dates (not working)");
-
-            } else if (userInput.equals("q")) {
-
-                viewingShow = false;
-
-            } else {
-
-                printer.invalidCommand();
+        String output = "";
+        try {
+        
+            rs.beforeFirst();
+            while(rs.next()){
+                if (rs.getRow() == selectedRow){
+                    break;
+                }
 
             }
 
-        }
+            output = rs.getString(1);
 
-    }
-    
-    public abstract void selectRow();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return output;
+
+}
 
 
     

@@ -9,10 +9,10 @@ public class Browse extends Explore {
     private ResultSet rs;
 
 
-    public Browse(DBConnector db, String sqlQuery){
+    public Browse(DBConnector db, String sqlQuery, String orderBy){
 
         super(db); 
-        this.sqlQuery = sqlQuery;
+        this.sqlQuery = sqlQuery + orderBy;
 
     }
 

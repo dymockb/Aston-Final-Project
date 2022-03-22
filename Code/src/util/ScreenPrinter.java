@@ -20,10 +20,10 @@ public class ScreenPrinter {
 			int cols = rsmd.getColumnCount();
 			System.out.println("+-----------------");
 			System.out.print("| ");
-			System.out.print(createSubString(" # "));			
+			System.out.print(createSubString(5, " # "));			
 			for (int i = 1; i <= cols; i ++){
 				System.out.print("| ");
-				System.out.print(createSubString(rsmd.getColumnName(i)));
+				System.out.print(createSubString(12, rsmd.getColumnName(i)));
 			}
 			System.out.print(" |");
 			System.out.println("\n+-----------------");
@@ -42,9 +42,17 @@ public class ScreenPrinter {
 
 	public void printCell(String contents){
 
-		System.out.print(createSubString(contents));
+		System.out.print(createSubString(12, contents));
 
 	}
+
+	public void printIndexCell(String contents){
+
+		System.out.print(createSubString(5, contents));
+
+	}
+
+	/** 
 
 	public void printTableData(ResultSet rs, int startingRow, int numberOfRows, int numberOfCols){
 
@@ -84,6 +92,8 @@ public class ScreenPrinter {
 		}
 	}
 
+	 */
+
 	public void rowSelectionNotAvailableMessage(){
 		System.out.println("That selection is not available please try again.");
 	}
@@ -92,13 +102,13 @@ public class ScreenPrinter {
 		System.out.println("No more entries available.");
 	}
 
-	public String createSubString(String text){
+	public String createSubString(int cellWidth, String text){
 		if (text == null){
-			return String.format("%-12s", "");
+			return String.format("%-" + cellWidth + "s", "");
 		} else if (text.length() >= 9){
-			return String.format("%-12s", text.substring(0,9) + "...");
+			return String.format("%-" + cellWidth + "s", text.substring(0,9) + "...");
 		} else {
-			return String.format("%-12s", text);			
+			return String.format("%-" + cellWidth + "s", text);			
 		}
 	}
 

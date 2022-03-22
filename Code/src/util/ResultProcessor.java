@@ -12,7 +12,7 @@ import java.sql.*;
 public class ResultProcessor
 {
 
-    private ScreenPrinter printer;
+    //private ScreenPrinter printer;
 
     /**
      * Methods to interact with SQL query results .    
@@ -20,34 +20,10 @@ public class ResultProcessor
 
     public ResultProcessor() {
 
-        printer = new ScreenPrinter();
+        //printer = new ScreenPrinter();
 
     }
 
-	/** 
-
-    public void browseTable(ResultSet rs, int startingRow, int rowsToDisplay) {
-
-        try {
-
-			ResultSetMetaData rsmd = rs.getMetaData();
-			
-			int noOfRows = getNumberOfRows(rs);
-			int noOfCols = rsmd.getColumnCount();
-
-			int endingRow = (startingRow + rowsToDisplay) < noOfRows ? startingRow + rowsToDisplay : noOfRows; 	
-
-			printer.printTableHeading(startingRow, endingRow, noOfRows);
-			printer.printColumnTitles(rsmd);
-			printer.printTableData(rs, startingRow, endingRow, noOfCols);
-					
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-    }
-
- */
 
     public int getNumberOfRows(ResultSet rs){
 		

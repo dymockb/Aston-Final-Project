@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.ArrayList;
 import java.lang.Integer;
 
-//import model.Explore;
 import model.Browse;
 import model.PerformanceTable;
 
@@ -19,12 +18,12 @@ import model.PerformanceTable;
 public class UserInterface
 {
 
-    private ResultSet rs;
+    //private ResultSet rs;
     private DBConnector db;
     private ScreenPrinter printer;
     private HashMap<String,String> sqlQueries;
     private Parser parser;
-    private ResultProcessor resultProcessor;
+    //private ResultProcessor resultProcessor;
     private ArrayList<Boolean> switches;
     private Browse browse;
     /**
@@ -35,7 +34,7 @@ public class UserInterface
         this.db = db;
         this.printer = printer;
         this.sqlQueries = sqlQueries;
-        resultProcessor = new ResultProcessor();
+        //resultProcessor = new ResultProcessor();
 
         switches = new ArrayList<Boolean>();
         switches.add(false);
@@ -86,135 +85,22 @@ public class UserInterface
 
             } else if (userInput.equals("a")) {
 
-                browse = new Browse(db, sqlQueries.get("browse-shows-in-alphabetical-order"));
+                browse = new Browse(db, sqlQueries.get("browse-shows"), "ORDER BY ShowName;");
 
                 browse.fetchData();
                 ResultSet results = browse.returnResults();
                 PerformanceTable allPerformances = new PerformanceTable(results, parser);
-                //int numberOfRows = allPerformances.getNumberOfRows();
 
-                //int startingRow = 0;
-                //int rowsToDisplay = 2;
+                int theSelectedShowIs = allPerformances.startBrowsing();
+                System.out.println("The selected show is: " + theSelectedShowIs);
 
-                allPerformances.startBrowsing();
-                /**
-                Boolean browsingTable = true;                
-                while(browsingTable){
+                browse = new Browse(db, sqlQueries.get("get-show-by-ID") + theSelectedShowIs, ";");
+                browse.fetchData();
+                results = browse.returnResults();
 
-                    allPerformances.startBrowsing(startingRow, rowsToDisplay);
+                PerformanceTable selectedShow = new PerformanceTable(results, parser);
+                selectedShow.startBrowsing();
 
-                    userInput = parser.getInput("browse-table", "show", switches);
-
-                    if (userInput.equals("b")){
-
-                        browsingTable = false;
-
-                    } else if (userInput.equals("r")){
-
-                        startingRow = 0;
-                        switches.set(0, false);
-
-                    } else if (userInput.equals("f")){
-
-                        if (startingRow + rowsToDisplay < numberOfRows){
-                            startingRow += rowsToDisplay;           
-                        }
-
-                        if (startingRow + rowsToDisplay >= numberOfRows){
-                            switches.set(0, true);
-                        }
-
-                    //} else if (Integer.valueOf(userInput) instanceof Integer){
-                    } else if (isInteger(userInput)){
-                            
-                        int selectedRow = Integer.parseInt(userInput);                       
-
-                        if (selectedRow <= numberOfRows){
-
-                            System.out.println("Row " + selectedRow + " selected. SQL needed to fetch the show.");
-
-                            int showID = Integer.parseInt(resultProcessor.getShowByRowNumber(rs, selectedRow));
-
-                            viewUniqueShow(showID);
-
-                        } else {
-
-                            printer.rowSelectionNotAvailableMessage();
-
-                        }
-
-                    } else {
-
-                        printer.invalidCommand();
-                        //browsingTable = false;
-
-                    }
-
-                } 
-                 */               
-
-                /*
-
-                rs = db.runQuery(sqlQueries.get("browse-shows-in-alphabetical-order"));
-                int numberOfRows = resultProcessor.getNumberOfRows(rs);
-
-                Boolean browsingTable = true;
-                int startingRow = 0;
-                int rowsToDisplay = 2;
-        
-                while(browsingTable){
-
-                    resultProcessor.browseTable(rs, startingRow, rowsToDisplay);
-                    userInput = parser.getInput("browse-table", "show", switches);
-        
-                    if (userInput.equals("b")){
-
-                        browsingTable = false;
-
-                    } else if (userInput.equals("r")){
-
-                        startingRow = 0;
-                        switches.set(0, false);
-
-                    } else if (userInput.equals("f")){
-
-                        if (startingRow + rowsToDisplay < numberOfRows){
-                            startingRow += rowsToDisplay;           
-                        }
-
-                        if (startingRow + rowsToDisplay >= numberOfRows){
-                            switches.set(0, true);
-                        }
-
-                    //} else if (Integer.valueOf(userInput) instanceof Integer){
-                    } else if (isInteger(userInput)){
-                            
-                        int selectedRow = Integer.parseInt(userInput);                       
-
-                        if (selectedRow <= numberOfRows){
-
-                            System.out.println("Row " + selectedRow + " selected. SQL needed to fetch the show.");
-
-                            int showID = Integer.parseInt(resultProcessor.getShowByRowNumber(rs, selectedRow));
-
-                            viewUniqueShow(showID);
-
-                        } else {
-
-                            printer.rowSelectionNotAvailableMessage();
-
-                        }
-
-                    } else {
-
-                        printer.invalidCommand();
-                        //browsingTable = false;
-
-                    }
-        
-                }
-
-                 */
 
             } else if (userInput.equals("c")) {
 

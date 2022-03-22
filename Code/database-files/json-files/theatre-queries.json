@@ -1,5 +1,6 @@
 {
     "select-all-shows": "select * from ShowDetail;",
-    "browse-shows-in-alphabetical-order": "SELECT ShowDetail.ID, ShowName, ShowDescription, TypeName, Duration FROM ShowDetail JOIN TypeOfShow ON TypeOfShow.ID = ShowDetail.TypeOfShowID ORDER BY ShowName;"
+    "browse-shows": "SELECT ShowDetail.ID, ShowName, ShowDescription, TypeName, Duration FROM ShowDetail JOIN TypeOfShow ON TypeOfShow.ID = ShowDetail.TypeOfShowID ",
+    "get-show-by-ID": "select * from ShowDetail WHERE ID = "
 }
 
