@@ -3,33 +3,36 @@ package model;
 import java.sql.*;
 import util.ScreenPrinter;
 import util.Parser;
+import util.IsInteger;
 import java.util.ArrayList;
 
-public abstract class Table {
+public class Table {
 
-    protected ResultSet rs;
-    protected ResultSetMetaData rsmd;
+    private String tableName;
+    private ResultSet rs;
+    private ResultSetMetaData rsmd;
 
-    protected ScreenPrinter printer;
-    protected Parser parser;
+    private ScreenPrinter printer;
+    private Parser parser;
 
-    protected int numberOfRows;
-    protected int numberOfCols;
+    private int numberOfRows;
+    private int numberOfCols;
 
-    protected int rowsToDisplay;
-    protected int startingRow;
-    protected int endingRow;
+    private int rowsToDisplay;
+    private int startingRow;
+    private int endingRow;
 
-    protected int selectedRow;
+    private int selectedRow;
 
-    protected int columnToHide;
+    private int columnToHide;
  
     ArrayList<Boolean> switches = new ArrayList<Boolean>();
 
-    public Table(ResultSet rs, Parser parser){
+    public Table(ResultSet rs, Parser parser, String tableName){
 
         this.rs = rs;
         this.parser = parser;
+        this.tableName = tableName;
         printer = new ScreenPrinter();
         switches.add(false);
 
@@ -41,7 +44,6 @@ public abstract class Table {
             String userInput;
             numberOfRows = getNumberOfRows();
             rowsToDisplay = 5;
-            System.out.println("rows to display: " + rowsToDisplay);
 
             Boolean browsingTable = true;
 
@@ -53,7 +55,7 @@ public abstract class Table {
     
                 userInput = parser.getInput("browse-table", "show", switches);
     
-                        if (userInput.equals("b"))  {
+                        if (userInput.equals("x"))  {
     
                             browsingTable = false;
     
@@ -72,7 +74,7 @@ public abstract class Table {
                                 switches.set(0, true);
                             }
     
-                        } else if (isInteger(userInput)){
+                        } else if (IsInteger.checkString(userInput)){
                                 
                             selectedRow = Integer.parseInt(userInput);                       
     
@@ -119,8 +121,12 @@ public abstract class Table {
 
     private void printTitle(){
 
-        printer.printTableTitle(startingRow, endingRow, numberOfRows);
+        printer.printTableTitle(tableName, startingRow, endingRow, numberOfRows);
 
+    }
+
+    private void printRowSelectionMsg(){
+        printer.printRowSelectionMsg();;
     }
 
     private void printColumnHeadings(){
@@ -162,6 +168,7 @@ public abstract class Table {
         endingRow = (startingRow + rowsToDisplay) < numberOfRows ? (startingRow + rowsToDisplay) : numberOfRows; 	
 
         printTitle();
+        printRowSelectionMsg();
         printColumnHeadings();
                 
         rs.beforeFirst();

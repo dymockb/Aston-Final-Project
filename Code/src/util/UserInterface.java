@@ -5,8 +5,9 @@ import java.util.HashMap;
 import java.util.ArrayList;
 import java.lang.Integer;
 
-import model.Browse;
-import model.PerformanceTable;
+//import model.Browse;
+import model.Table;
+//import util.IsInteger;
 
 /**
  * 
@@ -18,14 +19,14 @@ import model.PerformanceTable;
 public class UserInterface
 {
 
-    //private ResultSet rs;
+    private ResultSet rs;
     private DBConnector db;
     private ScreenPrinter printer;
     private HashMap<String,String> sqlQueries;
     private Parser parser;
     //private ResultProcessor resultProcessor;
     private ArrayList<Boolean> switches;
-    private Browse browse;
+    //private Browse browse;
     /**
      * .    
      * */ 
@@ -83,34 +84,55 @@ public class UserInterface
 
                 System.out.println("Search for show by name or keyword not built yet"); 
 
-            } else if (userInput.equals("a")) {
+            } else if (userInput.equals("n")) {
 
-                browse = new Browse(db, sqlQueries.get("browse-shows"), "ORDER BY ShowName;");
+                //browse = new Browse(db, sqlQueries.get("browse-shows"), "ORDER BY ShowName;");
 
-                browse.fetchData();
-                ResultSet results = browse.returnResults();
-                PerformanceTable allPerformances = new PerformanceTable(results, parser);
+                //browse.fetchData();
+                //ResultSet results = browse.returnResults();
+                rs = db.runQuery(sqlQueries.get("browse-shows") + "ORDER BY ShowName;");
+                String tableName = "All Shows";
+                Table allShows = new Table(rs, parser, tableName);
+                int selectedShowID = allShows.startBrowsing();
 
-                int theSelectedShowIs = allPerformances.startBrowsing();
-                System.out.println("The selected show is: " + theSelectedShowIs);
+                if (selectedShowID != -1){
+                    System.out.println("The selected show is: " + selectedShowID);
+                    rs = db.runQuery(sqlQueries.get("get-show-by-ID") + selectedShowID + ";");                
 
-                browse = new Browse(db, sqlQueries.get("get-show-by-ID") + theSelectedShowIs, ";");
-                browse.fetchData();
-                results = browse.returnResults();
+                    tableName = "Selected Show";
+                    Table selectedShow = new Table(rs, parser, tableName);
+                    selectedShow.startBrowsing();
+                }
+                
 
-                PerformanceTable selectedShow = new PerformanceTable(results, parser);
-                selectedShow.startBrowsing();
+
+
+                //browse = new Browse(db, sqlQueries.get("get-show-by-ID") + theSelectedShowIs, ";");
+                //browse.fetchData();
+                //results = browse.returnResults();
 
 
             } else if (userInput.equals("c")) {
 
-                System.out.println("Display shows by category not built yet");
+                rs = db.runQuery(sqlQueries.get("browse-shows") + "ORDER BY TypeName;");
+                String tableName = "All Shows";
+                Table allShows = new Table(rs, parser, tableName);
+                int selectedShowID = allShows.startBrowsing();
+
+                if (selectedShowID != -1){
+                    System.out.println("The selected show is: " + selectedShowID);
+                    rs = db.runQuery(sqlQueries.get("get-show-by-ID") + selectedShowID + ";");                
+
+                    tableName = "Selected Show";
+                    Table selectedShow = new Table(rs, parser, tableName);
+                    selectedShow.startBrowsing();
+                }
 
             } else if (userInput.equals("d")) {
 
                 System.out.println("Display shows by performance date not built yet");
 
-            } else if (userInput.equals("b")) {
+            } else if (userInput.equals("x")) {
 
                 browsing = false;
 

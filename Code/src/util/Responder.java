@@ -48,17 +48,18 @@ public class Responder
         } 
         
         if (request.equals("browse-table")){
-            System.out.println("Available Commands:");
-            System.out.println("Please select a " + keyword + " using an ID number (not working yet)");
-            
+            //System.out.println("Available Commands:");
+            System.out.println("Please select a row number to view more details.");
+            System.out.println("Navigation options:");                        
             if (switches.size() > 0 && !(switches.get(0) == true) ){
-            
+
             System.out.println("f - go forward");
             
             }
 
             System.out.println("r - return to top of results");
-            System.out.println("b - go back to previous menu");
+            System.out.println("or -");
+            System.out.println("x - go back to previous menu");
             System.out.print("> ");           
                        
         }
@@ -66,10 +67,12 @@ public class Responder
         if (request.equals("choose-browsing-mode")){
             System.out.println("Available Commands:");
             System.out.println("s - search for a show by name or keyword. (not working)");
-            System.out.println("a - display shows in alphabetical order. (in progress)");
-            System.out.println("c - display shows by category (e.g musical, opera). (not working)");
-            System.out.println("d - display shows by performance date. (not working)");
-            System.out.println("b - go back to previous screen");
+            System.out.println("n - browse shows by name. (in progress)");
+            System.out.println("c - browse shows by category (e.g musical, opera). (not working)");
+            System.out.println("d - browse shows by performance date. (not working)");
+            System.out.println("p - browse shows by price. (not working)");
+            System.out.println("or ");
+            System.out.println("x - exit and go back to previous screen");
             System.out.print("> ");             
         }
 

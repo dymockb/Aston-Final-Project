@@ -8,11 +8,16 @@ public class ScreenPrinter {
 		
 	}
 
-	public void printTableTitle(int startingRow, int endingRow, int noOfRows){
+	public void printTableTitle(String tableName, int startingRow, int endingRow, int noOfRows){
 
-		System.out.println("Showing rows " + (startingRow + 1) + " to " + endingRow + " out of " + noOfRows + ".");
-
+		System.out.print(tableName + " - ");
+		System.out.println("Showing results " + (startingRow + 1) + " to " + endingRow + " out of " + noOfRows + ".");
+	
 	}	
+
+	public void printRowSelectionMsg(){
+		System.out.print("Please select a row number to view more details.");
+	}
 
 	public void printColumnHeadings(ResultSetMetaData rsmd){
 
