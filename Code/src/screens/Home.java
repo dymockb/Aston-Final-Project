@@ -18,9 +18,7 @@ public class Home extends Screen {
     }
 
     public void addOptions(){
-        options.put("l", "login as admin user (not working yet)");
         options.put("b", "browse shows and book tickets (in progress)");
-        options.put("h", "return to home screen");
         options.put("q", "quit");
     
     }
@@ -30,17 +28,8 @@ public class Home extends Screen {
         for(String key : options.keySet()){
             System.out.println(key + " - " + options.get(key));
         }
-        System.out.print("> ");
 
     }
-
-    public void displayMenu(){
-
-        displayPrompt();
-        displayOptions();
-
-    }
-
 
     public void getUserInput(){
 
@@ -50,15 +39,20 @@ public class Home extends Screen {
 
             userInput = parser.getInputForMenu();
             if(userInput.equals("b")){
+                gettingInput = false;
                 user.newScreenRequest("search-screen");
+
+            } else if (userInput.equals("q")){
+                System.out.println("Quit");
                 gettingInput = false;
             } else if (userInput.equals("l")){
                 System.out.println("login screen tbc");
                 gettingInput = false;
             } else if (userInput.equals("h")){
                 //user.setAdminStatus(false);
-                user.newScreenRequest(screenName);
                 gettingInput = false;
+                user.newScreenRequest(screenName);
+
             } else {
                 System.out.println("invalid command");                
             }

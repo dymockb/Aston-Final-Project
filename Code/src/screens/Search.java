@@ -19,7 +19,6 @@ public class Search extends Screen {
         options.put("n", "browse shows by name. (in progress)");
         options.put("c", "browse shows by category (e.g musical, opera). (not working)");
         options.put("d", "browse shows by performance date. (not working)");
-        options.put("h", "return to home screen");
     
     } 
 
@@ -28,16 +27,8 @@ public class Search extends Screen {
         for(String key : options.keySet()){
             System.out.println(key + " - " + options.get(key));
         }
-        System.out.print("> ");
-    }
-
-    public void displayMenu(){
-
-        displayPrompt();
-        displayOptions();
 
     }
-
 
     public void getUserInput(){
 

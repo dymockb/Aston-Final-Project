@@ -34,6 +34,22 @@ public abstract class Screen {
         return screenName;
     }
 
+    public void displayStandardOptions(){
+
+        System.out.println("h - return to Home Screen");
+        System.out.println("l - login as Admin User");
+        System.out.print("> ");
+
+    }
+
+    public void displayMenu(){
+
+        displayPrompt();
+        displayOptions();
+        displayStandardOptions();
+
+    }
+
     public abstract void getUserInput();
 
     public abstract void displayPrompt();
@@ -42,7 +58,7 @@ public abstract class Screen {
 
     public abstract void displayOptions();
 
-    public abstract void displayMenu();
+    //public abstract void displayMenu();
 
 
     
