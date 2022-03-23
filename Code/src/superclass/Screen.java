@@ -1,7 +1,10 @@
 package superclass;
 import model.User;
 import java.util.HashMap;
+
+import util.DBConnector;
 import util.Parser;
+import java.sql.*;
 
 public abstract class Screen {
 
@@ -9,11 +12,15 @@ public abstract class Screen {
     protected User user;
     protected String screenName;
     protected Parser parser;
+    protected ResultSet rs;
+    protected ResultSetMetaData rsmd;
+    protected DBConnector db;
     
-    public Screen(String screenName, Parser parser){
+    public Screen(String screenName, Parser parser, DBConnector db){
 
         this.screenName = screenName;
         this.parser = parser;
+        this.db = db;
         
         options = new HashMap<String, String>();
         addOptions();

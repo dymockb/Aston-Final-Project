@@ -35,6 +35,10 @@ public class User {
          
     }
 
+    public HashMap<String, String> getSqlQueries(){
+        return sqlQueries;
+    }
+
     public void setInputParser(Parser parser){
         this.parser = parser;
     }

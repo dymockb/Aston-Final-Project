@@ -141,11 +141,11 @@ public class Engine {
 
 	public void addScreens(){
 
-		Screen newScreen = new Home("home-screen", inputParser);
+		Screen newScreen = new Home("home-screen", inputParser, db);
 		newScreen.registerUser(user);
 		user.addScreen(newScreen);
 
-		newScreen = new Search("search-screen", inputParser);
+		newScreen = new Search("search-screen", inputParser, db);
 	    newScreen.registerUser(user);
 		user.addScreen(newScreen);
 

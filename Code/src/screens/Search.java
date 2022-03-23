@@ -1,12 +1,15 @@
 package screens;
 
 import superclass.Screen;
+import util.DBConnector;
 import util.Parser;
+import java.sql.*;
+import model.Table;
 
 public class Search extends Screen {
 
-    public Search(String screenName, Parser parser){
-        super(screenName, parser);
+    public Search(String screenName, Parser parser, DBConnector db){
+        super(screenName, parser, db);
     
     }
 
@@ -42,6 +45,12 @@ public class Search extends Screen {
                 gettingInput = false;
             } else if (userInput.equals("n")){
                 System.out.println("broswe by name in progress");
+
+                rs = db.runQuery(user.getSqlQueries().get("browse-shows") + "ORDER BY ShowName;");
+                String tableName = "All Shows";
+                Table allShows = new Table(rs, parser, tableName);
+                
+
                 gettingInput = false;
             } else if (userInput.equals("c")){
                 System.out.println("broswe by category in progress");

@@ -1,13 +1,14 @@
 package screens;
 
 import superclass.Screen;
+import util.DBConnector;
 import util.Parser;
 import model.User;
 
 public class Home extends Screen {
 
-    public Home(String screenName, Parser parser){
-        super(screenName, parser);
+    public Home(String screenName, Parser parser, DBConnector db){
+        super(screenName, parser, db);
     
     }
 
