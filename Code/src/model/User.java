@@ -5,6 +5,7 @@ import superclass.Screen;
 import util.Parser;
 import util.ScreenPrinter;
 import util.DBConnector;
+import screens.Shows;
 
 public class User {
     
@@ -12,6 +13,7 @@ public class User {
     private Boolean automated;
     private String currentScreen;
     private HashMap<String, Screen> screens;
+    private Table searchResultsTable;
     private Parser parser;
     private HashMap<String, String> sqlQueries;
     private ScreenPrinter printer;
@@ -39,6 +41,14 @@ public class User {
         return sqlQueries;
     }
 
+    public void setSearchResultsTable(Table searchResultsTable){
+        this.searchResultsTable = searchResultsTable;
+    }
+
+    public Table getSearchResultsTable(){
+        return searchResultsTable;
+    }
+
     public void setInputParser(Parser parser){
         this.parser = parser;
     }
@@ -62,7 +72,14 @@ public class User {
         //screen.displayContent();
         screen.setCurrentScreen();
         screen.displayMenu();
-        screen.getUserInput();
+        if(!screenName.equals("shows-screen")){
+            screen.getUserInput();
+        }
+
+        if(screenName.equals("shows-screen")){
+            Shows showsScreen = (Shows)screen;
+            showsScreen.browseTable();
+        }
 
     }
 

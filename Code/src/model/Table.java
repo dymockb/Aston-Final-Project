@@ -48,27 +48,30 @@ public class Table {
 
     }
 
-    public int startBrowsing() {
+    public String startBrowsing() {
 
             String userInput;
             numberOfRows = getNumberOfRows();
             rowsToDisplay = 5;
 
+
+
+            //int selectedRowNumber = -1;
+            userInput = "tbc";
+
             Boolean browsingTable = true;
-
-            int selectedRowNumber = -1;
-
+            Boolean hideRows = false;
             while(browsingTable){
 
-                printRows();
-    
+                if(!hideRows){
+                    printRows();
+                }
+
+                hideRows = false;
+
                 userInput = parser.getInput("browse-table", "show", switches);
     
-                        if (userInput.equals("x"))  {
-    
-                            browsingTable = false;
-    
-                        } else if (userInput.equals("r")){
+                        if (userInput.equals("r")){
     
                             startingRow = 0;
                             switches.set(0, false);
@@ -84,6 +87,9 @@ public class Table {
                             }
     
                         } else if (IsInteger.checkString(userInput)){
+
+                            return userInput;
+                            /** 
                                 
                             selectedRow = Integer.parseInt(userInput);                       
     
@@ -93,22 +99,25 @@ public class Table {
     
                                 selectedRowNumber = Integer.parseInt(getFirstCellofSelectedRowInResultSet());
                                 browsingTable = false;
-    
+                            /** 
                             } else {
     
                                 printer.rowSelectionNotAvailableMessage();
     
                             }
+                            */
     
                         } else {
     
                             printer.invalidCommand();
+                            hideRows = true;
     
                         }
     
             }  
             
-            return selectedRowNumber;
+            //return selectedRowNumber;
+            return userInput;
             
 
     }
@@ -170,9 +179,6 @@ public class Table {
 
         try {
 
-        //rsmd = rs.getMetaData();
-        //numberOfCols = rsmd.getColumnCount();
-
         endingRow = (startingRow + rowsToDisplay) < numberOfRows ? (startingRow + rowsToDisplay) : numberOfRows; 	
 
         printTitle();
@@ -213,18 +219,6 @@ public class Table {
 		}
 
     }
-
-    /** 
-    public boolean isInteger( String input ) {
-        try {
-            Integer.parseInt( input );
-            return true;
-        }
-        catch( Exception e ) {
-            return false;
-        }
-    }
-    /** */
     
     public String getFirstCellofSelectedRowInResultSet(){
 

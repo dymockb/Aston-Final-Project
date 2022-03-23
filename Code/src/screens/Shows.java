@@ -6,8 +6,6 @@ import model.Table;
 
 public class Shows extends Screen {
 
-    private Table showsTable;
-
     public Shows(String screenName, Parser parser, DBConnector db){
         super(screenName, parser, db);
     
@@ -27,12 +25,14 @@ public class Shows extends Screen {
 
     }
 
-    public void addTable(Table showsTable){
-        this.showsTable = showsTable;
-    }
-
     public void displayPrompt(){
         System.out.println("Shows - available commands:");
+    }
+
+    public void browseTable(){
+        String selectedShow = user.getSearchResultsTable().startBrowsing();
+        System.out.println("the selected show is: ");
+        System.out.println(selectedShow);
     }
 
 

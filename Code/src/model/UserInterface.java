@@ -88,7 +88,7 @@ public class UserInterface
             returnType = false;
         } else if (command.equals("b")){
  
-            browseShows();
+            //browseShows();
    
         } else if (command.equals("l")){
             System.out.println("The admin login interface isn't built yet.");
@@ -104,6 +104,7 @@ public class UserInterface
 
     }
 
+    /** 
     private void browseShows(){
 
         Boolean browsing = true;
@@ -180,6 +181,7 @@ public class UserInterface
         }
 
     }
+    /** */
 
     public void viewUniqueShow(int showID){
 

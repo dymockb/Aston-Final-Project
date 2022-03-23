@@ -35,6 +35,7 @@ public class Responder
             System.out.print("> ");  
 
         } 
+        /** 
         
         if (request.equals("main-menu")) {
 
@@ -46,6 +47,7 @@ public class Responder
             System.out.print("> "); 
 
         } 
+        /** */
         
         if (request.equals("browse-table")){
             //System.out.println("Available Commands:");
@@ -58,8 +60,6 @@ public class Responder
             }
 
             System.out.println("r - return to top of results");
-            System.out.println("or -");
-            System.out.println("x - go back to previous menu");
             System.out.print("> ");           
                        
         }

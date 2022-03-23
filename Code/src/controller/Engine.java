@@ -18,6 +18,7 @@ import model.User;
 import superclass.Screen;
 import screens.Home;
 import screens.Search;
+import screens.Shows;
 
 public class Engine {
 
@@ -146,6 +147,10 @@ public class Engine {
 		user.addScreen(newScreen);
 
 		newScreen = new Search("search-screen", inputParser, db);
+	    newScreen.registerUser(user);
+		user.addScreen(newScreen);
+
+		newScreen = new Shows("shows-screen", inputParser, db);
 	    newScreen.registerUser(user);
 		user.addScreen(newScreen);
 

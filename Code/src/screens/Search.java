@@ -44,14 +44,16 @@ public class Search extends Screen {
                 System.out.println("keyword searchh tbc");
                 gettingInput = false;
             } else if (userInput.equals("n")){
+
                 System.out.println("broswe by name in progress");
+                gettingInput = false;
 
                 rs = db.runQuery(user.getSqlQueries().get("browse-shows") + "ORDER BY ShowName;");
                 String tableName = "All Shows";
                 Table allShows = new Table(rs, parser, tableName);
-                
+                user.setSearchResultsTable(allShows);
+                user.newScreenRequest("shows-screen");
 
-                gettingInput = false;
             } else if (userInput.equals("c")){
                 System.out.println("broswe by category in progress");
                 gettingInput = false;
