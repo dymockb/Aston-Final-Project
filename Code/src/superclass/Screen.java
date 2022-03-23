@@ -1,60 +1,49 @@
 package superclass;
-import util.Router;
+import util.User;
+import java.util.HashMap;
+import util.Parser;
 
-public class Screen {
+public abstract class Screen {
 
-    private Menu menu;
-    private Router router;
-    private String screenName;
+    protected HashMap<String, String> options;
+    protected User user;
+    protected String screenName;
+    protected Parser parser;
     
-    public Screen(String screenName){
+    public Screen(String screenName, Parser parser){
 
         this.screenName = screenName;
-        menu = new Menu();
+        this.parser = parser;
+        
+        options = new HashMap<String, String>();
+        addOptions();
     
     }
 
-    public void registerRouter(Router router){
+    public void registerUser(User user){
 
-        this.router = router;
-
-    }
-
-
-    public void displayContent(){
+        this.user = user;
 
     }
 
-    public void displayMenu(){
-
-        menu.displayPrompt();
-        menu.displayOptions();
-
+    public void setCurrentScreen(){
+        user.setCurrentScreen(screenName);
     }
 
-    public void getUserInput(){
-
-        Boolean gettingInput = true;
-        String userInput = null;
-        while(gettingInput){
-
-            userInput = menu.getUserInput();
-            if(userInput.equals("b")){
-                System.out.println("browsing screen tbc");
-                gettingInput = false;
-            } else if (userInput.equals("l")){
-                System.out.println("login screen tbc");
-                gettingInput = false;
-            } else if (userInput.equals("h")){
-                router.newScreenRequest(userInput, screenName);
-                gettingInput = false;
-            } else {
-                System.out.println("invalid command");                
-            }
-
-        }
-
+    public String getScreenName(){
+        return screenName;
     }
+
+    public abstract void getUserInput();
+
+    public abstract void displayPrompt();
+
+    public abstract void addOptions();
+
+    public abstract void displayOptions();
+
+    public abstract void displayMenu();
+
 
     
 }

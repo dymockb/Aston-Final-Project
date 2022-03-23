@@ -14,9 +14,11 @@ import util.DBConnector;
 import util.Parser;
 import util.ScreenPrinter;
 import model.UserInterface;
-import util.Router;
+import util.User;
 
 import superclass.Screen;
+import screens.Home;
+import screens.Search;
 
 public class Engine {
 
@@ -26,6 +28,7 @@ public class Engine {
 
 	private ScreenPrinter printer;
 	private DBConnector db;
+	private User user;
 	private UserInterface userInterface;
 	private Parser inputParser;
 
@@ -69,6 +72,7 @@ public class Engine {
 		}
 
 		userInterface = new UserInterface(db, printer, sqlQueries);
+		user = new User(userInterface);
 
 	}
 
@@ -85,8 +89,9 @@ public class Engine {
 		} 
 
 		userInterface.setInputParser(inputParser);
-		
+		//User user = new User(userInterface);
 		addScreens();
+
 		userInterface.start();
 
 		/** old start  
@@ -154,12 +159,14 @@ public class Engine {
 
 	public void addScreens(){
 
-		Router router = new Router(userInterface);
-
-		Screen homescreen = new Screen("home-screen");
-		homescreen.registerRouter(router);
+		Screen newscreen = new Home("home-screen", inputParser);
+		newscreen.registerUser(user);
 		//screens.put("home-screen", homescreen);
-		userInterface.addScreen("home-screen", homescreen);
+		userInterface.addScreen(newscreen);
+
+		newscreen = new Search("search-screen", inputParser);
+	    newscreen.registerUser(user);
+		userInterface.addScreen(newscreen);
 
 	}
 

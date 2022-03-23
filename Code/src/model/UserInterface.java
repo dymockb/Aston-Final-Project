@@ -3,15 +3,15 @@ package model;
 import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.ArrayList;
-import java.lang.Integer;
+//import java.lang.Integer;
 
 //import model.Browse;
-import model.Table;
-import model.Show;
+//import model.Table;
+//import model.Show;
 //import util.IsInteger;
 import util.DBConnector;
 import util.Parser;
-import util.Router;
+//import util.User;
 import util.ScreenPrinter;
 import superclass.Screen;
 
@@ -54,8 +54,8 @@ public class UserInterface
         this.parser = parser;
     }
     
-    public void addScreen(String screenName, Screen screen){
-        screens.put(screenName, screen);
+    public void addScreen(Screen screen){
+        screens.put(screen.getScreenName(), screen);
     }
 
     public void start(){
@@ -71,7 +71,8 @@ public class UserInterface
 
         Screen screen = screens.get(screenName);
 
-        screen.displayContent();
+        //screen.displayContent();
+        screen.setCurrentScreen();
         screen.displayMenu();
         screen.getUserInput();
 
