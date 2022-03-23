@@ -14,14 +14,20 @@ public class Search extends Screen {
     }
 
     public void displayPrompt(){
-        System.out.println("Search menu - available commands:");
+        System.out.println("Search upcoming Shows - available commands:");
+        System.out.println("Search:");
+        System.out.println("s - search for a show by name or keyword. (not working)");
+        System.out.println("Browse:");
+        System.out.println("n - Browse shows by NAME. (in progress)");
+        System.out.println("c - Browse shows by CATEGORY (e.g musical, opera). (not working)");
+        System.out.println("d - Browse shows by performance DATE. (not working)");
     }
 
     public void addOptions(){
-        options.put("s", "search for a show by name or keyword. (not working)");
-        options.put("n", "browse shows by name. (in progress)");
-        options.put("c", "browse shows by category (e.g musical, opera). (not working)");
-        options.put("d", "browse shows by performance date. (not working)");
+        options.put("s", "Search (name or keyword). not working");
+        options.put("n", "Name search (in progress)");
+        options.put("c", "Category search (e.g musical, opera). (not working)");
+        options.put("d", "Date search. (not working)");
     
     } 
 

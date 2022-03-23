@@ -16,6 +16,8 @@ public class Home extends Screen {
 
     public void displayPrompt(){
         System.out.println("Main menu - available commands:");
+        System.out.println("b - browse shows and book tickets");
+        System.out.println("q - quit");
     }
 
     public void addOptions(){

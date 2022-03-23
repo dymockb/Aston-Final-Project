@@ -4,6 +4,8 @@ import java.util.HashMap;
 
 import util.DBConnector;
 import util.Parser;
+import util.ScreenPrinter;
+
 import java.sql.*;
 
 public abstract class Screen {
@@ -15,12 +17,15 @@ public abstract class Screen {
     protected ResultSet rs;
     protected ResultSetMetaData rsmd;
     protected DBConnector db;
-    
+    protected ScreenPrinter printer;
+
     public Screen(String screenName, Parser parser, DBConnector db){
 
         this.screenName = screenName;
         this.parser = parser;
         this.db = db;
+
+        printer = new ScreenPrinter();
         
         options = new HashMap<String, String>();
         addOptions();
@@ -52,7 +57,7 @@ public abstract class Screen {
     public void displayMenu(){
 
         displayPrompt();
-        displayOptions();
+        //displayOptions();
         displayStandardOptions();
 
     }

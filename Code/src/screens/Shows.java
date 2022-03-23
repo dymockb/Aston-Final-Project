@@ -3,6 +3,8 @@ import superclass.Screen;
 import util.DBConnector;
 import util.Parser;
 import model.Table;
+import util.IsInteger;
+//import util.ScreenPrinter;
 
 public class Shows extends Screen {
 
@@ -30,19 +32,83 @@ public class Shows extends Screen {
     }
 
     public void browseTable(){
-        String selectedShow = user.getSearchResultsTable().startBrowsing();
-        System.out.println("the selected show is: ");
-        System.out.println(selectedShow);
+
+        Boolean browsing = true;
+        Boolean hideRows = false;
+        while(browsing){
+
+
+            String userInput = user.getSearchResultsTable().startBrowsing(hideRows);
+
+            if (IsInteger.checkString(userInput)){
+
+                int selectedRowInt = Integer.parseInt(userInput);                       
+
+                if (selectedRowInt <= user.getSearchResultsTable().getNumberOfRows()){
+
+                    browsing = false;
+        
+                    System.out.println("Row " + selectedRowInt + " selected.");
+        
+                    int ShowID = Integer.parseInt(user.getSearchResultsTable().getFirstCellofSelectedRowInResultSet(selectedRowInt));
+                    //browsingTable = false;
+                    System.out.println("ShowID selected: " + ShowID);
+        
+                } else {
+        
+                    printer.rowSelectionNotAvailableMessage();
+        
+                }
+
+            } else {
+
+                printer.invalidCommand();
+                hideRows = true;
+
+            }
+
+
+        }
+
+
     }
 
 
     public void getUserInput(){
 
-        Boolean gettingInput = true;
-        String userInput = null;
-        while(gettingInput){
+        Boolean browsing= true;
+        Boolean hideRows = false;
+        while(browsing){
 
-       
+            String userInput = user.getSearchResultsTable().startBrowsing(hideRows);
+
+            if (IsInteger.checkString(userInput)){
+
+                int selectedRowInt = Integer.parseInt(userInput);                       
+
+                if (selectedRowInt <= user.getSearchResultsTable().getNumberOfRows()){
+
+                    browsing = false;
+        
+                    System.out.println("Row " + selectedRowInt + " selected.");
+        
+                    int ShowID = Integer.parseInt(user.getSearchResultsTable().getFirstCellofSelectedRowInResultSet(selectedRowInt));
+                    //browsingTable = false;
+                    System.out.println("ShowID selected: " + ShowID);
+        
+                } else {
+        
+                    printer.rowSelectionNotAvailableMessage();
+        
+                }
+
+            } else {
+
+                printer.invalidCommand();
+                hideRows = true;
+
+            }
+
 
         }
 

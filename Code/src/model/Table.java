@@ -48,7 +48,7 @@ public class Table {
 
     }
 
-    public String startBrowsing() {
+    public String startBrowsing(Boolean hideRows) {
 
             String userInput;
             numberOfRows = getNumberOfRows();
@@ -60,7 +60,7 @@ public class Table {
             userInput = "tbc";
 
             Boolean browsingTable = true;
-            Boolean hideRows = false;
+            //Boolean hideRows = false;
             while(browsingTable){
 
                 if(!hideRows){
@@ -86,10 +86,15 @@ public class Table {
                                 switches.set(0, true);
                             }
     
-                        } else if (IsInteger.checkString(userInput)){
+                        } else {
+                            return userInput;
+                        } 
+                        
+                        /**
+                        else if (IsInteger.checkString(userInput)){
 
                             return userInput;
-                            /** 
+                             
                                 
                             selectedRow = Integer.parseInt(userInput);                       
     
@@ -105,7 +110,7 @@ public class Table {
                                 printer.rowSelectionNotAvailableMessage();
     
                             }
-                            */
+                            
     
                         } else {
     
@@ -113,6 +118,7 @@ public class Table {
                             hideRows = true;
     
                         }
+                        */
     
             }  
             
@@ -220,7 +226,7 @@ public class Table {
 
     }
     
-    public String getFirstCellofSelectedRowInResultSet(){
+    public String getFirstCellofSelectedRowInResultSet(int selectedRow){
 
         String output = "";
         try {

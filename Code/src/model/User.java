@@ -78,7 +78,7 @@ public class User {
 
         if(screenName.equals("shows-screen")){
             Shows showsScreen = (Shows)screen;
-            showsScreen.browseTable();
+            showsScreen.getUserInput();
         }
 
     }
