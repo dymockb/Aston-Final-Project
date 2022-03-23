@@ -2,6 +2,7 @@ package screens;
 
 import superclass.Screen;
 import util.Parser;
+import model.User;
 
 public class Home extends Screen {
 

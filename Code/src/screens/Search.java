@@ -63,7 +63,10 @@ public class Search extends Screen {
                 user.newScreenRequest("home-screen");
                 gettingInput = false;
             } else {
-                System.out.println("invalid command");                
+                System.out.println("invalid command");    
+                if(user.getIsAutomated()){
+                    gettingInput = false;
+                }            
             }
 
         }

@@ -13,8 +13,7 @@ import com.fasterxml.jackson.core.JsonGenerationException;
 import util.DBConnector;
 import util.Parser;
 import util.ScreenPrinter;
-import model.UserInterface;
-import util.User;
+import model.User;
 
 import superclass.Screen;
 import screens.Home;
@@ -29,7 +28,6 @@ public class Engine {
 	private ScreenPrinter printer;
 	private DBConnector db;
 	private User user;
-	private UserInterface userInterface;
 	private Parser inputParser;
 
 	public static void main(String[] args) throws FileNotFoundException {
@@ -37,10 +35,10 @@ public class Engine {
 		Engine engine = new Engine();
 
 		//Run from file:
-		//engine.openForBusiness("inputFromFile");
+		engine.openForBusiness("inputFromFile");
 
 		//Run with UserInput:
-		engine.openForBusiness("userInput");
+		//engine.openForBusiness("userInput");
 
 	}
 
@@ -71,8 +69,7 @@ public class Engine {
 		  e.printStackTrace();
 		}
 
-		userInterface = new UserInterface(db, printer, sqlQueries);
-		user = new User(userInterface);
+		user = new User(db, printer, sqlQueries);
 
 	}
 
@@ -82,29 +79,14 @@ public class Engine {
 		createdb();				
 		addTableData();
 
-		//CREATE A NEW USER
-
 		if(inputType.equals("inputFromFile")){
 			inputParser.addFile("./txt-files/user-input.txt");
+			user.setAutomated(true);
 		} 
 
-		userInterface.setInputParser(inputParser);
-		//User user = new User(userInterface);
+		user.setInputParser(inputParser);
 		addScreens();
-
-		userInterface.start();
-
-		/** old start  
-		Boolean userActive = true;
-		
-		while(userActive){
-
-			userActive = userInterface.mainMenu();
-
-		}
-		*/
-		
-
+		user.start();
 		inputParser.closeScanner();
 		db.close();
 
@@ -159,14 +141,13 @@ public class Engine {
 
 	public void addScreens(){
 
-		Screen newscreen = new Home("home-screen", inputParser);
-		newscreen.registerUser(user);
-		//screens.put("home-screen", homescreen);
-		userInterface.addScreen(newscreen);
+		Screen newScreen = new Home("home-screen", inputParser);
+		newScreen.registerUser(user);
+		user.addScreen(newScreen);
 
-		newscreen = new Search("search-screen", inputParser);
-	    newscreen.registerUser(user);
-		userInterface.addScreen(newscreen);
+		newScreen = new Search("search-screen", inputParser);
+	    newScreen.registerUser(user);
+		user.addScreen(newScreen);
 
 	}
 

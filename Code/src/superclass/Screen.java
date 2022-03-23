@@ -1,5 +1,5 @@
 package superclass;
-import util.User;
+import model.User;
 import java.util.HashMap;
 import util.Parser;
 
