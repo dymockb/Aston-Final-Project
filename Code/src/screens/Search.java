@@ -3,7 +3,7 @@ package screens;
 import superclass.Screen;
 import util.DBConnector;
 import util.Parser;
-import java.sql.*;
+//import java.sql.*;
 import model.Table;
 
 public class Search extends Screen {
@@ -13,7 +13,7 @@ public class Search extends Screen {
     
     }
 
-    public void displayPrompt(){
+    public void displayScreenOptions(){
         System.out.println("Search upcoming Shows - available commands:");
         System.out.println("Search:");
         System.out.println("s - search for a show by name or keyword. (not working)");
@@ -22,6 +22,8 @@ public class Search extends Screen {
         System.out.println("c - Browse shows by CATEGORY (e.g musical, opera). (not working)");
         System.out.println("d - Browse shows by performance DATE. (not working)");
     }
+
+    /** 
 
     public void addOptions(){
         options.put("s", "Search (name or keyword). not working");
@@ -37,7 +39,8 @@ public class Search extends Screen {
             System.out.println(key + " - " + options.get(key));
         }
 
-    }
+        
+    /** */
 
     public void getUserInput(){
 
@@ -51,7 +54,7 @@ public class Search extends Screen {
                 gettingInput = false;
             } else if (userInput.equals("n")){
 
-                System.out.println("broswe by name in progress");
+                System.out.println("browse by name in progress");
                 gettingInput = false;
 
                 rs = db.runQuery(user.getSqlQueries().get("browse-shows") + "ORDER BY ShowName;");
@@ -68,8 +71,9 @@ public class Search extends Screen {
                 gettingInput = false;
             } else if (userInput.equals("h")){
                 //user.setAdminStatus(false);
-                user.newScreenRequest("home-screen");
                 gettingInput = false;
+                user.newScreenRequest("home-screen");
+                
             } else {
                 System.out.println("invalid command");    
                 if(user.getIsAutomated()){

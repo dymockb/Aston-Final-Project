@@ -1,6 +1,7 @@
 package superclass;
 import model.User;
-import java.util.HashMap;
+//import java.util.HashMap;
+import java.util.ArrayList;
 
 import util.DBConnector;
 import util.Parser;
@@ -10,7 +11,8 @@ import java.sql.*;
 
 public abstract class Screen {
 
-    protected HashMap<String, String> options;
+    //protected HashMap<String, String> options;
+    protected ArrayList<String> standardOptions;
     protected User user;
     protected String screenName;
     protected Parser parser;
@@ -27,8 +29,13 @@ public abstract class Screen {
 
         printer = new ScreenPrinter();
         
-        options = new HashMap<String, String>();
-        addOptions();
+        standardOptions = new ArrayList<String>();
+        standardOptions.add("h - return to Home Screen");
+        standardOptions.add("l - login as Admin User");
+        standardOptions.add("> ");
+
+        //options = new HashMap<String, String>();
+        //addOptions();
     
     }
 
@@ -48,27 +55,26 @@ public abstract class Screen {
 
     public void displayStandardOptions(){
 
-        System.out.println("h - return to Home Screen");
-        System.out.println("l - login as Admin User");
-        System.out.print("> ");
+        for (String option : standardOptions){
+            System.out.println(option);
+        }
 
     }
 
     public void displayMenu(){
 
-        displayPrompt();
-        //displayOptions();
+        displayScreenOptions();
         displayStandardOptions();
 
     }
 
     public abstract void getUserInput();
 
-    public abstract void displayPrompt();
+    public abstract void displayScreenOptions();
 
-    public abstract void addOptions();
+    //public abstract void addOptions();
 
-    public abstract void displayOptions();
+    //public abstract void displayOptions();
 
     //public abstract void displayMenu();
 

@@ -1,6 +1,7 @@
 package util;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class ScreenPrinter {
 
@@ -56,6 +57,24 @@ public class ScreenPrinter {
 		System.out.print(createSubString(5, contents));
 
 	}
+
+	public void printTableBrowsingOptions(Boolean loggedIn, Boolean homescreen){
+
+		System.out.println("Please select a row number to view more details.");
+		System.out.println("Navigation options:");
+		System.out.println("f - go forward");
+		System.out.println("r - return to top of results");
+		StaticPrinter.printStandardOptions(loggedIn, homescreen);
+		
+	}
+
+	public void printStandardOptions(ArrayList<String> standardOptions){
+
+        for (String option : standardOptions){
+            System.out.println(option);
+        }
+
+    }
 
 	/** 
 

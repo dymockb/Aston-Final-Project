@@ -2,9 +2,9 @@ package screens;
 import superclass.Screen;
 import util.DBConnector;
 import util.Parser;
-import model.Table;
+
 import util.IsInteger;
-//import util.ScreenPrinter;
+
 
 public class Shows extends Screen {
 
@@ -13,32 +13,23 @@ public class Shows extends Screen {
     
     }
 
-    public void addOptions(){
-        options.put("b", "browse shows and book tickets (in progress)");
-        options.put("q", "quit");
-    
+
+    public void displayScreenOptions(){
+        //System.out.println("Shows - available commands:");
     }
 
-    public void displayOptions(){
 
-        for(String key : options.keySet()){
-            System.out.println(key + " - " + options.get(key));
-        }
-
-    }
-
-    public void displayPrompt(){
-        System.out.println("Shows - available commands:");
-    }
-
-    public void browseTable(){
+    public void getUserInput(){
 
         Boolean browsing = true;
         Boolean hideRows = false;
         while(browsing){
 
 
-            String userInput = user.getSearchResultsTable().startBrowsing(hideRows);
+            String userInput = user.getSearchResultsTable().startBrowsing( hideRows, 
+                                                                           standardOptions, 
+                                                                           user.getIsLoggedIn(), 
+                                                                           user.getCurrentScreenName().equals("home-screen"));
 
             if (IsInteger.checkString(userInput)){
 
@@ -50,68 +41,38 @@ public class Shows extends Screen {
         
                     System.out.println("Row " + selectedRowInt + " selected.");
         
-                    int ShowID = Integer.parseInt(user.getSearchResultsTable().getFirstCellofSelectedRowInResultSet(selectedRowInt));
-                    //browsingTable = false;
-                    System.out.println("ShowID selected: " + ShowID);
-        
+                    int showID = Integer.parseInt(user.getSearchResultsTable().getFirstCellofSelectedRowInResultSet(selectedRowInt));
+                    
+                    System.out.println("ShowID selected: " + showID);
+
+                    rs = db.runQuery(user.getSqlQueries().get("get-show-by-ID") + showID + ";");  
+
+                    //String tableName = "selected-show";
+                    //Table selectedShow = new Table(rs, parser, tableName);
+                    user.setSearchResultSet(rs);
+                    user.newScreenRequest("single-show");
+
                 } else {
         
                     printer.rowSelectionNotAvailableMessage();
         
                 }
 
+            } else if (userInput.equals("h")) {
+                browsing = false;
+                user.newScreenRequest("home-screen");
+
             } else {
 
-                printer.invalidCommand();
+                printer.invalidCommand(); 
                 hideRows = true;
 
             }
-
 
         }
 
 
     }
-
-
-    public void getUserInput(){
-
-        Boolean browsing= true;
-        Boolean hideRows = false;
-        while(browsing){
-
-            String userInput = user.getSearchResultsTable().startBrowsing(hideRows);
-
-            if (IsInteger.checkString(userInput)){
-
-                int selectedRowInt = Integer.parseInt(userInput);                       
-
-                if (selectedRowInt <= user.getSearchResultsTable().getNumberOfRows()){
-
-                    browsing = false;
-        
-                    System.out.println("Row " + selectedRowInt + " selected.");
-        
-                    int ShowID = Integer.parseInt(user.getSearchResultsTable().getFirstCellofSelectedRowInResultSet(selectedRowInt));
-                    //browsingTable = false;
-                    System.out.println("ShowID selected: " + ShowID);
-        
-                } else {
-        
-                    printer.rowSelectionNotAvailableMessage();
-        
-                }
-
-            } else {
-
-                printer.invalidCommand();
-                hideRows = true;
-
-            }
-
-
-        }
-
-    }
+ 
     
 }

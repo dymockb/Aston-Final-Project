@@ -12,13 +12,14 @@ import com.fasterxml.jackson.core.JsonGenerationException;
 
 import util.DBConnector;
 import util.Parser;
-import util.ScreenPrinter;
+//import util.ScreenPrinter;
 import model.User;
 
 import superclass.Screen;
 import screens.Home;
 import screens.Search;
 import screens.Shows;
+import screens.SingleShow;
 
 public class Engine {
 
@@ -26,7 +27,7 @@ public class Engine {
 	private HashMap<String, String> sqlQueries;
 	//http://tutorials.jenkov.com/java-json/jackson-objectmapper.html
 
-	private ScreenPrinter printer;
+	//private ScreenPrinter printer;
 	private DBConnector db;
 	private User user;
 	private Parser inputParser;
@@ -46,7 +47,7 @@ public class Engine {
 	public Engine() throws FileNotFoundException {
 
 		db = new DBConnector();
-		printer = new ScreenPrinter();
+		//printer = new ScreenPrinter();
 		inputParser = new Parser();
 
 		//File testfile = new File(".");
@@ -70,7 +71,8 @@ public class Engine {
 		  e.printStackTrace();
 		}
 
-		user = new User(db, printer, sqlQueries);
+		//user = new User(db, printer, sqlQueries);
+		user = new User(sqlQueries);
 
 	}
 
@@ -85,7 +87,7 @@ public class Engine {
 			user.setAutomated(true);
 		} 
 
-		user.setInputParser(inputParser);
+		//user.setInputParser(inputParser);
 		addScreens();
 		user.start();
 		inputParser.closeScanner();
@@ -151,6 +153,10 @@ public class Engine {
 		user.addScreen(newScreen);
 
 		newScreen = new Shows("shows-screen", inputParser, db);
+	    newScreen.registerUser(user);
+		user.addScreen(newScreen);
+
+		newScreen = new SingleShow("single-show", inputParser, db);
 	    newScreen.registerUser(user);
 		user.addScreen(newScreen);
 

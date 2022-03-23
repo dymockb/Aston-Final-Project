@@ -3,7 +3,7 @@ package screens;
 import superclass.Screen;
 import util.DBConnector;
 import util.Parser;
-import model.User;
+//import model.User;
 
 public class Home extends Screen {
 
@@ -14,16 +14,16 @@ public class Home extends Screen {
 
 
 
-    public void displayPrompt(){
+    public void displayScreenOptions(){
         System.out.println("Main menu - available commands:");
         System.out.println("b - browse shows and book tickets");
         System.out.println("q - quit");
     }
 
+    /**
     public void addOptions(){
         options.put("b", "browse shows and book tickets (in progress)");
         options.put("q", "quit");
-    
     }
 
     public void displayOptions(){
@@ -33,6 +33,7 @@ public class Home extends Screen {
         }
 
     }
+     */
 
     public void getUserInput(){
 

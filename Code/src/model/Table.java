@@ -3,7 +3,6 @@ package model;
 import java.sql.*;
 import util.ScreenPrinter;
 import util.Parser;
-import util.IsInteger;
 import java.util.ArrayList;
 
 public class Table {
@@ -21,8 +20,6 @@ public class Table {
     private int rowsToDisplay;
     private int startingRow;
     private int endingRow;
-
-    private int selectedRow;
 
     private int columnToHide;
  
@@ -48,7 +45,7 @@ public class Table {
 
     }
 
-    public String startBrowsing(Boolean hideRows) {
+    public String startBrowsing(Boolean hideRows, ArrayList<String> standardOptions, Boolean loggedIn, Boolean homescreen) {
 
             String userInput;
             numberOfRows = getNumberOfRows();
@@ -64,12 +61,14 @@ public class Table {
             while(browsingTable){
 
                 if(!hideRows){
-                    printRows();
+                    printRows(standardOptions);
                 }
 
                 hideRows = false;
 
-                userInput = parser.getInput("browse-table", "show", switches);
+                printer.printTableBrowsingOptions(loggedIn, homescreen);
+                userInput = parser.getInputForMenu();
+                //userInput = parser.getInput("browse-table", "show", switches);
     
                         if (userInput.equals("r")){
     
@@ -181,7 +180,7 @@ public class Table {
 
     }
 
-    private void printRows(){
+    private void printRows(ArrayList<String> standardOptions){
 
         try {
 
