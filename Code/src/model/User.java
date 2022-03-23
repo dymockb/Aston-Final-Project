@@ -1,26 +1,21 @@
 package model;
 
 import java.util.HashMap;
+import superclass.Menu;
+import superclass.Screen;
 
 public class User {
 
-    private HashMap<String, Menu> menus;
+    private HashMap<String, Screen> screens;
 
     public User(){
 
-        menus = new HashMap<String, Menu>();
-        createMenus();
-
-    }
-
-    public void createMenus(){
+        screens = new HashMap<String, Screen>();
 
     }
     
-    public String goToMenu(Menu menu){
+    public void goToScreen(){
 
-        return "the user input from menu";
-        
-    } 
+    }
 
 }

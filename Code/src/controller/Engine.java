@@ -13,7 +13,10 @@ import com.fasterxml.jackson.core.JsonGenerationException;
 import util.DBConnector;
 import util.Parser;
 import util.ScreenPrinter;
-import util.UserInterface;
+import model.UserInterface;
+import util.Router;
+
+import superclass.Screen;
 
 public class Engine {
 
@@ -82,7 +85,11 @@ public class Engine {
 		} 
 
 		userInterface.setInputParser(inputParser);
+		
+		addScreens();
+		userInterface.start();
 
+		/** old start  
 		Boolean userActive = true;
 		
 		while(userActive){
@@ -90,6 +97,8 @@ public class Engine {
 			userActive = userInterface.mainMenu();
 
 		}
+		*/
+		
 
 		inputParser.closeScanner();
 		db.close();
@@ -140,6 +149,17 @@ public class Engine {
 
 
 		addTableDataParser.closeScanner();
+
+	}
+
+	public void addScreens(){
+
+		Router router = new Router(userInterface);
+
+		Screen homescreen = new Screen("home-screen");
+		homescreen.registerRouter(router);
+		//screens.put("home-screen", homescreen);
+		userInterface.addScreen("home-screen", homescreen);
 
 	}
 

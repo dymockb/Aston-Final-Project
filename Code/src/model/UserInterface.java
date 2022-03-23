@@ -1,4 +1,4 @@
-package util;
+package model;
 
 import java.sql.ResultSet;
 import java.util.HashMap;
@@ -9,6 +9,11 @@ import java.lang.Integer;
 import model.Table;
 import model.Show;
 //import util.IsInteger;
+import util.DBConnector;
+import util.Parser;
+import util.Router;
+import util.ScreenPrinter;
+import superclass.Screen;
 
 /**
  * 
@@ -24,6 +29,7 @@ public class UserInterface
     private DBConnector db;
     private ScreenPrinter printer;
     private HashMap<String,String> sqlQueries;
+	private HashMap<String, Screen> screens;
     private Parser parser;
     //private ResultProcessor resultProcessor;
     private ArrayList<Boolean> switches;
@@ -36,6 +42,7 @@ public class UserInterface
         this.db = db;
         this.printer = printer;
         this.sqlQueries = sqlQueries;
+        screens = new HashMap<String, Screen>();
         //resultProcessor = new ResultProcessor();
 
         switches = new ArrayList<Boolean>();
@@ -45,6 +52,29 @@ public class UserInterface
 
     public void setInputParser(Parser parser){
         this.parser = parser;
+    }
+    
+    public void addScreen(String screenName, Screen screen){
+        screens.put(screenName, screen);
+    }
+
+    public void start(){
+
+        //Router router = new Router();
+        //router.goToScreen("home-screen");
+        goToScreen("home-screen");
+
+         
+    }
+
+    public void goToScreen(String screenName){
+
+        Screen screen = screens.get(screenName);
+
+        screen.displayContent();
+        screen.displayMenu();
+        screen.getUserInput();
+
     }
 
     public Boolean mainMenu(){
@@ -178,6 +208,8 @@ public class UserInterface
 
     }
 
+    /** 
+
     public boolean isInteger( String input ) {
         try {
             Integer.parseInt( input );
@@ -187,5 +219,5 @@ public class UserInterface
             return false;
         }
     }
-
+    /** */
 }

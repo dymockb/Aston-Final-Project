@@ -60,6 +60,13 @@ public class Parser
  
     }
 
+    public String getInputForMenu(){
+        String inputLine = null;
+        inputLine = reader.nextLine();
+        printInput(inputLine);
+        return inputLine;
+    }
+
     public String getSQL() {
         reader.useDelimiter(";");       
         String inputLine = reader.next();
