@@ -3,6 +3,8 @@ import superclass.Screen;
 import util.DBConnector;
 import util.Parser;
 
+import java.util.NoSuchElementException;
+
 import util.IsInteger;
 import java.sql.*;
 import model.Table;
@@ -15,7 +17,7 @@ public class Shows extends Screen {
     
     }
 
-    public void displayScreen(){
+    public void displayScreen() throws NoSuchElementException {
 
         ResultSet rs = user.getSearchResultSet();
         String tableName = "All Shows";
@@ -25,6 +27,8 @@ public class Shows extends Screen {
         Boolean browsing = true;
         Boolean hideRows = false;
         while(browsing){
+
+            try{
 
             String userInput = showsTable.startBrowsing( hideRows, 
                                                         standardOptions, 
@@ -66,6 +70,15 @@ public class Shows extends Screen {
                 hideRows = true;
 
             }
+
+
+            } catch (NoSuchElementException e){
+
+                System.out.println("ERROR - end of test file.");
+                browsing= false;
+            }
+
+
 
         }
 

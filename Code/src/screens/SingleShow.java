@@ -2,6 +2,9 @@ package screens;
 import superclass.Screen;
 import util.DBConnector;
 import util.Parser;
+
+import java.util.NoSuchElementException;
+
 import model.Show;
 import util.StaticPrinter;
 
@@ -14,7 +17,7 @@ public class SingleShow extends Screen {
     
     }
 
-    public void displayScreen(){
+    public void displayScreen() throws NoSuchElementException {
 
         show = new Show(user.getSearchResultSet());
 
@@ -26,23 +29,32 @@ public class SingleShow extends Screen {
         
         Boolean viewingShow = true;
         while(viewingShow){
-            
-            String userInput = parser.getInputForMenu();
-            if (userInput.equals("q")){
-                viewingShow = false;
-            } else if (userInput.equals("h")) {
-                viewingShow = false;
-                user.newScreenRequest("home-screen");
-            }else if (userInput.equals("b")) {
-                viewingShow = false;
 
-                rs = user.getSearchHistory().get(user.getPreviousSearch()).runSearch();
-                user.setSearchResultSet(rs);
-                user.newScreenRequest("shows-screen");
-                
-            } else {
-                StaticPrinter.invalidCommand();
+            try {
+
+                String userInput = parser.getInputForMenu();
+                if (userInput.equals("q")){
+                    viewingShow = false;
+                } else if (userInput.equals("h")) {
+                    viewingShow = false;
+                    user.newScreenRequest("home-screen");
+                }else if (userInput.equals("b")) {
+                    viewingShow = false;
+    
+                    rs = user.getSearchHistory().get(user.getPreviousSearch()).runSearch();
+                    user.setSearchResultSet(rs);
+                    user.newScreenRequest("shows-screen");
+                    
+                } else {
+                    StaticPrinter.invalidCommand();
+                }
+
+            } catch (NoSuchElementException e){
+                System.out.println("ERROR - end of test file.");
+                viewingShow = false;
             }
+            
+
         }
 
     }

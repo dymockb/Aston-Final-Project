@@ -25,32 +25,34 @@ public class Home extends Screen {
 
             try {
                 userInput = parser.getInputForMenu();
+
+                if(userInput.equals("b")){
+
+                    gettingInput = false;
+                    user.newScreenRequest("search-screen");
+    
+                } else if (userInput.equals("q")){
+    
+                    System.out.println("Quit");
+                    gettingInput = false;
+    
+                } else if (userInput.equals("l")){
+                    
+                    //user.setLoggedInStatus(true);
+    
+                    System.out.println("login screen tbc");
+    
+                } else {
+                    System.out.println("invalid command");                
+                }
+
             } catch (NoSuchElementException e){
-                e.printStackTrace();
+                
+                System.out.println("ERROR - end of test file.");
                 gettingInput = false;
             }
 
             //userInput = parser.getInputForMenu();
-
-            if(userInput.equals("b")){
-
-                gettingInput = false;
-                user.newScreenRequest("search-screen");
-
-            } else if (userInput.equals("q")){
-
-                System.out.println("Quit");
-                gettingInput = false;
-
-            } else if (userInput.equals("l")){
-                
-                //user.setLoggedInStatus(true);
-
-                System.out.println("login screen tbc");
-
-            } else {
-                System.out.println("invalid command");                
-            }
 
         }
 
