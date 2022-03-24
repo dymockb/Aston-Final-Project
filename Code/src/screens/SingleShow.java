@@ -2,6 +2,7 @@ package screens;
 import superclass.Screen;
 import util.DBConnector;
 import util.Parser;
+import superclass.SearchDB;
 
 import java.util.NoSuchElementException;
 
@@ -33,8 +34,20 @@ public class SingleShow extends Screen {
             try {
 
                 String userInput = parser.getInputForMenu();
-                if (userInput.equals("q")){
+                if (userInput.equals("v")){
                     viewingShow = false;
+
+                    String searchString = user.getSqlQueries().get("all-performances-for-single-show") + "ORDER BY ShowDateTime;";
+                    SearchDB showPerformancesByDate = new SearchDB(searchString, db) ;
+                    user.saveNewSearch("shows-performances-by-date", showPerformancesByDate);
+                    user.setPreviousSearch("shows-performances-by-date");
+
+                    rs = showPerformancesByDate.runSearch();
+
+                    user.setSearchResultSet(rs);
+                    user.newScreenRequest("performances-screen");
+
+
                 } else if (userInput.equals("h")) {
                     viewingShow = false;
                     user.newScreenRequest("home-screen");

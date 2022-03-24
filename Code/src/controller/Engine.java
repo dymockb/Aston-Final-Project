@@ -20,6 +20,7 @@ import screens.Home;
 import screens.Search;
 import screens.Shows;
 import screens.SingleShow;
+import screens.Performances;
 
 public class Engine {
 
@@ -136,7 +137,8 @@ public class Engine {
 		addTableDataParser.addFile("./database-files/zuleyha-db-files/version2/csv-files/ShowDetail.csv");
 		db.runQuery(addTableDataParser.createSqlDataFromCSV("ShowDetail"));
 
-
+		//addTableDataParser.addFile("./database-files/zuleyha-db-files/version2/csv-files/Performance.csv");
+		//db.runQuery(addTableDataParser.createSqlDataFromCSV("Performance"));
 
 		addTableDataParser.closeScanner();
 
@@ -157,6 +159,10 @@ public class Engine {
 		user.addScreen(newScreen);
 
 		newScreen = new SingleShow("single-show", inputParser, db);
+	    newScreen.registerUser(user);
+		user.addScreen(newScreen);
+
+		newScreen = new Performances("performances-screen", inputParser, db);
 	    newScreen.registerUser(user);
 		user.addScreen(newScreen);
 
