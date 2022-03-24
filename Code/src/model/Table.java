@@ -8,6 +8,8 @@ import java.util.ArrayList;
 public class Table {
 
     private String tableName;
+    private String orderedBy;
+
     private ResultSet rs;
     private ResultSetMetaData rsmd;
 
@@ -25,11 +27,13 @@ public class Table {
  
     ArrayList<Boolean> switches = new ArrayList<Boolean>();
 
-    public Table(ResultSet rs, Parser parser, String tableName){
+    public Table(ResultSet rs, Parser parser, String tableName, String orderedBy){
 
         this.rs = rs;
         this.parser = parser;
         this.tableName = tableName;
+        this.orderedBy = orderedBy;
+
         printer = new ScreenPrinter();
         switches.add(false);
 
@@ -51,24 +55,27 @@ public class Table {
             numberOfRows = getNumberOfRows();
             rowsToDisplay = 5;
 
-
-
-            //int selectedRowNumber = -1;
-            userInput = "tbc";
+            userInput = "";
 
             Boolean browsingTable = true;
-            //Boolean hideRows = false;
+            
             while(browsingTable){
 
+                //PRINT THE TABLE
+
                 if(!hideRows){
-                    printRows(standardOptions);
+                    printTable();
                 }
 
                 hideRows = false;
 
-                printer.printTableBrowsingOptions(loggedIn, homescreen);
+                System.out.println("Please select a row number to view more details.");
+                System.out.println("Navigation options:");
+                System.out.println("f - go forward");
+                System.out.println("r - return to top of results");
+                System.out.println("h - return to home");
+
                 userInput = parser.getInputForMenu();
-                //userInput = parser.getInput("browse-table", "show", switches);
     
                         if (userInput.equals("r")){
     
@@ -144,7 +151,8 @@ public class Table {
 
     private void printTitle(){
 
-        printer.printTableTitle(tableName, startingRow, endingRow, numberOfRows);
+        //printer.printTableTitle(tableName, startingRow, endingRow, numberOfRows);
+        System.out.println(tableName + ": " + (startingRow + 1) + " to " + endingRow + " out of " + numberOfRows + ", orderd by " + orderedBy);
 
     }
 
@@ -180,7 +188,7 @@ public class Table {
 
     }
 
-    private void printRows(ArrayList<String> standardOptions){
+    private void printTable(){
 
         try {
 

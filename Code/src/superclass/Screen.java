@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import util.DBConnector;
 import util.Parser;
 import util.ScreenPrinter;
+import util.StaticPrinter;
 
 import java.sql.*;
 
@@ -30,13 +31,15 @@ public abstract class Screen {
         printer = new ScreenPrinter();
         
         standardOptions = new ArrayList<String>();
-        standardOptions.add("h - return to Home Screen");
-        standardOptions.add("l - login as Admin User");
-        standardOptions.add("> ");
-
-        //options = new HashMap<String, String>();
-        //addOptions();
+        //standardOptions.add("h - return to Home Screen");
+        //standardOptions.add("l - login as Admin User");
     
+    }
+
+    public void displayLoginLogout(){
+        
+       StaticPrinter.printLoginLogout(user.getIsLoggedIn());
+        
     }
 
     public void registerUser(User user){
@@ -45,39 +48,11 @@ public abstract class Screen {
 
     }
 
-    public void setCurrentScreen(){
-        user.setCurrentScreen(screenName);
-    }
-
     public String getScreenName(){
         return screenName;
     }
 
-    public void displayStandardOptions(){
-
-        for (String option : standardOptions){
-            System.out.println(option);
-        }
-
-    }
-
-    public void displayMenu(){
-
-        displayScreenOptions();
-        displayStandardOptions();
-
-    }
-
-    public abstract void getUserInput();
-
-    public abstract void displayScreenOptions();
-
-    //public abstract void addOptions();
-
-    //public abstract void displayOptions();
-
-    //public abstract void displayMenu();
-
+    public abstract void displayScreen();
 
     
 }

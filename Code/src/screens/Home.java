@@ -1,9 +1,9 @@
 package screens;
 
+import java.util.NoSuchElementException;
 import superclass.Screen;
 import util.DBConnector;
 import util.Parser;
-//import model.User;
 
 public class Home extends Screen {
 
@@ -12,50 +12,41 @@ public class Home extends Screen {
     
     }
 
-
-
-    public void displayScreenOptions(){
-        System.out.println("Main menu - available commands:");
-        System.out.println("b - browse shows and book tickets");
-        System.out.println("q - quit");
-    }
-
-    /**
-    public void addOptions(){
-        options.put("b", "browse shows and book tickets (in progress)");
-        options.put("q", "quit");
-    }
-
-    public void displayOptions(){
-
-        for(String key : options.keySet()){
-            System.out.println(key + " - " + options.get(key));
-        }
-
-    }
-     */
-
-    public void getUserInput(){
+    public void displayScreen() throws NoSuchElementException {
 
         Boolean gettingInput = true;
         String userInput = null;
         while(gettingInput){
 
-            userInput = parser.getInputForMenu();
+            System.out.println("Main menu - available commands:");
+            System.out.println("b - browse shows and book tickets");
+            displayLoginLogout(); // l - login  / logout
+            System.out.println("q - quit");
+
+            try {
+                userInput = parser.getInputForMenu();
+            } catch (NoSuchElementException e){
+                e.printStackTrace();
+                gettingInput = false;
+            }
+
+            //userInput = parser.getInputForMenu();
+
             if(userInput.equals("b")){
+
                 gettingInput = false;
                 user.newScreenRequest("search-screen");
 
             } else if (userInput.equals("q")){
+
                 System.out.println("Quit");
                 gettingInput = false;
+
             } else if (userInput.equals("l")){
+                
+                //user.setLoggedInStatus(true);
+
                 System.out.println("login screen tbc");
-                gettingInput = false;
-            } else if (userInput.equals("h")){
-                //user.setAdminStatus(false);
-                gettingInput = false;
-                user.newScreenRequest(screenName);
 
             } else {
                 System.out.println("invalid command");                

@@ -18,24 +18,24 @@ public class Show {
             int cols = rsmd.getColumnCount();
             rs.beforeFirst();
             rs.next();
-            System.out.println("the cursor is at " + rs.getRow());
             for (int i = 1; i <= cols; i ++){
-                System.out.println("col " +  i  + " " + rsmd.getColumnName(i) + rs.getString(i));
+                //System.out.println("col " +  i  + " " + rsmd.getColumnName(i) + rs.getString(i));
                 showDetails.put(rsmd.getColumnName(i), rs.getString(i));
             }
+            
+
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        System.out.println("Show hashmap: ");
-        System.out.println(showDetails);
+        //System.out.println("Show hashmap: ");
+        //System.out.println(showDetails);
 
     }
 
-    public void getPerformances(){
-        System.out.println("Get performances here.");
-
+    public HashMap<String, String> getShowDetails(){
+        return showDetails;
     }
 
     

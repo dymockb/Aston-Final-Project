@@ -64,7 +64,7 @@ public class ScreenPrinter {
 		System.out.println("Navigation options:");
 		System.out.println("f - go forward");
 		System.out.println("r - return to top of results");
-		StaticPrinter.printStandardOptions(loggedIn, homescreen);
+		//StaticPrinter.printStandardOptions(loggedIn, homescreen);
 		
 	}
 

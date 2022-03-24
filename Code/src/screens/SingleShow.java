@@ -14,13 +14,15 @@ public class SingleShow extends Screen {
     
     }
 
-    public void displayScreenOptions(){
-    
-    }
-
-    public void getUserInput(){
+    public void displayScreen(){
 
         show = new Show(user.getSearchResultSet());
+
+        System.out.println(show.getShowDetails());
+
+        System.out.println("v - view performances");
+        System.out.println("b - back to search results");
+        System.out.println("h - return to home screen");
         
         Boolean viewingShow = true;
         while(viewingShow){
@@ -31,6 +33,13 @@ public class SingleShow extends Screen {
             } else if (userInput.equals("h")) {
                 viewingShow = false;
                 user.newScreenRequest("home-screen");
+            }else if (userInput.equals("b")) {
+                viewingShow = false;
+
+                rs = user.getSearchHistory().get(user.getPreviousSearch()).runSearch();
+                user.setSearchResultSet(rs);
+                user.newScreenRequest("shows-screen");
+                
             } else {
                 StaticPrinter.invalidCommand();
             }

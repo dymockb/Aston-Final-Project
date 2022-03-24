@@ -72,9 +72,9 @@ public class UserInterface
         Screen screen = screens.get(screenName);
 
         //screen.displayContent();
-        screen.setCurrentScreen();
-        screen.displayMenu();
-        screen.getUserInput();
+        //screen.setCurrentScreen();
+        //screen.displayMenu();
+        //screen.getUserInput();
 
     }
 

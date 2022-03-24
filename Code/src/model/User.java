@@ -2,6 +2,7 @@ package model;
 
 import java.util.HashMap;
 import superclass.Screen;
+import superclass.SearchDB;
 import java.sql.*;
 
 public class User {
@@ -10,35 +11,45 @@ public class User {
     private Boolean automated;
     private String currentScreen;
     private HashMap<String, Screen> screens;
-    private Table searchResultsTable;
     private ResultSet searchResultSet;
-    //private Parser parser;
+    private String previousSearch;
     private HashMap<String, String> sqlQueries;
-    //private ScreenPrinter printer;
-    //private DBConnector db;
+    private HashMap<String, SearchDB> searchHistory;
 
-    //public User(DBConnector db, ScreenPrinter printer, HashMap<String, String> sqlQueries){
     public User(HashMap<String, String> sqlQueries){
         this.sqlQueries = sqlQueries;
-        //this.printer = printer;
-        //this.db = db;
-
         screens = new HashMap<String, Screen>();
-        isLoggedIn = true;      
+        searchHistory = new HashMap<String, SearchDB>();
+        isLoggedIn = false;      
     }
 
     public void start(){
 
-        //Router router = new Router();
-        //router.goToScreen("home-screen");
         goToScreen("home-screen");
-
-         
+ 
     }
 
     public HashMap<String, String> getSqlQueries(){
         return sqlQueries;
     }
+
+    public void saveNewSearch(String searchName, SearchDB search){
+        searchHistory.put(searchName, search);
+    }
+
+    public HashMap<String, SearchDB> getSearchHistory(){
+        return searchHistory;
+    }
+
+    public void setPreviousSearch(String searchName){
+        previousSearch = searchName;
+    }
+
+    public String getPreviousSearch(){
+        return previousSearch;
+    }
+
+    /** 
 
     public void setSearchResultsTable(Table searchResultsTable){
         this.searchResultsTable = searchResultsTable;
@@ -48,6 +59,8 @@ public class User {
         return searchResultsTable;
     }
 
+    /** */
+
     public void setSearchResultSet(ResultSet rs){
         searchResultSet = rs;
     }
@@ -55,9 +68,6 @@ public class User {
     public ResultSet getSearchResultSet(){
         return searchResultSet;
     }
-    //public void setInputParser(Parser parser){
-    //     this.parser = parser;
-    //}
 
     public void setAutomated(Boolean automated){
         this.automated = automated;
@@ -74,10 +84,8 @@ public class User {
     public void goToScreen(String screenName){
 
         Screen screen = screens.get(screenName);
-
-        screen.setCurrentScreen();
-        screen.displayMenu();
-        screen.getUserInput();
+        setCurrentScreen(screenName);
+        screen.displayScreen();
 
     }
 
@@ -110,9 +118,11 @@ public class User {
 
             
         } else {
-
-            goToScreen(screenName);
-            
+            //if (isLoggedIn){
+                goToScreen(screenName);
+            //} else {
+            //    permissionDenied();
+            //}    
         }
 
     }

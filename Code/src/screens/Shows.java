@@ -4,6 +4,8 @@ import util.DBConnector;
 import util.Parser;
 
 import util.IsInteger;
+import java.sql.*;
+import model.Table;
 
 
 public class Shows extends Screen {
@@ -13,42 +15,38 @@ public class Shows extends Screen {
     
     }
 
+    public void displayScreen(){
 
-    public void displayScreenOptions(){
-        //System.out.println("Shows - available commands:");
-    }
-
-
-    public void getUserInput(){
+        ResultSet rs = user.getSearchResultSet();
+        String tableName = "All Shows";
+        String orderedBy = "Name";
+        Table showsTable = new Table(rs, parser, tableName, orderedBy);
 
         Boolean browsing = true;
         Boolean hideRows = false;
         while(browsing){
 
-
-            String userInput = user.getSearchResultsTable().startBrowsing( hideRows, 
-                                                                           standardOptions, 
-                                                                           user.getIsLoggedIn(), 
-                                                                           user.getCurrentScreenName().equals("home-screen"));
+            String userInput = showsTable.startBrowsing( hideRows, 
+                                                        standardOptions, 
+                                                        user.getIsLoggedIn(), 
+                                                        user.getCurrentScreenName().equals("home-screen"));
 
             if (IsInteger.checkString(userInput)){
 
                 int selectedRowInt = Integer.parseInt(userInput);                       
 
-                if (selectedRowInt <= user.getSearchResultsTable().getNumberOfRows()){
+                if (selectedRowInt <= showsTable.getNumberOfRows()){
 
                     browsing = false;
         
                     System.out.println("Row " + selectedRowInt + " selected.");
         
-                    int showID = Integer.parseInt(user.getSearchResultsTable().getFirstCellofSelectedRowInResultSet(selectedRowInt));
+                    int showID = Integer.parseInt(showsTable.getFirstCellofSelectedRowInResultSet(selectedRowInt));
                     
                     System.out.println("ShowID selected: " + showID);
 
                     rs = db.runQuery(user.getSqlQueries().get("get-show-by-ID") + showID + ";");  
 
-                    //String tableName = "selected-show";
-                    //Table selectedShow = new Table(rs, parser, tableName);
                     user.setSearchResultSet(rs);
                     user.newScreenRequest("single-show");
 

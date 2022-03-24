@@ -61,6 +61,7 @@ public class Parser
     }
 
     public String getInputForMenu(){
+        System.out.print("> ");
         String inputLine = null;
         inputLine = reader.nextLine();
         printInput(inputLine);
