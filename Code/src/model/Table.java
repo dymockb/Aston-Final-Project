@@ -4,11 +4,14 @@ import java.sql.*;
 import util.ScreenPrinter;
 import util.Parser;
 import java.util.ArrayList;
+import util.StaticPrinter;
 
 public class Table {
 
+    private String eventName;
     private String tableName;
     private String orderedBy;
+    private Boolean isBookingTable;
 
     private ResultSet rs;
     private ResultSetMetaData rsmd;
@@ -27,12 +30,15 @@ public class Table {
  
     ArrayList<Boolean> switches = new ArrayList<Boolean>();
 
-    public Table(ResultSet rs, Parser parser, String tableName, String orderedBy){
+    public Table(ResultSet rs, Parser parser, String eventName, String tableName, String orderedBy, Boolean isBookingTable){
 
         this.rs = rs;
         this.parser = parser;
         this.tableName = tableName;
+        this.eventName = eventName;
         this.orderedBy = orderedBy;
+        this.isBookingTable = isBookingTable;
+
 
         printer = new ScreenPrinter();
         switches.add(false);
@@ -69,7 +75,8 @@ public class Table {
 
                 hideRows = false;
 
-                System.out.println("Please select a row number to view more details.");
+                StaticPrinter.printTableRowSelectionMsg(isBookingTable);
+                //System.out.println("Please select a row number to view more details.");
                 System.out.println("Navigation options:");
                 System.out.println("f - go forward");
                 System.out.println("r - return to top of results");
@@ -152,13 +159,11 @@ public class Table {
     private void printTitle(){
 
         //printer.printTableTitle(tableName, startingRow, endingRow, numberOfRows);
-        System.out.println(tableName + ": " + (startingRow) + " to " + endingRow + " out of " + numberOfRows + ", orderd by " + orderedBy);
+        int adjStartingRow = numberOfRows == 0 ? 0 : startingRow + 1;
+        System.out.print(eventName + ": " + tableName + " - " + (adjStartingRow) + " to " + endingRow + " out of " + numberOfRows + ", orderd by " + orderedBy);
 
     }
 
-    private void printRowSelectionMsg(){
-        printer.printRowSelectionMsg();;
-    }
 
     private void printColumnHeadings(){
 
@@ -195,7 +200,7 @@ public class Table {
         endingRow = (startingRow + rowsToDisplay) < numberOfRows ? (startingRow + rowsToDisplay) : numberOfRows; 	
 
         printTitle();
-        printRowSelectionMsg();
+        //printRowSelectionMsg();
         printColumnHeadings();
                 
         rs.beforeFirst();
@@ -254,7 +259,7 @@ public class Table {
         
         return output;
 
-}
+    }
 
 
     

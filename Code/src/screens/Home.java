@@ -15,11 +15,13 @@ public class Home extends Screen {
 
     public void displayScreen() throws NoSuchElementException {
 
+        /** navHistory stuff
         Object[] viewHistory = user.getNavHistory().retreiveFromHistory(0);
         SearchDB lastSearch = (SearchDB)viewHistory[0];
         Screen lastScreen = (Screen)viewHistory[1];
         System.out.println(lastSearch.getSearchString());
         System.out.println(lastScreen.getScreenName());
+        /** */
 
         Boolean gettingInput = true;
         String userInput = null;
@@ -30,6 +32,7 @@ public class Home extends Screen {
 
             System.out.println("Main menu - available commands:");
             System.out.println("b - browse shows and book tickets");
+            displayBasketStatus();
             displayLoginLogout(); // l - login  / logout
             System.out.println("q - quit");
 
@@ -70,6 +73,7 @@ public class Home extends Screen {
 
         if (nextScreen.equals("Quit")){
             System.out.println("Quit");
+            //user.newScreenRequest(nextScreen);
         } else {
             user.newScreenRequest(nextScreen);
         }

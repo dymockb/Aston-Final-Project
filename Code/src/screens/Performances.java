@@ -2,6 +2,8 @@ package screens;
 import util.Parser;
 import util.DBConnector;
 import superclass.Screen;
+import superclass.SearchDB;
+
 import java.util.NoSuchElementException;
 import java.sql.*;
 import model.Table;
@@ -16,10 +18,13 @@ public class Performances extends Screen {
 
     public void displayScreen() throws NoSuchElementException {
 
-        ResultSet rs = user.getSearchResultSet();
+        rs = user.getSearchResultSet();
+
+        //String eventName = getEventName(user.getIDValueForNextSearch());
         String tableName = "All Performances";
+        String eventName = user.getEventName();
         String orderedBy = "Date";
-        Table showsTable = new Table(rs, parser, tableName, orderedBy);
+        Table performancesTable = new Table(rs, parser, eventName, tableName, orderedBy, true);
 
         Boolean browsing = true;
         Boolean hideRows = false;
@@ -30,7 +35,7 @@ public class Performances extends Screen {
 
             try{
 
-            String userInput = showsTable.startBrowsing( hideRows, 
+            String userInput = performancesTable.startBrowsing( hideRows, 
                                                         standardOptions, 
                                                         user.getIsLoggedIn(), 
                                                         user.getCurrentScreenName().equals("home-screen"));
@@ -39,20 +44,29 @@ public class Performances extends Screen {
 
                 int selectedRowInt = Integer.parseInt(userInput);                       
 
-                if (selectedRowInt <= showsTable.getNumberOfRows()){
+                if (selectedRowInt <= performancesTable.getNumberOfRows()){
 
                     browsing = false;
         
                     System.out.println("Row " + selectedRowInt + " selected.");
         
-                    int showID = Integer.parseInt(showsTable.getFirstCellofSelectedRowInResultSet(selectedRowInt));
+                    int performanceID = Integer.parseInt(performancesTable.getFirstCellofSelectedRowInResultSet(selectedRowInt));
                     
-                    System.out.println("PerformanceID selected: " + showID);
+                    System.out.println("PerformanceID selected: " + performanceID);
 
-                    //rs = db.runQuery(user.getSqlQueries().get("get-show-by-ID") + showID + ";");  
+                    String stringTemplate = user.getSqlQueries().get("get-performance-by-ID");
+                    String searchString = stringTemplate.replace("show-id-from-java", user.getIDValueForNextSearch());
+                    searchString += ";";
+                    SearchDB getSelectedPerformance = new SearchDB(searchString, db);
 
-                    //user.setSearchResultSet(rs);
-                    //nextScreen = "single-show";
+                    user.saveNewSearch("selected-performance-search", getSelectedPerformance);
+                    user.setPreviousSearch("selected-performance-search");
+
+                    rs = getSelectedPerformance.runSearch();
+                    //rs = db.runQuery(user.getSqlQueries().get("get-performance-by-ID") + performanceID + ";");  
+
+                    user.setSearchResultSet(rs);
+                    nextScreen = "book-performance";
                     //user.newScreenRequest("single-show");
 
                 } else {
@@ -87,7 +101,6 @@ public class Performances extends Screen {
 
 
     }
-
 
     
 }

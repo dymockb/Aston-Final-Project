@@ -10,13 +10,18 @@ import util.DBConnector;
 public class User {
     
     private DBConnector db;
+    private Basket basket;
+
     private Boolean isLoggedIn;
     private Boolean automated;
     private String currentScreen;
     private HashMap<String, Screen> screens;
     private ResultSet searchResultSet;
+    
     private String previousSearch;
     private int IDValueForNextSearch;
+    private String eventName;
+
     private HashMap<String, String> sqlQueries;
 
     private History navHistory;
@@ -27,6 +32,7 @@ public class User {
     public User(HashMap<String, String> sqlQueries, DBConnector db){
         this.sqlQueries = sqlQueries;
         this.db = db;
+        basket = new Basket();
         screens = new HashMap<String, Screen>();
         searchHistory = new HashMap<String, SearchDB>();
         navHistory = new History();
@@ -39,8 +45,20 @@ public class User {
  
     }
 
+    public Basket getBasket(){
+        return basket;
+    }
+
     public HashMap<String, String> getSqlQueries(){
         return sqlQueries;
+    }
+
+    public void setEventName(String eventName){
+        this.eventName = eventName;
+    }
+
+    public String getEventName(){
+        return eventName;
     }
 
     public void saveNewSearch(String searchName, SearchDB search){

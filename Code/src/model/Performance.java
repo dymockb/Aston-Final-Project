@@ -32,7 +32,7 @@ public class Performance {
 
     }
 
-    public HashMap<String, String> getShowDetails(){
+    public HashMap<String, String> getPerformanceDetails(){
         return performanceDetails;
     } 
     

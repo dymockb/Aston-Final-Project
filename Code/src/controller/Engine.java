@@ -21,6 +21,7 @@ import screens.Search;
 import screens.Shows;
 import screens.SingleShow;
 import screens.Performances;
+import screens.BookPerformance;
 
 public class Engine {
 
@@ -163,6 +164,10 @@ public class Engine {
 		user.addScreen(newScreen);
 
 		newScreen = new Performances("performances-screen", inputParser, db);
+	    newScreen.registerUser(user);
+		user.addScreen(newScreen);
+
+		newScreen = new BookPerformance("book-performance", inputParser, db);
 	    newScreen.registerUser(user);
 		user.addScreen(newScreen);
 

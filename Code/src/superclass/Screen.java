@@ -1,5 +1,6 @@
 package superclass;
 import model.User;
+import model.Basket;
 //import java.util.HashMap;
 import java.util.ArrayList;
 
@@ -42,6 +43,10 @@ public abstract class Screen {
         
     }
 
+    public void displayBasketStatus(){
+        System.out.println("You currently have " + user.getBasket().getNumberOfTicketsInBasket() + " ticket(s) for " + user.getBasket().getNumberOfShowsInBasket() + " show(s) in your basket.");
+    }
+
     public void registerUser(User user){
 
         this.user = user;
@@ -53,10 +58,11 @@ public abstract class Screen {
     }
 
     public void updateNavHistory(){
-        
+
     }
 
     public abstract void displayScreen();
+
 
     
 }

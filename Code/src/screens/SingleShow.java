@@ -43,8 +43,8 @@ public class SingleShow extends Screen {
                     String stringTemplate = user.getSqlQueries().get("all-performances-for-single-show");
                     String searchString = stringTemplate.replace("show-id-from-java", user.getIDValueForNextSearch());
                     searchString += "ORDER BY ShowDateTime;";
-                    //String searchString = user.getSqlQueries().get("all-performances-for-single-show") + "ORDER BY ShowDateTime;";
-                    SearchDB showPerformancesByDate = new SearchDB(searchString, db) ;
+                    SearchDB showPerformancesByDate = new SearchDB(searchString, db);
+
                     user.saveNewSearch("shows-performances-by-date", showPerformancesByDate);
                     user.setPreviousSearch("shows-performances-by-date");
 

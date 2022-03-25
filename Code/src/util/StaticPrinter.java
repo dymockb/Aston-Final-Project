@@ -19,6 +19,15 @@ public class StaticPrinter {
         
     }
 
+    public static void printTableRowSelectionMsg(Boolean isBookingTable){
+        if (isBookingTable){
+            System.out.println("Please select a row number to book tickets.");
+        } else {
+            System.out.println("Please select a row number to view more details.");
+        }
+    }
+
+
 
     
 }

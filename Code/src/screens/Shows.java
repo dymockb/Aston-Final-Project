@@ -19,10 +19,11 @@ public class Shows extends Screen {
 
     public void displayScreen() throws NoSuchElementException {
 
-        ResultSet rs = user.getSearchResultSet();
+        rs = user.getSearchResultSet();
         String tableName = "All Shows";
+        String eventName = "Theatre Royal";
         String orderedBy = "Name";
-        Table showsTable = new Table(rs, parser, tableName, orderedBy);
+        Table showsTable = new Table(rs, parser, eventName, tableName, orderedBy, false);
 
         Boolean browsing = true;
         Boolean hideRows = false;
@@ -51,10 +52,12 @@ public class Shows extends Screen {
                     int showID = Integer.parseInt(showsTable.getFirstCellofSelectedRowInResultSet(selectedRowInt));
                     
                     System.out.println("ShowID selected: " + showID);
+                    String showName = getEventName(showID);
 
                     rs = db.runQuery(user.getSqlQueries().get("get-show-by-ID") + showID + ";");  
 
-                    user.setSearchResultSet(rs);
+                    user.setEventName(showName);
+                    user.setSearchResultSet(rs); 
                     user.setIDValueForNextSearch(showID);
                     nextScreen = "single-show";
                     //user.newScreenRequest("single-show");
@@ -89,6 +92,30 @@ public class Shows extends Screen {
 
         user.newScreenRequest(nextScreen);
 
+
+    }
+
+    public String getEventName(int idx){
+
+        //int idx = Integer.parseInt(IDindex);
+        String output = "";
+        try {
+        
+            rs.beforeFirst();
+            while(rs.next()){
+                if (Integer.parseInt(rs.getString(1)) == idx){
+                    break;
+                }
+
+            }
+
+            output = rs.getString(2);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return output;
 
     }
  
