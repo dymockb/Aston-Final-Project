@@ -1,25 +1,35 @@
 package model;
 
 import java.util.HashMap;
+import model.History;
 import superclass.Screen;
 import superclass.SearchDB;
 import java.sql.*;
+import util.DBConnector;
 
 public class User {
     
+    private DBConnector db;
     private Boolean isLoggedIn;
     private Boolean automated;
     private String currentScreen;
     private HashMap<String, Screen> screens;
     private ResultSet searchResultSet;
     private String previousSearch;
+    private int IDValueForNextSearch;
     private HashMap<String, String> sqlQueries;
-    private HashMap<String, SearchDB> searchHistory;
 
-    public User(HashMap<String, String> sqlQueries){
+    private History navHistory;
+
+    private HashMap<String, SearchDB> searchHistory;
+    private HashMap<String, Screen> screenHistory;
+
+    public User(HashMap<String, String> sqlQueries, DBConnector db){
         this.sqlQueries = sqlQueries;
+        this.db = db;
         screens = new HashMap<String, Screen>();
         searchHistory = new HashMap<String, SearchDB>();
+        navHistory = new History();
         isLoggedIn = false;      
     }
 
@@ -49,6 +59,14 @@ public class User {
         return previousSearch;
     }
 
+    public History getNavHistory(){
+        return navHistory;
+    }
+
+    public void updateNavHistory(int index, SearchDB search, Screen screen){
+        navHistory.addToHistory(index, search, screen);
+    }
+
     /** 
 
     public void setSearchResultsTable(Table searchResultsTable){
@@ -69,6 +87,14 @@ public class User {
         return searchResultSet;
     }
 
+    public void setIDValueForNextSearch(int IDValueForNextSearch){
+        this.IDValueForNextSearch = IDValueForNextSearch;
+    }
+
+    public String getIDValueForNextSearch(){
+        return String.valueOf(IDValueForNextSearch);
+    }
+
     public void setAutomated(Boolean automated){
         this.automated = automated;
     }
@@ -84,7 +110,9 @@ public class User {
     public void goToScreen(String screenName){
 
         Screen screen = screens.get(screenName);
+        SearchDB search = new SearchDB("test-string", db);
         setCurrentScreen(screenName);
+        updateNavHistory(navHistory.getSizeOfScreenHistoryHM(), search, screen);
         screen.displayScreen();
 
     }
@@ -107,6 +135,8 @@ public class User {
 
     public void newScreenRequest(String screenName){
 
+
+        /** 
         if (currentScreen.equals(screenName)){
 
             if (isLoggedIn){
@@ -115,15 +145,17 @@ public class User {
             } else {
                 permissionDenied();
             }
-
+    
             
-        } else {
+        } else { 
+            /** */
+
             //if (isLoggedIn){
                 goToScreen(screenName);
             //} else {
             //    permissionDenied();
             //}    
-        }
+        //}
 
     }
 

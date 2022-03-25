@@ -26,6 +26,9 @@ public class Shows extends Screen {
 
         Boolean browsing = true;
         Boolean hideRows = false;
+
+        String nextScreen = "home-screen";
+
         while(browsing){
 
             try{
@@ -52,7 +55,9 @@ public class Shows extends Screen {
                     rs = db.runQuery(user.getSqlQueries().get("get-show-by-ID") + showID + ";");  
 
                     user.setSearchResultSet(rs);
-                    user.newScreenRequest("single-show");
+                    user.setIDValueForNextSearch(showID);
+                    nextScreen = "single-show";
+                    //user.newScreenRequest("single-show");
 
                 } else {
         
@@ -62,7 +67,7 @@ public class Shows extends Screen {
 
             } else if (userInput.equals("h")) {
                 browsing = false;
-                user.newScreenRequest("home-screen");
+                //user.newScreenRequest("home-screen");
 
             } else {
 
@@ -81,6 +86,8 @@ public class Shows extends Screen {
 
 
         }
+
+        user.newScreenRequest(nextScreen);
 
 
     }

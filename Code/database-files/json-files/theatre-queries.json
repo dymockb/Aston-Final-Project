@@ -2,7 +2,7 @@
     "select-all-shows": "select * from ShowDetail;",
     "browse-shows": "SELECT ShowDetail.ID, ShowName, ShowDescription, TypeName, Duration FROM ShowDetail JOIN TypeOfShow ON TypeOfShow.ID = ShowDetail.TypeOfShowID ",
     "get-show-by-ID": "select * from ShowDetail WHERE ID = ",
-    "all-performances-for-single-show": "SELECT * FROM Performance JOIN ShowDetail ON Performance.ShowDetailID = ShowDetail.ID "
+    "all-performances-for-single-show": "SELECT * FROM Performance JOIN ShowDetail ON Performance.ShowDetailID = ShowDetail.ID WHERE ShowDetailID = show-id-from-java "
 }
 
 

@@ -152,7 +152,7 @@ public class Table {
     private void printTitle(){
 
         //printer.printTableTitle(tableName, startingRow, endingRow, numberOfRows);
-        System.out.println(tableName + ": " + (startingRow + 1) + " to " + endingRow + " out of " + numberOfRows + ", orderd by " + orderedBy);
+        System.out.println(tableName + ": " + (startingRow) + " to " + endingRow + " out of " + numberOfRows + ", orderd by " + orderedBy);
 
     }
 

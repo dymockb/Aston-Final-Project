@@ -4,6 +4,7 @@ import java.util.NoSuchElementException;
 import superclass.Screen;
 import util.DBConnector;
 import util.Parser;
+import superclass.SearchDB;
 
 public class Home extends Screen {
 
@@ -14,8 +15,17 @@ public class Home extends Screen {
 
     public void displayScreen() throws NoSuchElementException {
 
+        Object[] viewHistory = user.getNavHistory().retreiveFromHistory(0);
+        SearchDB lastSearch = (SearchDB)viewHistory[0];
+        Screen lastScreen = (Screen)viewHistory[1];
+        System.out.println(lastSearch.getSearchString());
+        System.out.println(lastScreen.getScreenName());
+
         Boolean gettingInput = true;
         String userInput = null;
+
+        String nextScreen = "home-screen";
+
         while(gettingInput){
 
             System.out.println("Main menu - available commands:");
@@ -29,12 +39,14 @@ public class Home extends Screen {
                 if(userInput.equals("b")){
 
                     gettingInput = false;
-                    user.newScreenRequest("search-screen");
+                    nextScreen = "search-screen";
+                    //user.newScreenRequest("search-screen");
     
                 } else if (userInput.equals("q")){
     
-                    System.out.println("Quit");
+                    nextScreen = "Quit";
                     gettingInput = false;
+
     
                 } else if (userInput.equals("l")){
                     
@@ -55,6 +67,15 @@ public class Home extends Screen {
             //userInput = parser.getInputForMenu();
 
         }
+
+        if (nextScreen.equals("Quit")){
+            System.out.println("Quit");
+        } else {
+            user.newScreenRequest(nextScreen);
+        }
+
+
+        
 
     }
     

@@ -29,6 +29,9 @@ public class SingleShow extends Screen {
         System.out.println("h - return to home screen");
         
         Boolean viewingShow = true;
+
+        String nextScreen = "home-screen";
+
         while(viewingShow){
 
             try {
@@ -37,7 +40,10 @@ public class SingleShow extends Screen {
                 if (userInput.equals("v")){
                     viewingShow = false;
 
-                    String searchString = user.getSqlQueries().get("all-performances-for-single-show") + "ORDER BY ShowDateTime;";
+                    String stringTemplate = user.getSqlQueries().get("all-performances-for-single-show");
+                    String searchString = stringTemplate.replace("show-id-from-java", user.getIDValueForNextSearch());
+                    searchString += "ORDER BY ShowDateTime;";
+                    //String searchString = user.getSqlQueries().get("all-performances-for-single-show") + "ORDER BY ShowDateTime;";
                     SearchDB showPerformancesByDate = new SearchDB(searchString, db) ;
                     user.saveNewSearch("shows-performances-by-date", showPerformancesByDate);
                     user.setPreviousSearch("shows-performances-by-date");
@@ -45,18 +51,20 @@ public class SingleShow extends Screen {
                     rs = showPerformancesByDate.runSearch();
 
                     user.setSearchResultSet(rs);
-                    user.newScreenRequest("performances-screen");
+                    nextScreen = "performances-screen";
+                    //user.newScreenRequest("performances-screen");
 
 
                 } else if (userInput.equals("h")) {
                     viewingShow = false;
-                    user.newScreenRequest("home-screen");
+                    //user.newScreenRequest("home-screen");
                 }else if (userInput.equals("b")) {
                     viewingShow = false;
     
                     rs = user.getSearchHistory().get(user.getPreviousSearch()).runSearch();
                     user.setSearchResultSet(rs);
-                    user.newScreenRequest("shows-screen");
+                    nextScreen = "shows-screen";
+                   // user.newScreenRequest("shows-screen");
                     
                 } else {
                     StaticPrinter.invalidCommand();
@@ -69,6 +77,8 @@ public class SingleShow extends Screen {
             
 
         }
+
+        user.newScreenRequest(nextScreen);
 
     }
 

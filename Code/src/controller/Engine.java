@@ -73,7 +73,7 @@ public class Engine {
 		}
 
 		//user = new User(db, printer, sqlQueries);
-		user = new User(sqlQueries);
+		user = new User(sqlQueries, db);
 
 	}
 
@@ -137,8 +137,8 @@ public class Engine {
 		addTableDataParser.addFile("./database-files/zuleyha-db-files/version2/csv-files/ShowDetail.csv");
 		db.runQuery(addTableDataParser.createSqlDataFromCSV("ShowDetail"));
 
-		//addTableDataParser.addFile("./database-files/zuleyha-db-files/version2/csv-files/Performance.csv");
-		//db.runQuery(addTableDataParser.createSqlDataFromCSV("Performance"));
+		addTableDataParser.addFile("./database-files/zuleyha-db-files/version2/csv-files/Performance.csv");
+		db.runQuery(addTableDataParser.createSqlDataFromCSV("Performance"));
 
 		addTableDataParser.closeScanner();
 

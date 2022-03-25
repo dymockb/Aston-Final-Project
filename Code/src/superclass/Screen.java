@@ -52,6 +52,10 @@ public abstract class Screen {
         return screenName;
     }
 
+    public void updateNavHistory(){
+        
+    }
+
     public abstract void displayScreen();
 
     

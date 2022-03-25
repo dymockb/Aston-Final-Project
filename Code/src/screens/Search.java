@@ -32,6 +32,9 @@ public class Search extends Screen {
 
         Boolean gettingInput = true;
         String userInput = null;
+
+        String nextScreen = "home-screen";
+
         while(gettingInput){
 
             System.out.println("Search:");
@@ -56,6 +59,7 @@ public class Search extends Screen {
                 } else if (userInput.equals("n")){
                     gettingInput = false;
 
+                    
                     String searchString = user.getSqlQueries().get("browse-shows") + "ORDER BY ShowName;";
                     SearchDB allShowsByName = new SearchDB(searchString, db) ;
                     user.saveNewSearch("all-shows-by-name", allShowsByName);
@@ -64,7 +68,9 @@ public class Search extends Screen {
                     rs = allShowsByName.runSearch();
 
                     user.setSearchResultSet(rs);
-                    user.newScreenRequest("shows-screen");
+                    nextScreen = "shows-screen";
+                    //user.newScreenRequest("shows-screen");
+                     
 
                 } else if (userInput.equals("c")){
                     
@@ -78,7 +84,8 @@ public class Search extends Screen {
                     rs = allShowsByName.runSearch();
 
                     user.setSearchResultSet(rs);
-                    user.newScreenRequest("shows-screen");
+                    nextScreen = "shows-screen";
+                    //user.newScreenRequest("shows-screen");
 
                 } else if (userInput.equals("d")){
                     
@@ -89,17 +96,16 @@ public class Search extends Screen {
                     String endDate = parser.getInputForMenu();
 
                     System.out.println("Now run a search for PERFORMANCES between " + startDate + " and " + endDate);
+                    
 
                 } else if (userInput.equals("h")){
                     //user.setAdminStatus(false);
                     gettingInput = false;
-                    user.newScreenRequest("home-screen");
+
+                    //user.newScreenRequest("home-screen");
                     
                 } else {
-                    System.out.println("invalid command");    
-                    if(user.getIsAutomated()){
-                        gettingInput = false;
-                    }            
+                    System.out.println("invalid command");            
                 
                 }
 
@@ -112,6 +118,9 @@ public class Search extends Screen {
 
 
         }
+
+        user.newScreenRequest(nextScreen);
+        
 
     }
     
