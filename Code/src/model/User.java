@@ -6,6 +6,7 @@ import superclass.Screen;
 import superclass.SearchDB;
 import java.sql.*;
 import util.DBConnector;
+import util.Parser;
 
 public class User {
     
@@ -29,10 +30,10 @@ public class User {
     private HashMap<String, SearchDB> searchHistory;
     private HashMap<String, Screen> screenHistory;
 
-    public User(HashMap<String, String> sqlQueries, DBConnector db){
+    public User(HashMap<String, String> sqlQueries, DBConnector db, Parser parser){
         this.sqlQueries = sqlQueries;
         this.db = db;
-        basket = new Basket();
+        basket = new Basket(parser);
         screens = new HashMap<String, Screen>();
         searchHistory = new HashMap<String, SearchDB>();
         navHistory = new History();

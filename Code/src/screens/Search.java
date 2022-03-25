@@ -47,7 +47,7 @@ public class Search extends Screen {
             System.out.println("");
             displayLoginLogout();
             System.out.println("h - return to Home Screen.");
-
+            displayBasketStatus();
 
             try {
                 userInput = parser.getInputForMenu();

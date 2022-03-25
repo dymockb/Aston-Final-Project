@@ -28,7 +28,8 @@ public class BookPerformance extends Screen {
         System.out.println("t - book tickets for this performance");
         System.out.println("b - back to search results");
         System.out.println("h - return to home screen");
-        
+        displayBasketStatus();
+
         Boolean viewingPerformance = true;
 
         String nextScreen = "home-screen";
@@ -42,7 +43,7 @@ public class BookPerformance extends Screen {
                     viewingPerformance = false;
 
                     System.out.println("start booking process");
-                    Booking booking = new Booking(performance, parser);
+                    Booking booking = new Booking(user, performance, parser);
                     
                     Boolean bookingComplete = booking.startBooking();
                     if(bookingComplete){

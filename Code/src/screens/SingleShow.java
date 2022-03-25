@@ -27,6 +27,7 @@ public class SingleShow extends Screen {
         System.out.println("v - view performances");
         System.out.println("b - back to search results");
         System.out.println("h - return to home screen");
+        displayBasketStatus();
         
         Boolean viewingShow = true;
 
