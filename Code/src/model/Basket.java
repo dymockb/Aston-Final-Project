@@ -9,7 +9,7 @@ import java.util.HashMap;
 public class Basket {
 
     private int numberOfTicketsInBasket = 0;
-    private int numberOfShowsInBasket = 0;
+    private int basketTotal = 0;
     private Parser parser;
     private ArrayList<Ticket> tickets;
     private HashMap<String, String> sqlQueries;
@@ -24,23 +24,22 @@ public class Basket {
         return numberOfTicketsInBasket;
     }
 
-    public int getNumberOfShowsInBasket(){
-        return numberOfShowsInBasket;
+    public int getBasketTotal(){
+        return basketTotal;
     }
 
     public int displayBasket(){
         StaticPrinter.printBasketHeading(numberOfTicketsInBasket);
-        System.out.println("There are currently " + numberOfTicketsInBasket + " tickets in your basket");
         return numberOfTicketsInBasket;
     }
 
     public Boolean addTickets(String placeholderShouldbeArray){
 
         numberOfTicketsInBasket++;
+        basketTotal++;
 
         StaticPrinter.printBasketHeading(numberOfTicketsInBasket);
-        System.out.println("There are " + numberOfTicketsInBasket + " ticket(s) in your basket.");
-        System.out.println("The total cost of your basket is £80"); 
+        System.out.println("There are " + numberOfTicketsInBasket + " ticket(s) in your basket."); 
         System.out.println("Would you like to checkout now?");
         System.out.println("y - checkout.");
         System.out.println("n - save basket and search again.");

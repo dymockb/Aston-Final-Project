@@ -10,11 +10,11 @@ import java.util.NoSuchElementException;
 import model.Show;
 import util.StaticPrinter;
 
-public class SingleShow extends Screen {
+public class ViewShow extends Screen {
 
     private Show show;
 
-    public SingleShow (String screenName, Parser parser, DBConnector db){
+    public ViewShow (String screenName, Parser parser, DBConnector db){
         super(screenName, parser, db);
     
     }
@@ -26,21 +26,24 @@ public class SingleShow extends Screen {
 
 
         String showName = showDetails.get("ShowName");
-        String typeOfShow = showDetails.get("TypeOfShowID");
-        String liveMusic = showDetails.get("LiveMusicID");
+        String typeOfShow = showDetails.get("TypeName");
+        String language = showDetails.get("LangugeName");
+        String liveMusic = showDetails.get("Performaner");
         String duration = showDetails.get("Duration");
-        String showDescription = showDetails.get("ShowDescription");
         String ticketPrice = showDetails.get("PriceID");
+        String showDescription = showDetails.get("ShowDescription");
+        
 
         StaticPrinter.printShowHeading(showName);
-        StaticPrinter.printShowDetails(showName, typeOfShow, liveMusic, duration, showDescription, ticketPrice);
+        StaticPrinter.printShowDetails(showName, typeOfShow, language, liveMusic, duration, showDescription, ticketPrice);
         //System.out.println(show.getShowDetails());
         System.out.println("");
+        displayBasketStatus();
         System.out.println("Available commands:");
         System.out.println("v - view performance dates");
         System.out.println("b - back to search results");
         System.out.println("h - return to home screen");
-        displayBasketStatus();
+        
         
         Boolean viewingShow = true;
 

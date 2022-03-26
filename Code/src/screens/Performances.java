@@ -66,7 +66,7 @@ public class Performances extends Screen {
                     //rs = db.runQuery(user.getSqlQueries().get("get-performance-by-ID") + performanceID + ";");  
 
                     user.setSearchResultSet(rs);
-                    nextScreen = "book-performance";
+                    nextScreen = "view-performance";
                     //user.newScreenRequest("single-show");
 
                 } else {

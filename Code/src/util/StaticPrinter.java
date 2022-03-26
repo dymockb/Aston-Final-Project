@@ -46,15 +46,15 @@ public class StaticPrinter {
     public static void printBasketHeading(int numberOfTicketsInBasket){
 
         System.out.println(String.format("%-80s", "------------------------------------------------------------------------------------------"));
-        System.out.println(String.format("%-80s", "Your basket - " + numberOfTicketsInBasket + " ticket(s)"));
+        System.out.println(String.format("%-80s", "Your basket - " + numberOfTicketsInBasket + " ticket(s)."));
         System.out.println(String.format("%-80s", "------------------------------------------------------------------------------------------"));
 
     }
 
-    public static void printBasketFooter(int numberOfTicketsInBasket){
+    public static void printBasketFooter(int numberOfTicketsInBasket, int basketTotal){
 
         System.out.println(String.format("%-80s", "------------------------------------------------------------------------------------------"));
-        System.out.println(String.format("%-80s", "Basket: " + numberOfTicketsInBasket + " ticket(s)"));
+        System.out.println(String.format("%-80s", "Basket: " + numberOfTicketsInBasket + " ticket(s). Total cost: £" + basketTotal +  "."));
         //System.out.println(String.format("%-80s", "g - go to basket"));        
         System.out.println(String.format("%-80s", "------------------------------------------------------------------------------------------"));
 
@@ -72,19 +72,20 @@ public class StaticPrinter {
 
         System.out.println(String.format("%-80s", "------------------------------------------------------------------------------------------"));
         System.out.println(String.format("%-80s", headingText));
-        //System.out.println(String.format("%-80s", "------------------------------------------------------------------------------------------"));
+        System.out.println(String.format("%-80s", "------------------------------------------------------------------------------------------"));
 
     }
 
-    public static void printShowDetails(String showName, String typeOfShow, String liveMusic, String duration, String showDescription, String ticketPrice){
+    public static void printShowDetails(String showName, String typeOfShow, String language, String liveMusic, String duration, String showDescription, String ticketPrice){
 
-        System.out.println(String.format("%-80s", "" + showName + " - " + typeOfShow));
+        System.out.println(String.format("%-80s", showName + " - " + typeOfShow + " (" + language + ")"));
         System.out.println(String.format("%-80s", "Live music: " + liveMusic));
         System.out.println(String.format("%-80s", "Show duration: " + duration));
-        System.out.println(String.format("%-80s", showDescription));
         System.out.println(String.format("%-80s", "Ticket price: " + ticketPrice));
-
+        System.out.println(String.format("%-80s", ""));
+        System.out.println(String.format("%-80s", showDescription));
     }
+
 
     public static void printPerformanceHeading(String headingText){
 
@@ -92,6 +93,15 @@ public class StaticPrinter {
         System.out.println(String.format("%-80s", headingText));
         System.out.println(String.format("%-80s", "------------------------------------------------------------------------------------------"));
 
+    }
+
+
+    public static void printPerformanceDetails(String description, String liveMusic, String language){
+
+        System.out.println(String.format("%-80s", description));
+        System.out.println(String.format("%-80s", "(" + language +  ")"));
+        System.out.println(String.format("%-80s", "Live music: " + liveMusic));
+        System.out.println(String.format("%-80s", "Number of tickets available: TBC"));
     }
 
     public static void printChooseSeatsHeading(int numberOfAvailableSeats){

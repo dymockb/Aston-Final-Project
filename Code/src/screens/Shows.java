@@ -63,7 +63,7 @@ public class Shows extends Screen {
                     user.setEventName(showName);
                     user.setSearchResultSet(rs); 
                     user.setIDValueForNextSearch(showID);
-                    nextScreen = "single-show";
+                    nextScreen = "view-show";
                     //user.newScreenRequest("single-show");
 
                 } else {

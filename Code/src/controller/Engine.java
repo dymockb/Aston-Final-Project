@@ -19,9 +19,9 @@ import superclass.Screen;
 import screens.Home;
 import screens.Search;
 import screens.Shows;
-import screens.SingleShow;
+import screens.ViewShow;
 import screens.Performances;
-import screens.BookPerformance;
+import screens.ViewPerformance;
 import screens.BasketScreen;
 
 public class Engine {
@@ -160,7 +160,7 @@ public class Engine {
 	    newScreen.registerUser(user);
 		user.addScreen(newScreen);
 
-		newScreen = new SingleShow("single-show", inputParser, db);
+		newScreen = new ViewShow("view-show", inputParser, db);
 	    newScreen.registerUser(user);
 		user.addScreen(newScreen);
 
@@ -168,7 +168,7 @@ public class Engine {
 	    newScreen.registerUser(user);
 		user.addScreen(newScreen);
 
-		newScreen = new BookPerformance("book-performance", inputParser, db);
+		newScreen = new ViewPerformance("view-performance", inputParser, db);
 	    newScreen.registerUser(user);
 		user.addScreen(newScreen);
 

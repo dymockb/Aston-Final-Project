@@ -11,11 +11,11 @@ import model.Performance;
 import model.Booking;
 import util.StaticPrinter;
 
-public class BookPerformance extends Screen {
+public class ViewPerformance extends Screen {
 
     private Performance performance;
 
-    public BookPerformance (String screenName, Parser parser, DBConnector db){
+    public ViewPerformance (String screenName, Parser parser, DBConnector db){
         super(screenName, parser, db);
     
     }
@@ -28,13 +28,17 @@ public class BookPerformance extends Screen {
         String showName = performanceDetails.get("ShowName");
         String performanceTime = performanceDetails.get("ShowDateTime");
         String performanceTitle = showName + " " + performanceTime;
+        String description = performanceDetails.get("ShowDescription");
+        String language = performanceDetails.get("LangugeName");
+        String liveMusic = performanceDetails.get("Performaner");
         
         StaticPrinter.printPerformanceHeading(performanceTitle);
-        System.out.println(performance.getPerformanceDetails());
+        StaticPrinter.printPerformanceDetails(description, liveMusic, language);
+        //System.out.println(performance.getPerformanceDetails());
 
+        System.out.println("");
         System.out.println("Available commands:");
         System.out.println("b - Book tickets for this performance");
-        System.out.println("");
         System.out.println("n - New search");
         System.out.println("h - return to home screen");
         displayBasketStatus();

@@ -83,9 +83,8 @@ public class Table {
                 System.out.println("Navigation options:");
                 System.out.println("f - Forward");
                 System.out.println("r - Return to top of results");
-                System.out.println("");
-                System.out.println("Available commands:");
                 System.out.println("n - New search");
+                System.out.println("");                
                 StaticPrinter.printTableRowSelectionMsg(isBookingTable);
                 
                 
