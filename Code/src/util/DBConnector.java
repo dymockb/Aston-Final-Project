@@ -17,9 +17,11 @@ public class DBConnector {
 		try {
 
 			ArrayList<Boolean> switches = new ArrayList<Boolean>();
-			String username = parser.getInput("username", "database", switches);
-			String password = parser.getInput("password", "database", switches);
+			//String username = parser.getInput("username", "database", switches);
+			//String password = parser.getInput("password", "database", switches);
 			
+			String username = "pi";
+			String password = "raspberry";
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/",username, password);			
 
 		} catch (SQLException e) {
