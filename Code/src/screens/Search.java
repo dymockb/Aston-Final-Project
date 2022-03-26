@@ -58,9 +58,20 @@ public class Search extends Screen {
                 userInput = parser.getInputForMenu();
 
 
-                if(userInput.equals("k")){
+                if (userInput.equals("k")){
                     System.out.println("keyword search tbc");
                     gettingInput = false;
+                } else if (userInput.equals("d")){
+                    
+                    System.out.println("Please enter a start date for the search range (dd-mm-yy):");
+                    String startDate = parser.getInputForMenu();
+
+                    System.out.println("Please enter an end date for the search range (dd-mm-yy):");
+                    String endDate = parser.getInputForMenu();
+
+                    System.out.println("Now run a search for PERFORMANCES between " + startDate + " and " + endDate);
+                    
+
                 } else if (userInput.equals("n")){
                     gettingInput = false;
 
@@ -92,18 +103,13 @@ public class Search extends Screen {
                     nextScreen = "shows-screen";
                     //user.newScreenRequest("shows-screen");
 
-                } else if (userInput.equals("d")){
-                    
-                    System.out.println("Please enter a start date for the search range (dd-mm-yy):");
-                    String startDate = parser.getInputForMenu();
+                } else if (userInput.equals("g")){
+                    //user.setAdminStatus(false);
+                    gettingInput = false;
+                    nextScreen = "basket-screen";
 
-                    System.out.println("Please enter an end date for the search range (dd-mm-yy):");
-                    String endDate = parser.getInputForMenu();
-
-                    System.out.println("Now run a search for PERFORMANCES between " + startDate + " and " + endDate);
-                    
-
-                } else if (userInput.equals("h")){
+                    //user.newScreenRequest("home-screen");
+                 } else if (userInput.equals("h")){
                     //user.setAdminStatus(false);
                     gettingInput = false;
 

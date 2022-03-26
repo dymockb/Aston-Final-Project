@@ -26,10 +26,16 @@ public class SingleShow extends Screen {
 
 
         String showName = showDetails.get("ShowName");
+        String typeOfShow = showDetails.get("TypeOfShowID");
+        String liveMusic = showDetails.get("LiveMusicID");
+        String duration = showDetails.get("Duration");
+        String showDescription = showDetails.get("ShowDescription");
+        String ticketPrice = showDetails.get("PriceID");
 
         StaticPrinter.printShowHeading(showName);
-        System.out.println(show.getShowDetails());
-
+        StaticPrinter.printShowDetails(showName, typeOfShow, liveMusic, duration, showDescription, ticketPrice);
+        //System.out.println(show.getShowDetails());
+        System.out.println("");
         System.out.println("Available commands:");
         System.out.println("v - view performance dates");
         System.out.println("b - back to search results");

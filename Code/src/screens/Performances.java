@@ -6,6 +6,7 @@ import superclass.SearchDB;
 
 import java.util.NoSuchElementException;
 import java.sql.*;
+import java.util.HashMap;
 import model.Table;
 import util.IsInteger;
 
@@ -20,11 +21,13 @@ public class Performances extends Screen {
 
         rs = user.getSearchResultSet();
 
-        //String eventName = getEventName(user.getIDValueForNextSearch());
         String tableName = "All Performances";
         String eventName = user.getEventName();
         String orderedBy = "Date";
-        Table performancesTable = new Table(rs, parser, eventName, tableName, orderedBy, true);
+
+        HashMap<String, String> columnNames = new HashMap<String, String>();
+
+        Table performancesTable = new Table(rs, parser, eventName, tableName, orderedBy, columnNames, true);
 
         Boolean browsing = true;
         Boolean hideRows = false;
@@ -72,8 +75,9 @@ public class Performances extends Screen {
         
                 }
 
-            } else if (userInput.equals("h")) {
+            } else if (userInput.equals("n")) {
                 browsing = false;
+                nextScreen = "search-screen";
                 //user.newScreenRequest("home-screen");
 
             } else {

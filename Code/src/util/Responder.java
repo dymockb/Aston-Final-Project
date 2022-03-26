@@ -31,7 +31,7 @@ public class Responder
         
         if (request.equals("password")){
 
-            System.out.println("Please enter your " + keyword + " username: ");
+            System.out.println("Please enter your " + keyword + " password: ");
             System.out.print("> ");  
 
         } 

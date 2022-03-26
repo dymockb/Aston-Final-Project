@@ -4,6 +4,7 @@ import java.sql.*;
 import util.ScreenPrinter;
 import util.Parser;
 import java.util.ArrayList;
+import java.util.HashMap;
 import util.StaticPrinter;
 
 public class Table {
@@ -12,6 +13,7 @@ public class Table {
     private String tableName;
     private String orderedBy;
     private Boolean isBookingTable;
+    private HashMap<String, String> columnNames;
 
     private ResultSet rs;
     private ResultSetMetaData rsmd;
@@ -30,13 +32,14 @@ public class Table {
  
     ArrayList<Boolean> switches = new ArrayList<Boolean>();
 
-    public Table(ResultSet rs, Parser parser, String eventName, String tableName, String orderedBy, Boolean isBookingTable){
+    public Table(ResultSet rs, Parser parser, String eventName, String tableName, String orderedBy, HashMap<String, String> columnNames, Boolean isBookingTable){
 
         this.rs = rs;
         this.parser = parser;
         this.tableName = tableName;
         this.eventName = eventName;
         this.orderedBy = orderedBy;
+        this.columnNames = columnNames;
         this.isBookingTable = isBookingTable;
 
 
@@ -107,40 +110,9 @@ public class Table {
                 } else {
                     return userInput;
                 } 
-                        
-                        /**
-                        else if (IsInteger.checkString(userInput)){
-
-                            return userInput;
-                             
-                                
-                            selectedRow = Integer.parseInt(userInput);                       
-    
-                            if (selectedRow <= numberOfRows){
-    
-                                System.out.println("Row " + selectedRow + " selected.");
-    
-                                selectedRowNumber = Integer.parseInt(getFirstCellofSelectedRowInResultSet());
-                                browsingTable = false;
-                            /** 
-                            } else {
-    
-                                printer.rowSelectionNotAvailableMessage();
-    
-                            }
                             
-    
-                        } else {
-    
-                            printer.invalidCommand();
-                            hideRows = true;
-    
-                        }
-                        */
-    
             }  
             
-            //return selectedRowNumber;
             return userInput;
             
 
@@ -163,10 +135,8 @@ public class Table {
 
     private void printTitle(){
 
-        //printer.printTableTitle(tableName, startingRow, endingRow, numberOfRows);
         int adjStartingRow = numberOfRows == 0 ? 0 : startingRow + 1;
         String titleText = eventName + ": " + tableName + " - " + (adjStartingRow) + " to " + endingRow + " out of " + numberOfRows + ", ordered by " + orderedBy;
-        //System.out.print(eventName + ": " + tableName + " - " + (adjStartingRow) + " to " + endingRow + " out of " + numberOfRows + ", orderd by " + orderedBy);
         StaticPrinter.printTableHeading(titleText);
 
     }
@@ -178,11 +148,12 @@ public class Table {
             int cols = rsmd.getColumnCount();
             printer.printDivider();
             printer.printColDivider();
-            printer.printIndexCell(" # ");		
+            printer.printIndexCell("#");		
             for (int i = 1; i <= cols; i ++){
-                printer.printColDivider();
                 if(!rsmd.getColumnName(i).equals("ID")){
-                    printer.printCell(rsmd.getColumnName(i));
+                    printer.printColDivider();
+                    String heading = columnNames.get(rsmd.getColumnName(i)) != null ? columnNames.get(rsmd.getColumnName(i)) : rsmd.getColumnName(i);
+                    printer.printCell(heading, 16);
                 }
                 if(rsmd.getColumnName(i).equals("ID")){
                     columnToHide = i;
@@ -190,7 +161,7 @@ public class Table {
                 
 
             }
-            printer.printColDivider();
+            printer.printLastColDivider();
             printer.printDivider();
             
         } catch (SQLException e) {
@@ -228,21 +199,22 @@ public class Table {
             printer.printIndexCell(String.valueOf(rs.getRow()));
             
             for (int i = 1; i <= numberOfCols; i ++){
-                printer.printColDivider();
+               
                 if (i != columnToHide){
-                    printer.printCell(rs.getString(i));
+                    printer.printColDivider();
+                    printer.printCell(rs.getString(i), 16);
                 }
 
             }
-            printer.printColDivider();
-            if (rs.getRow() != endingRow ){
-                printer.printEmptyRow();
+            printer.printLastColDivider();
+            if (rs.getRow() == endingRow ){
+                printer.printDivider();
             }
 
 
         }
 
-        printer.printDivider();
+        //printer.printDivider();
 
         } catch (SQLException e) {
 			e.printStackTrace();

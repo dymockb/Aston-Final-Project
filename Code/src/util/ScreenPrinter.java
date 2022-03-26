@@ -42,6 +42,10 @@ public class ScreenPrinter {
 		System.out.print("| ");
 	}
 
+	public void printLastColDivider(){
+		System.out.print("|\n");
+	}
+
 	public void printEmptyRow(){
 		//System.out.println("\n+-----------------");
 		System.out.println("\n");
@@ -49,14 +53,12 @@ public class ScreenPrinter {
 	}
 
 	public void printDivider(){
-		//System.out.println("\n+-----------------");
-		//System.out.println("\n");
-        System.out.println(String.format("%-80s", "\n------------------------------------------------------------------------------------------"));
+        System.out.println(String.format("%-80s", "------------------------------------------------------------------------------------------"));
 	}
 
-	public void printCell(String contents){
+	public void printCell(String contents, int cellWidth){
 
-		System.out.print(createSubString(12, contents));
+		System.out.print(createSubString(cellWidth, contents));
 
 	}
 
@@ -84,48 +86,6 @@ public class ScreenPrinter {
 
     }
 
-	/** 
-
-	public void printTableData(ResultSet rs, int startingRow, int numberOfRows, int numberOfCols){
-
-
-		try {
-
-			rs.beforeFirst();
-
-			if ( !(startingRow == rs.getRow()) ){
-
-				while (rs.next()) {
-					if(startingRow == rs.getRow()){			
-						break;
-					}			   
-				}
-			} 
-
-			while (rs.next() && startingRow < numberOfRows) {
-
-				System.out.print("| ");
-				System.out.print(createSubString("" + rs.getRow()));
-
-				for (int i = 1; i <= numberOfCols; i ++){
-					System.out.print("| ");
-					System.out.print(createSubString(rs.getString(i)));
-				}
-				System.out.println(" |");	
-				startingRow ++;
-			}	
-
-			System.out.println("+-----------------");
-
-		} catch (SQLException e) {
-
-			e.printStackTrace();
-
-		}
-	}
-
-	 */
-
 	public void rowSelectionNotAvailableMessage(){
 		System.out.println("That selection is not available please try again.");
 	}
@@ -137,8 +97,8 @@ public class ScreenPrinter {
 	public String createSubString(int cellWidth, String text){
 		if (text == null){
 			return String.format("%-" + cellWidth + "s", "");
-		} else if (text.length() >= 9){
-			return String.format("%-" + cellWidth + "s", text.substring(0,9) + "...");
+		} else if (text.length() >= cellWidth-3){
+			return String.format("%-" + cellWidth + "s", text.substring(0,cellWidth-3) + "...");
 		} else {
 			return String.format("%-" + cellWidth + "s", text);			
 		}

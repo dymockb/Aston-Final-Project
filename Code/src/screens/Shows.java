@@ -7,6 +7,7 @@ import java.util.NoSuchElementException;
 
 import util.IsInteger;
 import java.sql.*;
+import java.util.HashMap;
 import model.Table;
 
 
@@ -23,7 +24,13 @@ public class Shows extends Screen {
         String tableName = "All Shows";
         String eventName = "Theatre Royal";
         String orderedBy = "Name";
-        Table showsTable = new Table(rs, parser, eventName, tableName, orderedBy, false);
+
+        HashMap<String, String> columnNames = new HashMap<String, String>();
+        columnNames.put("ShowName", "Title");
+        columnNames.put("ShowDescription", "Description");
+        columnNames.put("TypeName", "Category");
+        
+        Table showsTable = new Table(rs, parser, eventName, tableName, orderedBy, columnNames, false);
 
         Boolean browsing = true;
         Boolean hideTable = false;
