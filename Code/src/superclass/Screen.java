@@ -47,7 +47,8 @@ public abstract class Screen {
     }
 
     public void displayBasketStatus(){
-        System.out.println("You currently have " + user.getBasket().getNumberOfTicketsInBasket() + " ticket(s) in your basket.");
+        StaticPrinter.printBasketFooter(user.getBasket().getNumberOfTicketsInBasket());
+        //System.out.println("You currently have " + user.getBasket().getNumberOfTicketsInBasket() + " ticket(s) in your basket.");
     }
 
     public void registerUser(User user){

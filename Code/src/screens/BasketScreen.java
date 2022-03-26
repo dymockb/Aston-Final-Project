@@ -23,15 +23,20 @@ public class BasketScreen extends Screen {
         basket = user.getBasket();
         int numberOfTicketsInBasket = basket.displayBasket();
         if(numberOfTicketsInBasket > 0 ){
+            System.out.println("Available commands:");
             System.out.println("c - Checkout");
             System.out.println("s - Search for shows and buy tickets");
+            System.out.println("h - Home screen");
             String userInput = parser.getInputForMenu();
             if(userInput.equals("c")){
                 basket.startCheckout();
             } else if (userInput.equals("s")){
-                user.newScreenRequest("search-screen");
+                nextScreen = "search-screen";
+            } else if (userInput.equals("h")){
+                nextScreen = "home-screen";
             }
         } else {
+            System.out.println("Available commands:");
             System.out.println("s - Search for shows and buy tickets");
             System.out.println("h - Home screen");
             String userInput = parser.getInputForMenu();

@@ -44,11 +44,11 @@ public class Shows extends Screen {
 
                     browsing = false;
         
-                    System.out.println("Row " + selectedRowInt + " selected.");
+                    //System.out.println("Row " + selectedRowInt + " selected.");
         
                     int showID = Integer.parseInt(showsTable.getFirstCellofSelectedRowInResultSet(selectedRowInt));
                     
-                    System.out.println("ShowID selected: " + showID);
+                    //System.out.println("ShowID selected: " + showID);
                     String showName = getEventName(showID);
 
                     rs = db.runQuery(user.getSqlQueries().get("get-show-by-ID") + showID + ";");  

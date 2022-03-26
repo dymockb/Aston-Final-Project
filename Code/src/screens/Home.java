@@ -4,6 +4,7 @@ import java.util.NoSuchElementException;
 import superclass.Screen;
 import util.DBConnector;
 import util.Parser;
+import util.StaticPrinter;
 import superclass.SearchDB;
 
 public class Home extends Screen {
@@ -30,17 +31,21 @@ public class Home extends Screen {
 
         while(gettingInput){
 
+            StaticPrinter.printHomeScreenHeading();
+
             System.out.println("Main menu - available commands:");
-            System.out.println("b - browse shows and book tickets");
-            displayBasketStatus();
+            System.out.println("s - Search for shows and buy tickets");
             System.out.println("g - go to basket");
             displayLoginLogout(); // l - login  / logout
             System.out.println("q - quit");
+            displayBasketStatus();
+            //StaticPrinter.printLoginFooter();
+
 
             try {
                 userInput = parser.getInputForMenu();
 
-                if(userInput.equals("b")){
+                if(userInput.equals("s")){
 
                     gettingInput = false;
                     nextScreen = "search-screen";

@@ -3,6 +3,7 @@ import superclass.Screen;
 import util.DBConnector;
 import util.Parser;
 import superclass.SearchDB;
+import java.util.HashMap;
 
 import java.util.NoSuchElementException;
 
@@ -21,14 +22,22 @@ public class BookPerformance extends Screen {
 
     public void displayScreen() throws NoSuchElementException {
 
-        Performance performance = new Performance(user.getSearchResultSet());
+        performance = new Performance(user.getSearchResultSet());
 
+        HashMap<String, String> performanceDetails = performance.getPerformanceDetails();
+        String showName = performanceDetails.get("ShowName");
+        String performanceTime = performanceDetails.get("ShowDateTime");
+        String performanceTitle = showName + " " + performanceTime;
+        
+        StaticPrinter.printPerformanceHeading(performanceTitle);
         System.out.println(performance.getPerformanceDetails());
 
+        System.out.println("Available commands:");
         System.out.println("b - Book tickets for this performance");
-        displayBasketStatus();
+        System.out.println("");
         System.out.println("n - New search");
         System.out.println("h - return to home screen");
+        displayBasketStatus();
         
 
         Boolean viewingPerformance = true;
@@ -43,7 +52,6 @@ public class BookPerformance extends Screen {
                 if (userInput.equals("b")){
                     viewingPerformance = false;
 
-                    System.out.println("start booking process");
                     Booking booking = new Booking(user, performance, parser);
                     
                     String seatingAreaSelected = booking.startBooking();
@@ -56,13 +64,14 @@ public class BookPerformance extends Screen {
                                                   
                         } else {
                             
-                            System.out.println("User did not added tickets to basket");
+                            System.out.println("User added tickets but did not checkout");
                             //return to user to homescreen 
-                            nextScreen = "book-performance";           
+                            //nextScreen = "book-performance";           
                         }
 
                     } else if (seatingAreaSelected.equals("r")){
                         System.out.println("return to peformance tbc");
+                        nextScreen = "book-performance"; 
                     }
                     
                     

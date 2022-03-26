@@ -40,8 +40,8 @@ public class User {
         isLoggedIn = false;      
     }
 
-    public void setBasketParser(Parser inputParser){
-        basket = new Basket(inputParser);
+    public void initialiseBasket(Parser inputParser){
+        basket = new Basket(inputParser, sqlQueries);
     }
 
     public void start(){

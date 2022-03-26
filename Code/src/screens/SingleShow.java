@@ -3,6 +3,7 @@ import superclass.Screen;
 import util.DBConnector;
 import util.Parser;
 import superclass.SearchDB;
+import java.util.HashMap;
 
 import java.util.NoSuchElementException;
 
@@ -21,10 +22,16 @@ public class SingleShow extends Screen {
     public void displayScreen() throws NoSuchElementException {
 
         show = new Show(user.getSearchResultSet());
+        HashMap<String, String> showDetails = show.getShowDetails();
 
+
+        String showName = showDetails.get("ShowName");
+
+        StaticPrinter.printShowHeading(showName);
         System.out.println(show.getShowDetails());
 
-        System.out.println("v - view performances");
+        System.out.println("Available commands:");
+        System.out.println("v - view performance dates");
         System.out.println("b - back to search results");
         System.out.println("h - return to home screen");
         displayBasketStatus();

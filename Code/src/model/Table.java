@@ -75,12 +75,17 @@ public class Table {
 
                 hideTable = false;
 
-                StaticPrinter.printTableRowSelectionMsg(isBookingTable);
+                
                 //System.out.println("Please select a row number to view more details.");
                 System.out.println("Navigation options:");
                 System.out.println("f - Forward");
                 System.out.println("r - Return to top of results");
+                System.out.println("");
+                System.out.println("Available commands:");
                 System.out.println("n - New search");
+                StaticPrinter.printTableRowSelectionMsg(isBookingTable);
+                
+                
 
                 userInput = parser.getInputForMenu();
     
@@ -160,7 +165,9 @@ public class Table {
 
         //printer.printTableTitle(tableName, startingRow, endingRow, numberOfRows);
         int adjStartingRow = numberOfRows == 0 ? 0 : startingRow + 1;
-        System.out.print(eventName + ": " + tableName + " - " + (adjStartingRow) + " to " + endingRow + " out of " + numberOfRows + ", orderd by " + orderedBy);
+        String titleText = eventName + ": " + tableName + " - " + (adjStartingRow) + " to " + endingRow + " out of " + numberOfRows + ", ordered by " + orderedBy;
+        //System.out.print(eventName + ": " + tableName + " - " + (adjStartingRow) + " to " + endingRow + " out of " + numberOfRows + ", orderd by " + orderedBy);
+        StaticPrinter.printTableHeading(titleText);
 
     }
 
@@ -228,9 +235,14 @@ public class Table {
 
             }
             printer.printColDivider();
-            printer.printDivider();
+            if (rs.getRow() != endingRow ){
+                printer.printEmptyRow();
+            }
+
 
         }
+
+        printer.printDivider();
 
         } catch (SQLException e) {
 			e.printStackTrace();

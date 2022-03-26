@@ -45,11 +45,11 @@ public class Performances extends Screen {
 
                     browsing = false;
         
-                    System.out.println("Row " + selectedRowInt + " selected.");
+                    //System.out.println("Row " + selectedRowInt + " selected.");
         
                     int performanceID = Integer.parseInt(performancesTable.getFirstCellofSelectedRowInResultSet(selectedRowInt));
                     
-                    System.out.println("PerformanceID selected: " + performanceID);
+                    //System.out.println("PerformanceID selected: " + performanceID);
 
                     String stringTemplate = user.getSqlQueries().get("get-performance-by-ID");
                     String searchString = stringTemplate.replace("show-id-from-java", user.getIDValueForNextSearch());

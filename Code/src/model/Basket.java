@@ -1,7 +1,10 @@
 package model;
 
 import util.Parser;
+import util.StaticPrinter;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Basket {
 
@@ -9,9 +12,11 @@ public class Basket {
     private int numberOfShowsInBasket = 0;
     private Parser parser;
     private ArrayList<Ticket> tickets;
+    private HashMap<String, String> sqlQueries;
 
-    public Basket(Parser parser){
+    public Basket(Parser parser, HashMap<String, String> sqlQueries){
         this.parser = parser;
+        this.sqlQueries = sqlQueries;
         tickets = new ArrayList<Ticket>();
     }
 
@@ -24,7 +29,8 @@ public class Basket {
     }
 
     public int displayBasket(){
-        System.out.println("There are " + numberOfTicketsInBasket + "in your basket");
+        StaticPrinter.printBasketHeading(numberOfTicketsInBasket);
+        System.out.println("There are currently " + numberOfTicketsInBasket + " tickets in your basket");
         return numberOfTicketsInBasket;
     }
 
@@ -32,7 +38,10 @@ public class Basket {
 
         numberOfTicketsInBasket++;
 
-        System.out.println("msg from basket. there are " + numberOfTicketsInBasket + " in the basket Would you like to checkout now?");
+        StaticPrinter.printBasketHeading(numberOfTicketsInBasket);
+        System.out.println("There are " + numberOfTicketsInBasket + " ticket(s) in your basket.");
+        System.out.println("The total cost of your basket is £80"); 
+        System.out.println("Would you like to checkout now?");
         System.out.println("y - checkout.");
         System.out.println("n - save basket and search again.");
 
@@ -52,8 +61,6 @@ public class Basket {
 
         Boolean returnValue = false;
 
-        System.out.println("Basket summary. there are " + numberOfTicketsInBasket + " in the basket");
-        System.out.println("Total price: \u00A380" );
         System.out.println("Please enter your card details." );
         String userInput = parser.getInputForMenu();
         if(validateCardDetails(userInput)){

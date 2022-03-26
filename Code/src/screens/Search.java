@@ -8,6 +8,7 @@ import util.DBConnector;
 import util.Parser;
 //import java.sql.*;
 //import model.Table;
+import util.StaticPrinter;
 
 public class Search extends Screen {
 
@@ -37,15 +38,20 @@ public class Search extends Screen {
 
         while(gettingInput){
 
+            StaticPrinter.printSearchScreenHeader();
+
             System.out.println("Search for Shows By:");
             System.out.println("k - Keyword or Name. (not working)");
             System.out.println("d - Date (not working)");
+            System.out.println("");
             System.out.println("Browse Shows By:");
             System.out.println("n - Name");
             System.out.println("c - Category");
-            displayBasketStatus();
+            System.out.println("");
             System.out.println("g - Go to basket.");
-            System.out.println("h - return to Home Screen.");
+            System.out.println("h - Home Screen.");
+            displayBasketStatus();
+
             
 
             try {

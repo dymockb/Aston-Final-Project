@@ -42,8 +42,16 @@ public class ScreenPrinter {
 		System.out.print("| ");
 	}
 
+	public void printEmptyRow(){
+		//System.out.println("\n+-----------------");
+		System.out.println("\n");
+        //System.out.println(String.format("%-80s", "\n------------------------------------------------------------------------------------------"));
+	}
+
 	public void printDivider(){
-		System.out.println("\n+-----------------");
+		//System.out.println("\n+-----------------");
+		//System.out.println("\n");
+        System.out.println(String.format("%-80s", "\n------------------------------------------------------------------------------------------"));
 	}
 
 	public void printCell(String contents){
