@@ -1,3 +1,21 @@
+**** TEST 1 ****
+* browse shows and book tickets
 b
+* browse shows by NAME
 n
-3
+* select a show by row number
+15
+* view performances
+v
+* select a peformance by row number
+1
+* book tickets for the performance
+t
+* book seats in the circle
+c
+* type in the seat numbers
+14,15,16
+* add tickets to the basket
+y
+* checkout
+y

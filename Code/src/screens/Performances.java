@@ -36,7 +36,6 @@ public class Performances extends Screen {
             try{
 
             String userInput = performancesTable.startBrowsing( hideRows, 
-                                                        standardOptions, 
                                                         user.getIsLoggedIn(), 
                                                         user.getCurrentScreenName().equals("home-screen"));
 
@@ -91,13 +90,17 @@ public class Performances extends Screen {
 
                 System.out.println("ERROR - end of test file.");
                 browsing= false;
+                noUserTextFileErrors = false;
             }
 
 
 
         }
-
-        user.newScreenRequest(nextScreen);
+        
+        if(noUserTextFileErrors){
+            user.newScreenRequest(nextScreen);
+        }
+        
 
 
     }

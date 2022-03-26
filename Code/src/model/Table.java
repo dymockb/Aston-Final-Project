@@ -55,7 +55,7 @@ public class Table {
 
     }
 
-    public String startBrowsing(Boolean hideRows, ArrayList<String> standardOptions, Boolean loggedIn, Boolean homescreen) {
+    public String startBrowsing(Boolean hideRows, Boolean loggedIn, Boolean homescreen) {
 
             String userInput;
             numberOfRows = getNumberOfRows();

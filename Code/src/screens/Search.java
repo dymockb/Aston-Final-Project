@@ -39,13 +39,11 @@ public class Search extends Screen {
 
             System.out.println("Search:");
             System.out.println("s - Search for a show by name or keyword. (not working)");
-            System.out.println("");
             System.out.println("Browse:");
             System.out.println("n - Browse shows by ShowName");
             System.out.println("c - Browse shows by TypeName");
             System.out.println("d - Browse shows by DATE.");
             System.out.println("");
-            displayLoginLogout();
             System.out.println("h - return to Home Screen.");
             displayBasketStatus();
 
@@ -113,13 +111,16 @@ public class Search extends Screen {
                 
                 System.out.println("ERROR - end of test file.");
                 gettingInput = false;
+                noUserTextFileErrors = false;
             }
 
 
 
         }
 
-        user.newScreenRequest(nextScreen);
+        if(noUserTextFileErrors){
+            user.newScreenRequest(nextScreen);
+        }
         
 
     }

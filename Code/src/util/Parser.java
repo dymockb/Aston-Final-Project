@@ -65,6 +65,10 @@ public class Parser
         String inputLine = null;
         inputLine = reader.nextLine();
         printInput(inputLine);
+        while(inputLine.startsWith("*")){
+            inputLine = reader.nextLine();
+            printInput(inputLine);
+        }
         return inputLine;
     }
 

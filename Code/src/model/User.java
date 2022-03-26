@@ -30,14 +30,18 @@ public class User {
     private HashMap<String, SearchDB> searchHistory;
     private HashMap<String, Screen> screenHistory;
 
-    public User(HashMap<String, String> sqlQueries, DBConnector db, Parser parser){
+    public User(HashMap<String, String> sqlQueries, DBConnector db){
         this.sqlQueries = sqlQueries;
         this.db = db;
-        basket = new Basket(parser);
+        //basket = new Basket(parser);
         screens = new HashMap<String, Screen>();
         searchHistory = new HashMap<String, SearchDB>();
         navHistory = new History();
         isLoggedIn = false;      
+    }
+
+    public void setBasketParser(Parser inputParser){
+        basket = new Basket(inputParser);
     }
 
     public void start(){
@@ -85,18 +89,6 @@ public class User {
     public void updateNavHistory(int index, SearchDB search, Screen screen){
         navHistory.addToHistory(index, search, screen);
     }
-
-    /** 
-
-    public void setSearchResultsTable(Table searchResultsTable){
-        this.searchResultsTable = searchResultsTable;
-    }
-
-    public Table getSearchResultsTable(){
-        return searchResultsTable;
-    }
-
-    /** */
 
     public void setSearchResultSet(ResultSet rs){
         searchResultSet = rs;

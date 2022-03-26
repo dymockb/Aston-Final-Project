@@ -39,10 +39,10 @@ public class Engine {
 		Engine engine = new Engine();
 
 		//Run from file:
-		//engine.openForBusiness("inputFromFile");
+		engine.openForBusiness("inputFromFile");
 
 		//Run with UserInput:
-		engine.openForBusiness("userInput");
+		//engine.openForBusiness("userInput");
 
 	}
 
@@ -74,7 +74,7 @@ public class Engine {
 		}
 
 		//user = new User(db, printer, sqlQueries);
-		
+		user = new User(sqlQueries, db);
 
 	}
 
@@ -88,9 +88,9 @@ public class Engine {
 			inputParser.addFile("./txt-files/user-input.txt");
 			user.setAutomated(true);
 		} 
-		user = new User(sqlQueries, db, inputParser);
+		
 
-		//user.setInputParser(inputParser);
+		user.setBasketParser(inputParser);
 		addScreens();
 		user.start();
 		inputParser.closeScanner();

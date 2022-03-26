@@ -34,8 +34,7 @@ public class Shows extends Screen {
 
             try{
 
-            String userInput = showsTable.startBrowsing( hideRows, 
-                                                        standardOptions, 
+            String userInput = showsTable.startBrowsing( hideRows,
                                                         user.getIsLoggedIn(), 
                                                         user.getCurrentScreenName().equals("home-screen"));
 
@@ -84,13 +83,16 @@ public class Shows extends Screen {
 
                 System.out.println("ERROR - end of test file.");
                 browsing= false;
+                noUserTextFileErrors = false;
             }
 
 
 
         }
-
-        user.newScreenRequest(nextScreen);
+        if (noUserTextFileErrors){
+            user.newScreenRequest(nextScreen);
+        }
+        
 
 
     }

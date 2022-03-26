@@ -1,6 +1,9 @@
 package model;
 import util.Parser;
 import util.StaticPrinter;
+
+import java.util.NoSuchElementException;
+
 import util.DBConnector;
 
 
@@ -18,7 +21,7 @@ public class Booking {
 
     }
 
-    public Boolean startBooking(){
+    public Boolean startBooking() throws NoSuchElementException {
 
         Boolean bookingInProgress = true;
         Boolean returnValue = false;
@@ -34,6 +37,8 @@ public class Booking {
             System.out.println("Available commands:");
             System.out.println("c - book seats in circle");
             System.out.println("s - book seats in stalls");
+
+            try{
 
             String userInput = parser.getInputForMenu();
 
@@ -122,6 +127,10 @@ public class Booking {
 
             }
 
+        } catch (NoSuchElementException e){
+            bookingInProgress = false;
+        }
+
 
 
         }
@@ -131,7 +140,7 @@ public class Booking {
     }
 
     public void printSummary(){
-        System.out.println("here is a summary of your booking");
+        System.out.println("here is a summary of your booking - END OF PURCHASE CYCLE");
     }
 
     public Boolean checkSeatAvailability(String userInput){

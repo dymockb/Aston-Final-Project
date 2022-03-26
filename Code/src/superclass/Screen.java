@@ -1,8 +1,8 @@
 package superclass;
 import model.User;
-import model.Basket;
+//import model.Basket;
 //import java.util.HashMap;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 
 import util.DBConnector;
 import util.Parser;
@@ -14,7 +14,8 @@ import java.sql.*;
 public abstract class Screen {
 
     //protected HashMap<String, String> options;
-    protected ArrayList<String> standardOptions;
+    //protected ArrayList<String> standardOptions;
+    protected Boolean noUserTextFileErrors;
     protected User user;
     protected String screenName;
     protected Parser parser;
@@ -25,13 +26,15 @@ public abstract class Screen {
 
     public Screen(String screenName, Parser parser, DBConnector db){
 
+        noUserTextFileErrors = true;
+
         this.screenName = screenName;
         this.parser = parser;
         this.db = db;
 
         printer = new ScreenPrinter();
         
-        standardOptions = new ArrayList<String>();
+        //standardOptions = new ArrayList<String>();
         //standardOptions.add("h - return to Home Screen");
         //standardOptions.add("l - login as Admin User");
     

@@ -80,12 +80,15 @@ public class BookPerformance extends Screen {
             } catch (NoSuchElementException e){
                 System.out.println("ERROR - end of test file.");
                 viewingPerformance = false;
+                noUserTextFileErrors = false;
             }
             
 
         }
 
-        user.newScreenRequest(nextScreen);
+        if(noUserTextFileErrors){
+            user.newScreenRequest(nextScreen);
+        }
 
     }
 

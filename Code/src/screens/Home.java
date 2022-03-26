@@ -65,6 +65,7 @@ public class Home extends Screen {
                 
                 System.out.println("ERROR - end of test file.");
                 gettingInput = false;
+                noUserTextFileErrors = false;
             }
 
             //userInput = parser.getInputForMenu();
@@ -75,11 +76,12 @@ public class Home extends Screen {
             System.out.println("Quit");
             //user.newScreenRequest(nextScreen);
         } else {
-            user.newScreenRequest(nextScreen);
+
+            if(noUserTextFileErrors){
+                user.newScreenRequest(nextScreen);
+            }
+
         }
-
-
-        
 
     }
     

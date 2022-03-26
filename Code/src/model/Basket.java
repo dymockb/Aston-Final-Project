@@ -1,16 +1,18 @@
 package model;
 
 import util.Parser;
+import java.util.ArrayList;
 
 public class Basket {
 
     private int numberOfTicketsInBasket = 0;
     private int numberOfShowsInBasket = 0;
     private Parser parser;
-    private Ticket[] tickets;
+    private ArrayList<Ticket> tickets;
 
     public Basket(Parser parser){
         this.parser = parser;
+        tickets = new ArrayList<Ticket>();
     }
 
     public int getNumberOfTicketsInBasket(){
@@ -43,15 +45,47 @@ public class Basket {
 
     public Boolean startCheckout(){
 
+        Boolean returnValue = false;
+
         System.out.println("Basket summary. there are " + numberOfTicketsInBasket + " in the basket");
         System.out.println("Total price: \u00A380" );
-        System.out.println("Please enter your card details. validating payment..." );
-        System.out.println("** add tickets to Database " );
-        System.out.println("Payment confirmed. Clear basket" );
-        numberOfTicketsInBasket = 0;
-        System.out.println("Basket summary. there are " + numberOfTicketsInBasket + " in the basket");
+        System.out.println("Please enter your card details." );
+        String userInput = parser.getInputForMenu();
+        if(validateCardDetails(userInput)){
+            System.out.println("Your card details are confirmed.  Proceed with purchase?");
+            System.out.println("y - purchase tickets");
+            System.out.println("n - cancel purchase");
+            userInput = parser.getInputForMenu();
+            if (userInput.equals("y")){
+                storeTicketPurchaseDetails(tickets);
+                System.out.println("Payment confirmed. Clear basket" );
+                numberOfTicketsInBasket = 0;
+                System.out.println("Basket summary. there are " + numberOfTicketsInBasket + " in the basket");
+                returnValue = true;
+            } else if (userInput.equals("n")){
+                System.out.println("Your purchase has been cancelled");
+                returnValue = false;
+            }
+
+        } else {
+            System.out.println("Card payment error.");
+            returnValue = false;
+        }
+
+        return returnValue;
+
+    }
+
+
+    private Boolean validateCardDetails(String userInput){
+
+        System.out.println("Validating payment...");
         return true;
 
+    }
+
+    private void storeTicketPurchaseDetails(ArrayList<Ticket> tickets){
+        System.out.println("Adding tickets to database");
     }
     
 }

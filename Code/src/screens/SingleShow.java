@@ -74,12 +74,14 @@ public class SingleShow extends Screen {
             } catch (NoSuchElementException e){
                 System.out.println("ERROR - end of test file.");
                 viewingShow = false;
+                noUserTextFileErrors = false;
             }
             
 
         }
-
-        user.newScreenRequest(nextScreen);
+        if(noUserTextFileErrors){
+            user.newScreenRequest(nextScreen);
+        }
 
     }
 
