@@ -23,6 +23,11 @@ public class Basket {
         return numberOfShowsInBasket;
     }
 
+    public int displayBasket(){
+        System.out.println("There are " + numberOfTicketsInBasket + "in your basket");
+        return numberOfTicketsInBasket;
+    }
+
     public Boolean addTickets(String placeholderShouldbeArray){
 
         numberOfTicketsInBasket++;
@@ -37,7 +42,7 @@ public class Basket {
         } else if (userInput.equals("n")){
             return false;
         } else {
-            System.out.println("addtickets method error in basket invalid command");
+            System.out.println("basket.addTickets() method error -  invalid command");
             return false;
         }
 

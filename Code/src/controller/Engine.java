@@ -22,6 +22,7 @@ import screens.Shows;
 import screens.SingleShow;
 import screens.Performances;
 import screens.BookPerformance;
+import screens.BasketScreen;
 
 public class Engine {
 
@@ -85,11 +86,10 @@ public class Engine {
 		addTableData();
 
 		if(inputType.equals("inputFromFile")){
-			inputParser.addFile("./txt-files/user-input.txt");
+			inputParser.addFile("./txt-files/user-input1.txt");
 			user.setAutomated(true);
 		} 
 		
-
 		user.setBasketParser(inputParser);
 		addScreens();
 		user.start();
@@ -169,6 +169,10 @@ public class Engine {
 		user.addScreen(newScreen);
 
 		newScreen = new BookPerformance("book-performance", inputParser, db);
+	    newScreen.registerUser(user);
+		user.addScreen(newScreen);
+
+		newScreen = new BasketScreen("basket-screen", inputParser, db);
 	    newScreen.registerUser(user);
 		user.addScreen(newScreen);
 

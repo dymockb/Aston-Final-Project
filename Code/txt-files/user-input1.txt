@@ -16,10 +16,4 @@ c
 * type in the seat numbers
 14,15,16
 * add tickets to the basket
-y
-* checkout
-y
-* card details
-5467876543213456
-* proceed with purchase
-y
+n

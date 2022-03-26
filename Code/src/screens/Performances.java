@@ -35,9 +35,7 @@ public class Performances extends Screen {
 
             try{
 
-            String userInput = performancesTable.startBrowsing( hideRows, 
-                                                        user.getIsLoggedIn(), 
-                                                        user.getCurrentScreenName().equals("home-screen"));
+            String userInput = performancesTable.startBrowsing(hideRows, user.getIsLoggedIn());
 
             if (IsInteger.checkString(userInput)){
 

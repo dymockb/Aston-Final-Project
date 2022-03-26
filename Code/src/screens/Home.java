@@ -33,6 +33,7 @@ public class Home extends Screen {
             System.out.println("Main menu - available commands:");
             System.out.println("b - browse shows and book tickets");
             displayBasketStatus();
+            System.out.println("g - go to basket");
             displayLoginLogout(); // l - login  / logout
             System.out.println("q - quit");
 
@@ -48,6 +49,12 @@ public class Home extends Screen {
                 } else if (userInput.equals("q")){
     
                     nextScreen = "Quit";
+                    gettingInput = false;
+
+    
+                } else if (userInput.equals("g")){
+    
+                    nextScreen = "basket-screen";
                     gettingInput = false;
 
     

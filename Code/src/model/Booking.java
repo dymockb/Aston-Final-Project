@@ -12,6 +12,9 @@ public class Booking {
     private Performance performance;
     private Parser parser;
     private User user;
+    private String errorMessage;
+    private Boolean bookingComplete;
+    private Boolean basketUpdated;
 
     public Booking(User user, Performance performance, Parser parser){
 
@@ -19,30 +22,41 @@ public class Booking {
         this.parser = parser;
         this.user = user;
 
+        errorMessage = "No errors";
+        bookingComplete = false;  
+        basketUpdated = false;      
+
     }
 
-    public Boolean startBooking() throws NoSuchElementException {
+    public Boolean getBasketUpdated(){
+        return basketUpdated;
+    }
+
+    public String startBooking() throws NoSuchElementException {
 
         Boolean bookingInProgress = true;
         Boolean returnValue = false;
 
         //String nextScreen = "home-screen";
+        System.out.println("starting booking...");
+
+        String seatingAreaChosen = null;
 
         while (bookingInProgress){
-            System.out.println("starting booking...");
 
             System.out.println("Circle: x tickets available - \u00A350");
             System.out.println("Stalls: x tickets avaiable - \u00A340");
 
             System.out.println("Available commands:");
-            System.out.println("c - book seats in circle");
-            System.out.println("s - book seats in stalls");
+            System.out.println("c - Circle - book seats");
+            System.out.println("s - Stalls - book seats");
+            System.out.println("r - return to performance details");
 
             try{
 
-            String userInput = parser.getInputForMenu();
+            seatingAreaChosen = parser.getInputForMenu();
 
-            if(userInput.equals("c")){
+            if(seatingAreaChosen.equals("c")){
 
                 Boolean selectingSeats = true;
                 while(selectingSeats){
@@ -50,7 +64,7 @@ public class Booking {
                     System.out.println("Circle seats available:");
                     System.out.println("14, 15, 16, 17, 22, 87, 88");
                     System.out.println("Please type the seat numbers for your booking (eg: 14,15,16,18):");  
-                    userInput = parser.getInputForMenu(); 
+                    String userInput = parser.getInputForMenu(); 
 
                     //String seatsArray = convertInputToSeatsArray(userInput);
                     String seatsArray = "placeholder";
@@ -65,47 +79,13 @@ public class Booking {
                         if (userInput.equals("y")){
                             
                             System.out.println("Add tickets to basket");
-                            Boolean startCheckout = user.getBasket().addTickets(seatsArray);
-                            
-                            if(startCheckout){
-                                Boolean success = user.getBasket().startCheckout();
-                                if (success){
-                                    selectingSeats = false;
-                                    bookingInProgress = false;
-                                    returnValue = true;
-                                } else {
-                                    System.out.println("Sorry there was an error - your booking was not completed.");
-                                    System.out.println("n - new search.");
-                                    System.out.println("b - view basket.");
-                                    System.out.println("h - return to home screen.");
-                                    userInput = parser.getInputForMenu();
-                                    if (userInput.equals("h")){
-                                        selectingSeats = false;
-                                        bookingInProgress = false;
-                                    }
-                                }
-                            } else {
-                                System.out.println("your basket has been updated.");
-                                System.out.println("n - new search.");
-                                System.out.println("b - view basket.");
-                                System.out.println("h - return to home screen.");
-                                userInput = parser.getInputForMenu();
-                                if (userInput.equals("h")){
-                                    selectingSeats = false;
-                                    bookingInProgress = false;
-                                }
-                            }
+                            basketUpdated = user.getBasket().addTickets(seatsArray);
+                            selectingSeats = false;
+                            bookingInProgress = false;
 
                         } else if (userInput.equals("n")){
-                            System.out.println("your basket has not been updated.");
-                            System.out.println("n - new search.");
-                            System.out.println("b - view basket.");
-                            System.out.println("h - return to home screen.");
-                            userInput = parser.getInputForMenu();
-                            if (userInput.equals("h")){
-                                selectingSeats = false;
-                                bookingInProgress = false;
-                            }
+                            selectingSeats = false;
+                            bookingInProgress = false;
 
                         } else {
                             StaticPrinter.invalidCommand();
@@ -118,12 +98,12 @@ public class Booking {
 
                 }
 
-            } else if (userInput.equals("s")){
+            } else if (seatingAreaChosen.equals("s")){
 
                 System.out.println("Stalls seats available:");
                 System.out.println("14, 15, 16, 17, 22, 87, 88");
                 System.out.println("Please type the seat numbers for your booking (eg: 14,15,16,18):");  
-                userInput = parser.getInputForMenu(); 
+                String userInput = parser.getInputForMenu(); 
 
             }
 
@@ -135,7 +115,21 @@ public class Booking {
 
         }
 
-        return returnValue;
+        return seatingAreaChosen;
+
+    }
+
+    public void startCheckout(){
+
+        Boolean success = user.getBasket().startCheckout();
+        if (success){
+            
+            //returnValue = true;
+        } else {
+            System.out.println("Sorry there was an error - your booking was not completed.");
+            
+        }
+
 
     }
 

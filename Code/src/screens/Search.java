@@ -37,22 +37,23 @@ public class Search extends Screen {
 
         while(gettingInput){
 
-            System.out.println("Search:");
-            System.out.println("s - Search for a show by name or keyword. (not working)");
-            System.out.println("Browse:");
-            System.out.println("n - Browse shows by ShowName");
-            System.out.println("c - Browse shows by TypeName");
-            System.out.println("d - Browse shows by DATE.");
-            System.out.println("");
-            System.out.println("h - return to Home Screen.");
+            System.out.println("Search for Shows By:");
+            System.out.println("k - Keyword or Name. (not working)");
+            System.out.println("d - Date (not working)");
+            System.out.println("Browse Shows By:");
+            System.out.println("n - Name");
+            System.out.println("c - Category");
             displayBasketStatus();
+            System.out.println("g - Go to basket.");
+            System.out.println("h - return to Home Screen.");
+            
 
             try {
                 userInput = parser.getInputForMenu();
 
 
-                if(userInput.equals("s")){
-                    System.out.println("keyword searchh tbc");
+                if(userInput.equals("k")){
+                    System.out.println("keyword search tbc");
                     gettingInput = false;
                 } else if (userInput.equals("n")){
                     gettingInput = false;

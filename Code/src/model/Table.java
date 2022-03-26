@@ -55,7 +55,7 @@ public class Table {
 
     }
 
-    public String startBrowsing(Boolean hideRows, Boolean loggedIn, Boolean homescreen) {
+    public String startBrowsing(Boolean hideTable, Boolean loggedIn) {
 
             String userInput;
             numberOfRows = getNumberOfRows();
@@ -69,39 +69,39 @@ public class Table {
 
                 //PRINT THE TABLE
 
-                if(!hideRows){
+                if(!hideTable){
                     printTable();
                 }
 
-                hideRows = false;
+                hideTable = false;
 
                 StaticPrinter.printTableRowSelectionMsg(isBookingTable);
                 //System.out.println("Please select a row number to view more details.");
                 System.out.println("Navigation options:");
-                System.out.println("f - go forward");
-                System.out.println("r - return to top of results");
-                System.out.println("h - return to home");
+                System.out.println("f - Forward");
+                System.out.println("r - Return to top of results");
+                System.out.println("n - New search");
 
                 userInput = parser.getInputForMenu();
     
-                        if (userInput.equals("r")){
-    
-                            startingRow = 0;
-                            switches.set(0, false);
-    
-                        } else if (userInput.equals("f")){
-    
-                            if (startingRow + rowsToDisplay < numberOfRows){
-                                startingRow += rowsToDisplay;           
-                            }
-    
-                            if (startingRow + rowsToDisplay >= numberOfRows){
-                                switches.set(0, true);
-                            }
-    
-                        } else {
-                            return userInput;
-                        } 
+                if (userInput.equals("r")){
+
+                    startingRow = 0;
+                    switches.set(0, false);
+
+                } else if (userInput.equals("f")){
+
+                    if (startingRow + rowsToDisplay < numberOfRows){
+                        startingRow += rowsToDisplay;           
+                    }
+
+                    if (startingRow + rowsToDisplay >= numberOfRows){
+                        switches.set(0, true);
+                    }
+
+                } else {
+                    return userInput;
+                } 
                         
                         /**
                         else if (IsInteger.checkString(userInput)){

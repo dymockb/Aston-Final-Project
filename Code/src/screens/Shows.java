@@ -26,7 +26,7 @@ public class Shows extends Screen {
         Table showsTable = new Table(rs, parser, eventName, tableName, orderedBy, false);
 
         Boolean browsing = true;
-        Boolean hideRows = false;
+        Boolean hideTable = false;
 
         String nextScreen = "home-screen";
 
@@ -34,9 +34,7 @@ public class Shows extends Screen {
 
             try{
 
-            String userInput = showsTable.startBrowsing( hideRows,
-                                                        user.getIsLoggedIn(), 
-                                                        user.getCurrentScreenName().equals("home-screen"));
+            String userInput = showsTable.startBrowsing(hideTable, user.getIsLoggedIn());
 
             if (IsInteger.checkString(userInput)){
 
@@ -67,14 +65,15 @@ public class Shows extends Screen {
         
                 }
 
-            } else if (userInput.equals("h")) {
+            } else if (userInput.equals("n")) {
                 browsing = false;
+                nextScreen = "search-screen";
                 //user.newScreenRequest("home-screen");
 
             } else {
 
                 printer.invalidCommand(); 
-                hideRows = true;
+                hideTable = true;
 
             }
 

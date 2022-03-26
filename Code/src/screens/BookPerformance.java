@@ -25,10 +25,11 @@ public class BookPerformance extends Screen {
 
         System.out.println(performance.getPerformanceDetails());
 
-        System.out.println("t - book tickets for this performance");
-        System.out.println("b - back to search results");
-        System.out.println("h - return to home screen");
+        System.out.println("b - Book tickets for this performance");
         displayBasketStatus();
+        System.out.println("n - New search");
+        System.out.println("h - return to home screen");
+        
 
         Boolean viewingPerformance = true;
 
@@ -39,39 +40,46 @@ public class BookPerformance extends Screen {
             try {
 
                 String userInput = parser.getInputForMenu();
-                if (userInput.equals("t")){
+                if (userInput.equals("b")){
                     viewingPerformance = false;
 
                     System.out.println("start booking process");
                     Booking booking = new Booking(user, performance, parser);
                     
-                    Boolean bookingComplete = booking.startBooking();
-                    if(bookingComplete){
+                    String seatingAreaSelected = booking.startBooking();
+                    if (seatingAreaSelected.equals("c") || seatingAreaSelected.equals("s")){
+
+                        if(booking.getBasketUpdated()){
                         
-                        System.out.println("thanks for your booking.");
-                        booking.printSummary();
-                        //nextScreen = "home-screen";
-                        
-                    } else {
-                        
-                        System.out.println("Your booking was not completed.  Please start a new search.");
-                        //nextScreen = "home-screen";
-                        
+                            booking.startCheckout();
+                            booking.printSummary();
+                                                  
+                        } else {
+                            
+                            System.out.println("User did not added tickets to basket");
+                            //return to user to homescreen 
+                            nextScreen = "book-performance";           
+                        }
+
+                    } else if (seatingAreaSelected.equals("r")){
+                        System.out.println("return to peformance tbc");
                     }
+                    
                     
 
 
 
                 } else if (userInput.equals("h")) {
                     viewingPerformance = false;
-                    //user.newScreenRequest("home-screen");
-                }else if (userInput.equals("b")) {
+                    
+                }else if (userInput.equals("n")) {
                     viewingPerformance = false;
     
-                    rs = user.getSearchHistory().get(user.getPreviousSearch()).runSearch();
-                    user.setSearchResultSet(rs);
-                    nextScreen = "shows-screen";
-                   // user.newScreenRequest("shows-screen");
+                    //rs = user.getSearchHistory().get(user.getPreviousSearch()).runSearch();
+                    //user.setSearchResultSet(rs);
+                    //nextScreen = "shows-screen";
+                    
+                    nextScreen = "search-screen";
                     
                 } else {
                     StaticPrinter.invalidCommand();
