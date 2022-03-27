@@ -2,7 +2,6 @@ package screens;
 import superclass.Screen;
 import util.DBConnector;
 import util.Parser;
-import superclass.SearchDB;
 import java.util.HashMap;
 
 import java.util.NoSuchElementException;

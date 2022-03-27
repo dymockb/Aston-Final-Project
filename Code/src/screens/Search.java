@@ -78,14 +78,13 @@ public class Search extends Screen {
                     
                     String searchString = user.getSqlQueries().get("browse-shows") + "ORDER BY ShowName;";
                     SearchDB allShowsByName = new SearchDB(searchString, db) ;
-                    user.saveNewSearch("all-shows-by-name", allShowsByName);
+                    //user.saveNewSearch("all-shows-by-name", allShowsByName);
                     user.setPreviousSearch("all-shows-by-name");
 
                     rs = allShowsByName.runSearch();
 
                     user.setSearchResultSet(rs);
                     nextScreen = "shows-screen";
-                    //user.newScreenRequest("shows-screen");
                      
 
                 } else if (userInput.equals("c")){
@@ -94,7 +93,7 @@ public class Search extends Screen {
 
                     String searchString = user.getSqlQueries().get("browse-shows") + "ORDER BY TypeName;";
                     SearchDB allShowsByName = new SearchDB(searchString, db) ;
-                    user.saveNewSearch("all-shows-by-typeName", allShowsByName);
+                    //user.saveNewSearch("all-shows-by-typeName", allShowsByName);
                     user.setPreviousSearch("all-shows-by-TypeName");
 
                     rs = allShowsByName.runSearch();

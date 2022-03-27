@@ -5,7 +5,6 @@ import superclass.Screen;
 import util.DBConnector;
 import util.Parser;
 import util.StaticPrinter;
-import superclass.SearchDB;
 
 public class Home extends Screen {
 

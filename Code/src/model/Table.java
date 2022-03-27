@@ -28,11 +28,12 @@ public class Table {
     private int startingRow;
     private int endingRow;
 
-    private int columnToHide;
+    private ArrayList<String> columnsToHide;
+    private ArrayList<Integer> idxOfColumnsToHide;
  
     ArrayList<Boolean> switches = new ArrayList<Boolean>();
 
-    public Table(ResultSet rs, Parser parser, String eventName, String tableName, String orderedBy, HashMap<String, String> columnNames, Boolean isBookingTable){
+    public Table(ResultSet rs, Parser parser, String eventName, String tableName, String orderedBy, HashMap<String, String> columnNames, ArrayList<String> columnsToHide, Boolean isBookingTable){
 
         this.rs = rs;
         this.parser = parser;
@@ -40,8 +41,10 @@ public class Table {
         this.eventName = eventName;
         this.orderedBy = orderedBy;
         this.columnNames = columnNames;
+        this.columnsToHide = columnsToHide;
         this.isBookingTable = isBookingTable;
 
+        idxOfColumnsToHide = new ArrayList<Integer>();
 
         printer = new ScreenPrinter();
         switches.add(false);
@@ -149,13 +152,13 @@ public class Table {
             printer.printColDivider();
             printer.printIndexCell("#");		
             for (int i = 1; i <= cols; i ++){
-                if(!rsmd.getColumnName(i).equals("ID")){
+                if(!columnsToHide.contains(rsmd.getColumnName(i))){
                     printer.printColDivider();
                     String heading = columnNames.get(rsmd.getColumnName(i)) != null ? columnNames.get(rsmd.getColumnName(i)) : rsmd.getColumnName(i);
                     printer.printCell(heading, 16);
                 }
-                if(rsmd.getColumnName(i).equals("ID")){
-                    columnToHide = i;
+                if(columnsToHide.contains(rsmd.getColumnName(i))){
+                    idxOfColumnsToHide.add(i);
                 }
                 
 
@@ -199,7 +202,7 @@ public class Table {
             
             for (int i = 1; i <= numberOfCols; i ++){
                
-                if (i != columnToHide){
+                if (!idxOfColumnsToHide.contains(i)){
                     printer.printColDivider();
                     printer.printCell(rs.getString(i), 16);
                 }

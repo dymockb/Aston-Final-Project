@@ -8,6 +8,7 @@ import java.util.NoSuchElementException;
 import util.IsInteger;
 import java.sql.*;
 import java.util.HashMap;
+import java.util.ArrayList;
 import model.Table;
 
 
@@ -30,7 +31,10 @@ public class Shows extends Screen {
         columnNames.put("ShowDescription", "Description");
         columnNames.put("TypeName", "Category");
         
-        Table showsTable = new Table(rs, parser, eventName, tableName, orderedBy, columnNames, false);
+        ArrayList<String> columnsToHide = new ArrayList<String>();
+        columnsToHide.add("ID");
+
+        Table showsTable = new Table(rs, parser, eventName, tableName, orderedBy, columnNames, columnsToHide, false);
 
         Boolean browsing = true;
         Boolean hideTable = false;
@@ -51,20 +55,23 @@ public class Shows extends Screen {
 
                     browsing = false;
         
-                    //System.out.println("Row " + selectedRowInt + " selected.");
-        
                     int showID = Integer.parseInt(showsTable.getFirstCellofSelectedRowInResultSet(selectedRowInt));
                     
-                    //System.out.println("ShowID selected: " + showID);
                     String showName = getEventName(showID);
 
-                    rs = db.runQuery(user.getSqlQueries().get("get-show-by-ID") + showID + ";");  
+                    String searchString = user.getSqlQueries().get("get-show-by-ID") + showID + ";";
+                    rs = db.runQuery(searchString); 
+
+                    //SearchDB allShowsByName = new SearchDB(searchString, db) ;
+                    //searchString = user.getSqlQueries().get("browse-shows") + "ORDER BY ShowName;";
+                    //user.saveNewSearch("all-shows-by-name", allShowsByName);
+
+                    user.setPreviousSearch(user.getSqlQueries().get("browse-shows") + "ORDER BY ShowName;");
 
                     user.setEventName(showName);
-                    user.setSearchResultSet(rs); 
                     user.setIDValueForNextSearch(showID);
+                    user.setSearchResultSet(rs);      
                     nextScreen = "view-show";
-                    //user.newScreenRequest("single-show");
 
                 } else {
         

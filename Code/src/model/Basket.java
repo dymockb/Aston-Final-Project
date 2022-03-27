@@ -21,7 +21,7 @@ public class Basket {
     }
 
     public int getNumberOfTicketsInBasket(){
-        return numberOfTicketsInBasket;
+        return tickets.size();
     }
 
     public double getBasketTotal(){
@@ -71,7 +71,16 @@ public class Basket {
             System.out.println("n - cancel purchase");
             userInput = parser.getInputForMenu();
             if (userInput.equals("y")){
-                storeTicketPurchaseDetails(tickets);
+                
+
+                // LOOP through tickets array and update Reservations table.
+
+
+
+
+
+
+
                 System.out.println("Payment confirmed. Clear basket" );
                 tickets = new ArrayList<Ticket>();
                 basketTotal = 0;
@@ -99,8 +108,6 @@ public class Basket {
 
     }
 
-    private void storeTicketPurchaseDetails(ArrayList<Ticket> tickets){
-        System.out.println("Adding tickets to database");
-    }
+
     
 }

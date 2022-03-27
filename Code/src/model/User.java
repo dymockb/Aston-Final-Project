@@ -27,15 +27,14 @@ public class User {
 
     private History navHistory;
 
-    private HashMap<String, SearchDB> searchHistory;
-    private HashMap<String, Screen> screenHistory;
+    //private HashMap<String, SearchDB> searchHistory;
+    //private HashMap<String, Screen> screenHistory;
 
     public User(HashMap<String, String> sqlQueries, DBConnector db){
         this.sqlQueries = sqlQueries;
         this.db = db;
-        //basket = new Basket(parser);
         screens = new HashMap<String, Screen>();
-        searchHistory = new HashMap<String, SearchDB>();
+        //searchHistory = new HashMap<String, SearchDB>();
         navHistory = new History();
         isLoggedIn = false;      
     }
@@ -70,6 +69,7 @@ public class User {
         return eventName;
     }
 
+    /** 
     public void saveNewSearch(String searchName, SearchDB search){
         searchHistory.put(searchName, search);
     }
@@ -77,6 +77,7 @@ public class User {
     public HashMap<String, SearchDB> getSearchHistory(){
         return searchHistory;
     }
+    /** */
 
     public void setPreviousSearch(String searchName){
         previousSearch = searchName;

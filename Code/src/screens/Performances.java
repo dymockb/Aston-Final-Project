@@ -5,8 +5,8 @@ import superclass.Screen;
 import superclass.SearchDB;
 
 import java.util.NoSuchElementException;
-import java.sql.*;
 import java.util.HashMap;
+import java.util.ArrayList;
 import model.Table;
 import util.IsInteger;
 
@@ -26,8 +26,11 @@ public class Performances extends Screen {
         String orderedBy = "Date";
 
         HashMap<String, String> columnNames = new HashMap<String, String>();
+        ArrayList<String> columnsToHide = new ArrayList<String>();
+        columnsToHide.add("ID");
+        columnsToHide.add("ShowName");
 
-        Table performancesTable = new Table(rs, parser, eventName, tableName, orderedBy, columnNames, true);
+        Table performancesTable = new Table(rs, parser, eventName, tableName, orderedBy, columnNames, columnsToHide, true);
 
         Boolean browsing = true;
         Boolean hideRows = false;
@@ -59,7 +62,7 @@ public class Performances extends Screen {
                     searchString += ";";
                     SearchDB getSelectedPerformance = new SearchDB(searchString, db);
 
-                    user.saveNewSearch("selected-performance-search", getSelectedPerformance);
+                    //user.saveNewSearch("selected-performance-search", getSelectedPerformance);
                     user.setPreviousSearch("selected-performance-search");
 
                     rs = getSelectedPerformance.runSearch();
