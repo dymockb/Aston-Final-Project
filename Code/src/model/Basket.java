@@ -9,7 +9,7 @@ import java.util.HashMap;
 public class Basket {
 
     private int numberOfTicketsInBasket = 0;
-    private int basketTotal = 0;
+    private double basketTotal = 0;
     private Parser parser;
     private ArrayList<Ticket> tickets;
     private HashMap<String, String> sqlQueries;
@@ -24,7 +24,7 @@ public class Basket {
         return numberOfTicketsInBasket;
     }
 
-    public int getBasketTotal(){
+    public double getBasketTotal(){
         return basketTotal;
     }
 
@@ -33,13 +33,16 @@ public class Basket {
         return numberOfTicketsInBasket;
     }
 
-    public Boolean addTickets(ArrayList<String> seatsArray){
+    public Boolean addTickets(ArrayList<Ticket> tickets){
 
-        numberOfTicketsInBasket++;
-        basketTotal++;
+        numberOfTicketsInBasket += tickets.size();
+        for (Ticket ticket : tickets){
+            basketTotal += ticket.getTicketPrice();
+        }
 
         StaticPrinter.printBasketHeading(numberOfTicketsInBasket);
-        System.out.println("There are " + numberOfTicketsInBasket + " ticket(s) in your basket."); 
+        System.out.println("There are " + numberOfTicketsInBasket + " ticket(s) in your basket.");
+        System.out.println("The baske total is " + basketTotal); 
         System.out.println("Would you like to checkout now?");
         System.out.println("y - checkout.");
         System.out.println("n - save basket and search again.");
@@ -70,8 +73,9 @@ public class Basket {
             if (userInput.equals("y")){
                 storeTicketPurchaseDetails(tickets);
                 System.out.println("Payment confirmed. Clear basket" );
-                numberOfTicketsInBasket = 0;
-                System.out.println("Basket summary. there are " + numberOfTicketsInBasket + " in the basket");
+                tickets = new ArrayList<Ticket>();
+                basketTotal = 0;
+                System.out.println("Basket summary. there are " + tickets.size() + " tickets in the basket");
                 returnValue = true;
             } else if (userInput.equals("n")){
                 System.out.println("Your purchase has been cancelled");

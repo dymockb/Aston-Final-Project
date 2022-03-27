@@ -76,7 +76,7 @@ public class ViewPerformance extends Screen {
 
                     } else if (seatingAreaSelected.equals("r")){
                         System.out.println("return to peformance tbc");
-                        nextScreen = "book-performance"; 
+                        nextScreen = "view-performance"; 
                     }
                     
                     

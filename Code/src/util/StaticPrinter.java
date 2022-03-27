@@ -51,7 +51,7 @@ public class StaticPrinter {
 
     }
 
-    public static void printBasketFooter(int numberOfTicketsInBasket, int basketTotal){
+    public static void printBasketFooter(int numberOfTicketsInBasket, double basketTotal){
 
         System.out.println(String.format("%-80s", "------------------------------------------------------------------------------------------"));
         System.out.println(String.format("%-80s", "Basket: " + numberOfTicketsInBasket + " ticket(s). Total cost: £" + basketTotal +  "."));

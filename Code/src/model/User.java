@@ -125,9 +125,9 @@ public class User {
     public void goToScreen(String screenName){
 
         Screen screen = screens.get(screenName);
-        SearchDB search = new SearchDB("test-string", db);
-        setCurrentScreen(screenName);
-        updateNavHistory(navHistory.getSizeOfScreenHistoryHM(), search, screen);
+        //SearchDB search = new SearchDB("test-string", db);
+        //setCurrentScreen(screenName);
+        //updateNavHistory(navHistory.getSizeOfScreenHistoryHM(), search, screen);
         screen.displayScreen();
 
     }

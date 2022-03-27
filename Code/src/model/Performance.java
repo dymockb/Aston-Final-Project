@@ -15,8 +15,6 @@ public class Performance {
     public Performance(ResultSet rs, User user){
 
         this.user = user;
-        stallsSeatsAvailable = new ArrayList<Integer>();
-        circleSeatsAvailable = new ArrayList<Integer>();
 
         performanceDetails = new HashMap<String, String>();
 
@@ -46,6 +44,9 @@ public class Performance {
     } 
 
     public void setNumberOfSeatsAvailable(){
+
+        stallsSeatsAvailable = new ArrayList<Integer>();
+        circleSeatsAvailable = new ArrayList<Integer>();
 
         String performanceID = performanceDetails.get("ID");
 

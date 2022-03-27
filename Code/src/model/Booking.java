@@ -88,17 +88,17 @@ public class Booking {
                             if (allSeatsAvailable){
                                 
                                 System.out.println("Your selected seats are available. Selected seats:");
-                                for (String seat : seatsArray){
-                                    System.out.print(seat);
-                                }
                                
                                 int totalPrice = 0;
 
+                                ArrayList<Ticket> tickets = new ArrayList<Ticket>();
                                 for(String seat : seatsArray){
                                     
                                     int price = getSeatPrice(seat);
                                     System.out.println("Seat " + seat + ", price: " + price);
                                     totalPrice += price;
+                                    Ticket ticket = new Ticket(price, Integer.valueOf(seat));
+                                    tickets.add(ticket);
                                 }
                                 System.out.println("Total price: " + totalPrice);
 
@@ -108,7 +108,7 @@ public class Booking {
                                 if (userInput.equals("y")){
                                     
                                     System.out.println("Add tickets to basket");
-                                    basketUpdated = user.getBasket().addTickets(seatsArray);
+                                    basketUpdated = user.getBasket().addTickets(tickets);
                                     selectingSeats = false;
                                     bookingInProgress = false;
 
@@ -144,6 +144,7 @@ public class Booking {
                 //String userInput = parser.getInputForMenu(); 
 
             } else if (seatingAreaChosen.equals("r")){
+                seatingAreaChosen = "r";
                 bookingInProgress = false;
             }
 
@@ -194,7 +195,6 @@ public class Booking {
 
     public Boolean checkSeatAvailability(ArrayList<String> selectedSeats){
 
-        System.out.println("checking availability");
         String performanceID = performance.getPerformanceDetails().get("ID");
 
         Boolean allSeatsAreAvailable = true;
@@ -205,10 +205,7 @@ public class Booking {
             stringTemplate = stringTemplate.replace("performance-id-from-java", performanceID);
             stringTemplate = stringTemplate.replace("seat-id-from-java", seat);
             stringTemplate += ";";
-    
-            System.out.println("Checking performanceID:" + performanceID);
-            System.out.println("Checking seatNo: " + 1);
-            
+                
             SearchDB bookingsForThisSeatThisPeformance = new SearchDB(stringTemplate, user.getDBConnector());
     
             ResultSet rs = bookingsForThisSeatThisPeformance.runSearch();
@@ -241,15 +238,17 @@ public class Booking {
     public int getSeatPrice(String seat){
 
         int returnValue = 0;
-        
+
+        String performanceID = performance.getPerformanceDetails().get("ID");
         String performanceTime = performance.getPerformanceDetails().get("ShowDateTime");
-        System.out.println("Performance time: not converted to string yet " + performanceTime);
+        System.out.println("Performance time: Matinee (but db says this:) " + performanceTime);
         performanceTime = "Matinee";
         String seatArea = Integer.valueOf(seat) <= 120 ? "Stalls" : "Circle";
 
         String stringTemplate = user.getSqlQueries().get("get-seat-price");
         stringTemplate = stringTemplate.replace("performance-time-from-java", performanceTime);
         stringTemplate = stringTemplate.replace("seat-area-from-java", seatArea);
+        stringTemplate = stringTemplate.replace("performance-id-from-java", performanceID);
         stringTemplate += ";";
 
         SearchDB priceOfThisSeat = new SearchDB(stringTemplate, user.getDBConnector());
