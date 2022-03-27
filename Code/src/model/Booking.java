@@ -84,11 +84,24 @@ public class Booking {
 
                             ArrayList<String> seatsArray = convertInputToSeatsArray(userInput);
 
-                            Boolean seatsAvailable = checkSeatAvailability(seatsArray);
-                            if (seatsAvailable){
+                            Boolean allSeatsAvailable = checkSeatAvailability(seatsArray);
+                            if (allSeatsAvailable){
                                 
-                                System.out.println("Your selected seats are available.");
-                                System.out.println("Total price: \u00A380");
+                                System.out.println("Your selected seats are available. Selected seats:");
+                                for (String seat : seatsArray){
+                                    System.out.print(seat);
+                                }
+                               
+                                int totalPrice = 0;
+
+                                for(String seat : seatsArray){
+                                    
+                                    int price = getSeatPrice(seat);
+                                    System.out.println("Seat " + seat + ", price: " + price);
+                                    totalPrice += price;
+                                }
+                                System.out.println("Total price: " + totalPrice);
+
                                 System.out.println("Add these tickets to your basket? y / n");
                                 userInput = parser.getInputForMenu();
 
@@ -203,21 +216,59 @@ public class Booking {
             try {
                 rs.beforeFirst();
                 rs.next();
-                int liveBookings = rs.getInt(1);
-                if (!(liveBookings == 0)){
+                int countBookedSeats = rs.getInt(1);
+                if (!(countBookedSeats == 0)){
                     allSeatsAreAvailable = false;
-                } 
-    
+                }    
             } catch (SQLException e) {
                 e.printStackTrace();
             }
 
         }
 
-
-
         return allSeatsAreAvailable;
         
+    }
+
+    public void createTickets(ArrayList<String> seatsArray){
+
+        for(String seat : seatsArray){
+            getSeatPrice(seat);
+        }
+
+    }
+
+    public int getSeatPrice(String seat){
+
+        int returnValue = 0;
+        
+        String performanceTime = performance.getPerformanceDetails().get("ShowDateTime");
+        System.out.println("Performance time: not converted to string yet " + performanceTime);
+        performanceTime = "Matinee";
+        String seatArea = Integer.valueOf(seat) <= 120 ? "Stalls" : "Circle";
+
+        String stringTemplate = user.getSqlQueries().get("get-seat-price");
+        stringTemplate = stringTemplate.replace("performance-time-from-java", performanceTime);
+        stringTemplate = stringTemplate.replace("seat-area-from-java", seatArea);
+        stringTemplate += ";";
+
+        SearchDB priceOfThisSeat = new SearchDB(stringTemplate, user.getDBConnector());
+
+        ResultSet rs = priceOfThisSeat.runSearch();
+
+        try {
+            rs.beforeFirst();
+            rs.next();
+            int seatPrice = rs.getInt(1);
+            if (seatPrice != 0){
+                returnValue = seatPrice;
+            }    
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return returnValue;
+
     }
     
 }

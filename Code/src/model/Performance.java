@@ -78,6 +78,7 @@ public class Performance {
 
             String stringTemplate = user.getSqlQueries().get("check-seat-available");
             stringTemplate = stringTemplate.replace("performance-id-from-java", performanceID);
+            stringTemplate = stringTemplate.replace("seat-id-from-java", String.valueOf(i));
             stringTemplate += ";";
             
             SearchDB checkSeatAvailability = new SearchDB(stringTemplate, user.getDBConnector());
