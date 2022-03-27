@@ -50,6 +50,10 @@ public class User {
  
     }
 
+    public DBConnector getDBConnector(){
+        return db;
+    }
+
     public Basket getBasket(){
         return basket;
     }

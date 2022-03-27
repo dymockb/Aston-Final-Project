@@ -33,7 +33,7 @@ public class Basket {
         return numberOfTicketsInBasket;
     }
 
-    public Boolean addTickets(String placeholderShouldbeArray){
+    public Boolean addTickets(ArrayList<String> seatsArray){
 
         numberOfTicketsInBasket++;
         basketTotal++;

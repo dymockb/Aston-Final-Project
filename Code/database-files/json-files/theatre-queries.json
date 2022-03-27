@@ -3,5 +3,9 @@
     "browse-shows": "SELECT ShowDetail.ID, ShowName, TypeName, Duration FROM ShowDetail JOIN TypeOfShow ON TypeOfShow.ID = ShowDetail.TypeOfShowID ",
     "get-show-by-ID": "select * FROM ShowDetail JOIN LiveMusic ON ShowDetail.LiveMusicID = LiveMusic.ID JOIN ShowLanguage ON ShowDetail.LanguageID = ShowLanguage.ID JOIN TypeOfShow ON ShowDetail.TypeOfShowID = TypeOfShow.ID WHERE ShowDetail.ID = ",
     "all-performances-for-single-show": "SELECT Performance.ID, ShowDateTime, PriceID FROM Performance JOIN ShowDetail ON Performance.ShowDetailID = ShowDetail.ID WHERE ShowDetailID = show-id-from-java ",
-    "get-performance-by-ID": "select * FROM Performance JOIN ShowDetail ON Performance.ShowDetailID = ShowDetail.ID JOIN LiveMusic ON ShowDetail.LiveMusicID = LiveMusic.ID JOIN ShowLanguage ON ShowDetail.LanguageID = ShowLanguage.ID WHERE Performance.ID = show-id-from-java "
+    "get-performance-by-ID": "select * FROM Performance JOIN ShowDetail ON Performance.ShowDetailID = ShowDetail.ID JOIN LiveMusic ON ShowDetail.LiveMusicID = LiveMusic.ID JOIN ShowLanguage ON ShowDetail.LanguageID = ShowLanguage.ID WHERE Performance.ID = performance-id-from-java ",
+    "check-seat-available": "SELECT COUNT(SeatID) AS LiveBooking FROM Reservation WHERE PerformanceID = performance-id-from-java AND SeatID = seat-id-from-java And CancellationDateTime = 0 ",
+    "get-number-of-stalls-seats-available": "SELECT 120 - COUNT(SeatID) AS AvailableSeats FROM Reservation WHERE PerformanceID = performance-id-from-java AND CancellationDateTime = 0 AND SeatID <= 120 ",
+    "get-number-of-circle-seats-available": "SELECT 80 - COUNT(SeatID) AS AvailableSeats FROM Reservation WHERE PerformanceID = performance-id-from-java AND CancellationDateTime = 0 AND SeatID >= 121 "
+
 }

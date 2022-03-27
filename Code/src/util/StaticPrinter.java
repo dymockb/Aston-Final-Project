@@ -96,18 +96,18 @@ public class StaticPrinter {
     }
 
 
-    public static void printPerformanceDetails(String description, String liveMusic, String language){
+    public static void printPerformanceDetails(String description, String liveMusic, String language, int numberOfAvailableSeats){
 
         System.out.println(String.format("%-80s", description));
         System.out.println(String.format("%-80s", "(" + language +  ")"));
         System.out.println(String.format("%-80s", "Live music: " + liveMusic));
-        System.out.println(String.format("%-80s", "Number of tickets available: TBC"));
+        System.out.println(String.format("%-80s", "Number of tickets available: " + numberOfAvailableSeats));
     }
 
     public static void printChooseSeatsHeading(int numberOfAvailableSeats){
 
         System.out.println(String.format("%-80s", "------------------------------------------------------------------------------------------"));
-        System.out.println(String.format("%-80s", "This performance has " + numberOfAvailableSeats +  " seats available."));
+        System.out.println(String.format("%-80s", "This performance has " + numberOfAvailableSeats +  " seat(s) available."));
         System.out.println(String.format("%-80s", "------------------------------------------------------------------------------------------"));
 
     }

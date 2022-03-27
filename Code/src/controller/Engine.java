@@ -50,7 +50,6 @@ public class Engine {
 	public Engine() throws FileNotFoundException {
 
 		db = new DBConnector();
-		//printer = new ScreenPrinter();
 		inputParser = new Parser();
 
 		//File testfile = new File(".");
@@ -58,15 +57,9 @@ public class Engine {
 
 		mapper = new ObjectMapper();
 		File file = new File("./database-files/json-files/theatre-queries.json");
-		try
-		{
-		  
+		try {	  
 		  sqlQueries = mapper.readValue(file, new TypeReference<HashMap<String, String>>(){});
-		   
-		  //System.out.println(sqlQueries);
-
-		} 
-		catch (JsonGenerationException e) {
+		 }catch (JsonGenerationException e) {
 		  e.printStackTrace();
 		} catch (JsonMappingException e) {
 		  e.printStackTrace();
@@ -74,7 +67,6 @@ public class Engine {
 		  e.printStackTrace();
 		}
 
-		//user = new User(db, printer, sqlQueries);
 		user = new User(sqlQueries, db);
 
 	}
@@ -82,8 +74,9 @@ public class Engine {
 	public void openForBusiness(String inputType) throws FileNotFoundException {
 
 		db.connect();
-		createdb();				
-		addTableData();
+		//createdb();				
+		//addTableData(); 
+		selectdb();
 
 		if(inputType.equals("inputFromFile")){
 			inputParser.addFile("./txt-files/user-input1.txt");
@@ -98,10 +91,14 @@ public class Engine {
 
 	}
 
+	private void selectdb(){
+		db.runQuery("USE theatreroyal;");
+	}
+
 	private void createdb() throws FileNotFoundException {
 
 		Parser createDbParser = new Parser();
-		createDbParser.addFile("./database-files/zuleyha-db-files/version2/testdb.sql");
+		createDbParser.addFile("./database-files/zuleyha-db-files/version2/theatre-royal-db.sql");
 
 		boolean sqlrunning = true;
 		while (sqlrunning){
@@ -124,6 +121,16 @@ public class Engine {
 				
 		Parser addTableDataParser = new Parser();
 
+		// Customer, DeliveryType, Gender, LiveMusic, PaymentType, Peformance, PriceBand, Reservation, Seat, ShowDetail, ShowLanguage, TypeOfShow
+
+
+		addTableDataParser.addFile("./database-files/zuleyha-db-files/version2/csv-files/Gender.csv");
+		db.runQuery(addTableDataParser.createSqlDataFromCSV("Gender"));
+
+			addTableDataParser.addFile("./database-files/zuleyha-db-files/version2/csv-files/Customer.csv");
+			db.runQuery(addTableDataParser.createSqlDataFromCSV("Customer"));
+
+
 		addTableDataParser.addFile("./database-files/zuleyha-db-files/version2/csv-files/LiveMusic.csv");
 		db.runQuery(addTableDataParser.createSqlDataFromCSV("LiveMusic"));
 
@@ -136,14 +143,26 @@ public class Engine {
 		addTableDataParser.addFile("./database-files/zuleyha-db-files/version2/csv-files/PriceBand.csv");
 		db.runQuery(addTableDataParser.createSqlDataFromCSV("PriceBand"));
 
-		addTableDataParser.addFile("./database-files/zuleyha-db-files/version2/csv-files/ShowDetail.csv");
-		db.runQuery(addTableDataParser.createSqlDataFromCSV("ShowDetail"));
+			addTableDataParser.addFile("./database-files/zuleyha-db-files/version2/csv-files/ShowDetail.csv");
+			db.runQuery(addTableDataParser.createSqlDataFromCSV("ShowDetail"));
 
-		addTableDataParser.addFile("./database-files/zuleyha-db-files/version2/csv-files/Performance.csv");
-		db.runQuery(addTableDataParser.createSqlDataFromCSV("Performance"));
+				addTableDataParser.addFile("./database-files/zuleyha-db-files/version2/csv-files/Performance.csv");
+				db.runQuery(addTableDataParser.createSqlDataFromCSV("Performance"));
+
+
+				addTableDataParser.addFile("./database-files/zuleyha-db-files/version2/csv-files/Seat.csv");
+				db.runQuery(addTableDataParser.createSqlDataFromCSV("Seat"));
+
+				addTableDataParser.addFile("./database-files/zuleyha-db-files/version2/csv-files/DeliveryType.csv");
+				db.runQuery(addTableDataParser.createSqlDataFromCSV("DeliveryType"));
+		
+				addTableDataParser.addFile("./database-files/zuleyha-db-files/version2/csv-files/PaymentType.csv");
+				db.runQuery(addTableDataParser.createSqlDataFromCSV("PaymentType"));
+
+					addTableDataParser.addFile("./database-files/zuleyha-db-files/version2/csv-files/Reservation.csv");
+					db.runQuery(addTableDataParser.createSqlDataFromCSV("Reservation"));
 
 		addTableDataParser.closeScanner();
-
 	}
 
 	public void addScreens(){

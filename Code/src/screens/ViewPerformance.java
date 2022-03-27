@@ -22,7 +22,7 @@ public class ViewPerformance extends Screen {
 
     public void displayScreen() throws NoSuchElementException {
 
-        performance = new Performance(user.getSearchResultSet());
+        performance = new Performance(user.getSearchResultSet(), user);
 
         HashMap<String, String> performanceDetails = performance.getPerformanceDetails();
         String showName = performanceDetails.get("ShowName");
@@ -31,9 +31,10 @@ public class ViewPerformance extends Screen {
         String description = performanceDetails.get("ShowDescription");
         String language = performanceDetails.get("LangugeName");
         String liveMusic = performanceDetails.get("Performaner");
+        int numberOfAvailableSeats = performance.getTotalNumberOfAvailableSeats();
         
         StaticPrinter.printPerformanceHeading(performanceTitle);
-        StaticPrinter.printPerformanceDetails(description, liveMusic, language);
+        StaticPrinter.printPerformanceDetails(description, liveMusic, language, numberOfAvailableSeats);
         //System.out.println(performance.getPerformanceDetails());
 
         System.out.println("");
@@ -113,6 +114,5 @@ public class ViewPerformance extends Screen {
 
     }
 
-    
 }
 

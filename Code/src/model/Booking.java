@@ -3,9 +3,11 @@ import util.Parser;
 import util.StaticPrinter;
 
 import java.util.NoSuchElementException;
+import java.util.ArrayList;
 
 import util.DBConnector;
-
+import superclass.SearchDB;
+import java.sql.*;
 
 public class Booking {
 
@@ -35,20 +37,19 @@ public class Booking {
     public String startBooking() throws NoSuchElementException {
 
         Boolean bookingInProgress = true;
-        Boolean returnValue = false;
 
-        //String nextScreen = "home-screen";
-        System.out.println("run sql to get available seats");
+        ArrayList<Integer> availableStallsSeats = performance.getAvailableStallsSeats();
+        ArrayList<Integer> availableCircleSeats = performance.getAvailableCircleSeats();
+        int totalSeatsAvailable = availableStallsSeats.size() + availableCircleSeats.size();
 
         String seatingAreaChosen = null;
 
         while (bookingInProgress){
 
-            int numberOfAvailableSeats = 10;
-            StaticPrinter.printChooseSeatsHeading(numberOfAvailableSeats);
+            StaticPrinter.printChooseSeatsHeading(totalSeatsAvailable);
 
-            System.out.println("Circle: x tickets available - \u00A350");
-            System.out.println("Stalls: x tickets avaiable - \u00A340");
+            System.out.println("Circle: " + availableCircleSeats.size() + " tickets available.");
+            System.out.println("Stalls: " + availableStallsSeats.size() + " tickets avaiable.");
             System.out.println("");
             System.out.println("Available commands:");
             System.out.println("c - Circle - book seats");
@@ -61,48 +62,50 @@ public class Booking {
 
             if(seatingAreaChosen.equals("c")){
 
-                Boolean selectingSeats = true;
-                while(selectingSeats){
-                    
-                    System.out.println("Circle seats available:");
-                    System.out.println("14, 15, 16, 17, 22, 87, 88");
-                    System.out.println("");
-                    System.out.println("Available commands:");
-                    System.out.println("r - return to previous screen");
-                    System.out.println("Please type the seat numbers for your booking (eg: 14,15,16,18):");  
-                    String userInput = parser.getInputForMenu(); 
+                if (availableCircleSeats.size() > 0){         
 
-                    if (userInput.equals("r")){
-                        selectingSeats = false;
-                        //bookingInProgress = false;
+                    Boolean selectingSeats = true;
+                    while(selectingSeats){
                         
-                    } else {
+                        System.out.println("Circle seats available:");
+                        for(int seat : availableCircleSeats){
+                            System.out.print(seat + " ");
+                        }
+                        System.out.println("");
+                        System.out.println("Available commands:");
+                        System.out.println("r - return to previous screen");
+                        System.out.println("Please type the seat numbers for your booking (eg: 14,15,16,18):");  
+                        String userInput = parser.getInputForMenu(); 
 
-                    //String seatsArray = convertInputToSeatsArray(userInput);
-                    String seatsArray = "placeholder";
-
-                        Boolean seatsAvailable = checkSeatAvailability(seatsArray);
-                        if (seatsAvailable){
+                        if (userInput.equals("r")){
+                            selectingSeats = false;
                             
-                            System.out.println("Your selected seats are available.");
-                            System.out.println("Total price: \u00A380");
-                            System.out.println("Add these tickets to your basket? y / n");
-                            userInput = parser.getInputForMenu();
+                        } else {
 
-                            if (userInput.equals("y")){
+                            ArrayList<String> seatsArray = convertInputToSeatsArray(userInput);
+
+                            Boolean seatsAvailable = checkSeatAvailability(seatsArray);
+                            if (seatsAvailable){
                                 
-                                System.out.println("Add tickets to basket");
-                                basketUpdated = user.getBasket().addTickets(seatsArray);
-                                selectingSeats = false;
-                                bookingInProgress = false;
+                                System.out.println("Your selected seats are available.");
+                                System.out.println("Total price: \u00A380");
+                                System.out.println("Add these tickets to your basket? y / n");
+                                userInput = parser.getInputForMenu();
 
-                            } else if (userInput.equals("n")){
-                                selectingSeats = false;
-                                bookingInProgress = false;
+                                if (userInput.equals("y")){
+                                    
+                                    System.out.println("Add tickets to basket");
+                                    basketUpdated = user.getBasket().addTickets(seatsArray);
+                                    selectingSeats = false;
+                                    bookingInProgress = false;
 
-                            } else {
-                                StaticPrinter.invalidCommand();
-                            }
+                                } else if (userInput.equals("n")){
+                                    selectingSeats = false;
+                                    bookingInProgress = false;
+
+                                } else {
+                                    StaticPrinter.invalidCommand();
+                                }
 
         
                         } else {
@@ -115,13 +118,17 @@ public class Booking {
                 }
 
 
+            } else {
+                System.out.println("There are no circle seats available.");
+            }
+
 
             } else if (seatingAreaChosen.equals("s")){
 
                 System.out.println("Stalls seats available:");
                 System.out.println("14, 15, 16, 17, 22, 87, 88");
                 System.out.println("Please type the seat numbers for your booking (eg: 14,15,16,18):");  
-                String userInput = parser.getInputForMenu(); 
+                //String userInput = parser.getInputForMenu(); 
 
             } else if (seatingAreaChosen.equals("r")){
                 bookingInProgress = false;
@@ -157,10 +164,60 @@ public class Booking {
         System.out.println("here is a summary of your booking - END OF PURCHASE CYCLE");
     }
 
-    public Boolean checkSeatAvailability(String userInput){
+    public ArrayList<String> convertInputToSeatsArray(String userInput){
+
+        //process input to get a list of individual seat numbers.
+        // then add each seat number to array list:
+
+            ArrayList<String> selectedSeats = new ArrayList<String>();
+            selectedSeats.add(userInput);
+            if (selectedSeats.size() > 0){
+                return selectedSeats;
+            } else {
+                return null;
+            }
+
+    }
+
+    public Boolean checkSeatAvailability(ArrayList<String> selectedSeats){
 
         System.out.println("checking availability");
-        return true;
+        String performanceID = performance.getPerformanceDetails().get("ID");
+
+        Boolean allSeatsAreAvailable = true;
+
+        for (String seat : selectedSeats){
+
+            String stringTemplate = user.getSqlQueries().get("check-seat-available");
+            stringTemplate = stringTemplate.replace("performance-id-from-java", performanceID);
+            stringTemplate = stringTemplate.replace("seat-id-from-java", seat);
+            stringTemplate += ";";
+    
+            System.out.println("Checking performanceID:" + performanceID);
+            System.out.println("Checking seatNo: " + 1);
+            
+            SearchDB bookingsForThisSeatThisPeformance = new SearchDB(stringTemplate, user.getDBConnector());
+    
+            ResultSet rs = bookingsForThisSeatThisPeformance.runSearch();
+    
+            try {
+                rs.beforeFirst();
+                rs.next();
+                int liveBookings = rs.getInt(1);
+                if (!(liveBookings == 0)){
+                    allSeatsAreAvailable = false;
+                } 
+    
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+
+
+        return allSeatsAreAvailable;
+        
     }
     
 }

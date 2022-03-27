@@ -1,0 +1,98 @@
+FirstName,Surname,DOB,Email,ContactNumber,Address,City,GenderID,Marketing
+"Maya","Bay","2000-04-01","maya@gmail.com",NULL,NULL,"London",1,1
+"Selin","Su","1990-11-20","selin@gmail.com",NULL,NULL,"London",1,1
+"Denise","Dee",NULL,"denise@gmail.com",NULL,NULL,"London",1,0
+"Karim","Su","1995-06-15","karim@gmail.com",NULL,NULL,"St Albans",2,1
+"Benjamin","Cave","1997-05-13","benjamin@yahoo.com","07777777777","12 Street","London",2,0
+"Evelyn","Days","1995-05-23","evelyn@yahoo.com","06666666666","24 Street","London",1,1
+"Jodie","Daisy","1980-11-23","jodie@yahoo.com","05555555555","04 Street","London",1,0
+"Willen","Cool","1995-12-28","willen@yahoo.com","04444444444","10 Street","Oxford",2,1
+"Terri","Hall","2001-04-13","terri@yahoo.com","03333333333","42 Street","Bedford",1,1
+"April","Cane","1995-11-02","april@yahoo.com","02222222222",NULL,"London",1,0
+"Angel","Dune","1990-01-02","dune@yahoo.com",NULL,NULL,"Bedford",1,1
+"Maliha","Minor","1965-12-22","m.minor@yahoo.com","01111111111","07 Street","London",1,0
+"Prince","Reece","1992-01-30","reece@yahoo.com",NULL,NULL,"Luton",3,0
+"Super","Hero","1975-03-02","heros@yahoo.com","08888888888",NULL,"Cambridge",3,0
+"Naya","Brown","1977-07-12","naya@yahoo.com","09999999999",NULL,"Watford",1,1
+"Turk","Baskar","1977-05-05","tbash@gmail.com","07956822421","132 High Street","Brighton",2,0
+"Ahmed","Ali","1947-11-09","aali@gmail.com","07936547825","12 Mount View Street","Edinburgh",3,1
+"Gina","Jillian","1956-12-01","jillianggee@gmail.com","07758632415","2 Sea Side View","Castle Road",2,1
+"Tara","Banks","1979-12-15","tara_banks@gmail.com","07503526758","100 Sleepy Joe Road","London",2,0
+"Amy","Sommerville","1977-07-11","ilovethesommervilles@gmail.com","07364587135","2 My High Road","Birmingham",1,1
+"Richard","Jorges","1954-05-05","jeorgerich@gmail.com","07478236514","35 Old Shakespere House","Brighton",2,1
+"Jing","Li","1965-12-01","jinglebellli@gmail.com","07956524420","1 North Pole Street","Wales",2,1
+"Linda","Holmes","1980-12-05","homey@gmail.com","07532782421","12 High Street","Brighton",2,0
+"Aleshia","Tomkiewicz",NULL,"atomkiewicz@hotmail.com",NULL,"St. Stephens Ward","Kent",1,1
+"Evan","Zigomalas",NULL,"evan.zigomalas@gmail.com","01944-369967","Abbey Ward","Buckinghamshire",1,0
+"France","Andrade",NULL,"france.andrade@hotmail.com","01714-737668","East Southbourne and Tuckton W","Bournemouth",1,1
+"Ulysses","Mcwalters",NULL,"ulysses@hotmail.com","01935-821636","Hawerby cum Beesby","Lincolnshire",2,0
+"Tyisha","Veness",NULL,"tyisha.veness@hotmail.com","01302-601380","Greets Green and Lyng Ward","West Midlands",2,1
+"Eric","Rampy",NULL,"erampy@rampy.co.uk","01290-367248","Desborough","Northamptonshire",1,0
+"Marg","Grasmick",NULL,"marg@hotmail.com","01545-817375","Bargate Ward","Southampton",1,1
+"Laquita","Hisaw",NULL,"laquita@yahoo.com","01362-620532","Chirton Ward","Tyne & Wear",2,1
+"Lura","Manzella",NULL,"lura@hotmail.com","01590-982428","Staple Hill Ward","Tyne & Wear",1,0
+"Yuette","Klapec",NULL,"yuette.klapec@klapec.co.uk","01340-713951","Parwich","Derbyshire",1,1
+"Fernanda","Writer",NULL,"fernanda@writer.co.uk","01933-512513","Wilmington","Kent",1,0
+"Charlesetta","Erm",NULL,"charlesetta_erm@gmail.com","01687-879391","Loundsley Green Ward","Derbyshire",1,0
+"Corrinne","Jaret",NULL,"corrinne_jaret@gmail.com","01517-624517","Dee Ward","Kent",3,0
+"Niesha","Bruch",NULL,"niesha.bruch@yahoo.com","01642-322954","Broxburn, Uphall and Winchburg","West Lothian",3,1
+"Rueben","Gastellum",NULL,"rueben_gastellum@gastellum.co.uk","01342-793603","Weston-Super-Mare","North Somerset",1,0
+"Michell","Throssell",NULL,"mthrossell@throssell.co.uk","01956-535511","Carbrooke","Norfolk",2,1
+"Edgar","Kanne",NULL,"edgar.kanne@yahoo.com","01672-496478","New Milton","Hampshire",3,1
+"Dewitt","Julio",NULL,"dewitt.julio@hotmail.com","01666-638176","Parkham","Devon",2,0
+"Charisse","Spinello",NULL,"charisse_spinello@spinello.co.uk","01241-964675","Darnall Ward","Yorkshire, South",2,1
+"Mee","Lapinski",NULL,"mee.lapinski@yahoo.com","01207-428520","Marldon","Devon",1,1
+"Peter","Gutierres",NULL,"peter_gutierres@yahoo.com","01939-815208","Prestatyn Community","Denbighshire",2,1
+"Octavio","Salvadore",NULL,"octavio.salvadore@yahoo.com","01859-648598","Lye and Stourbridge North Ward","West Midlands",2,0
+"Martha","Teplica",NULL,"mteplica@teplica.co.uk","01743-139456","Warlingham","Surrey",2,1
+"Tamesha","Veigel",NULL,"tveigel@veigel.co.uk","01583-287367","Newport","Isle of Wight",1,0
+"Tess","Sitra",NULL,"tess_sitra@hotmail.com","01280-786847","Chichester","West Sussex",1,1
+"Leonard","Kufner",NULL,"lkufner@kufner.co.uk","01848-116775","Steornabhagh a Deas Ward","Western Isles",1,0
+"Svetlana","Tauras",NULL,"svetlana_tauras@tauras.co.uk","01604-718601","South Ward","Cornwall",2,1
+"Pok","Molaison",NULL,"pok@yahoo.com","01509-121140","Newquay","Cornwall",2,0
+"Augustine","Growcock",NULL,"augustine.growcock@growcock.co.uk","01315-284286","Brimpton","Berkshire",1,1
+"Karma","Quarto",NULL,"kquarto@gmail.com","01926-108010","Shard End Ward","Berkshire",1,1
+"Reed","Weisinger",NULL,"reed_weisinger@yahoo.com","01307-667811","Aldridge Central and South War","West Midlands",2,0
+"German","Zelaya",NULL,"german@hotmail.com","01292-297245","East Putney Ward","Greater London",1,1
+"Milly","Savidge",NULL,"milly@gmail.com","01366-210656","Sawston","Cambridgeshire",1,0
+"Luis","Ear",NULL,"luis@hotmail.com","01421-132652","Wakefield North Ward","West Yorkshire",1,0
+"Ciara","Cobbley",NULL,"ciara_cobbley@hotmail.com","01405-648623","St. Enoder","Cornwall",1,0
+"Alethea","Mould",NULL,"alethea@hotmail.com","01809-443217","Ryde","Isle of Wight",3,1
+"Margurite","Loperfido",NULL,"mloperfido@gmail.com","01351-868965","Laindon Park Ward","Essex",3,0
+"Vernice","Sperazza",NULL,"vernice@yahoo.com","01640-661191","Lymington and Pennington","Hampshire",1,1
+"Vicente","Rawicki",NULL,"vicente_rawicki@hotmail.com","01286-258121","Aylesbury","Buckinghamshire",2,1
+"Craig","Cua",NULL,"craig@hotmail.com","01818-980469","Burmantofts and Richmond Hill ","West Yorkshire",3,0
+"Jenise","Dulle",NULL,"jenise.dulle@hotmail.com","01572-193368","Howard Town Ward","Derbyshire",2,1
+"Marylin","Cornelison",NULL,"marylin_cornelison@yahoo.com","01295-331807","Farnham","Surrey",2,1
+"Marget","Gunst",NULL,"mgunst@yahoo.com","01512-975244","Beeston West Ward","Nottinghamshire",1,1
+"Annett","Bunselmeyer",NULL,"abunselmeyer@hotmail.com","01333-972244","Wollaton West Ward","Nottinghamshire",2,0
+"Kip","Turziano",NULL,"kip.turziano@yahoo.com","01222-164469","Llangeler Community","Ceredigion",1,0
+"Melina","Orizabal",NULL,"melina@gmail.com","01245-559333","Brockley Ward","Greater London",3,0
+"Tina","Clapham",NULL,"rclasham@gmail.com","01493-245349","Meads Ward","East Sussex",3,0
+"Luisa","Devereux",NULL,"ldevereux@gmail.com","01334-807355","Broxburn, Uphall and Winchburg","West Lothian",1,1
+"Pedro","Aschoff",NULL,"paschoff@yahoo.com","01823-517315","St. Ive","Cornwall",2,0
+"Carrol","Kunimitsu",NULL,"carrol_kunimitsu@yahoo.com","01415-364461","Shard End Ward","West Midlands",3,1
+"Alba","Mosseri",NULL,"alba@gmail.com","01231-806535","Norton Canes","Staffordshire",2,1
+"Domonique","Sandlin",NULL,"domonique@hotmail.com","01987-728730","Bulwell Ward","Surrey",2,0
+"Rory","Neufville",NULL,"rory_neufville@neufville.co.uk","01442-700486","Treorchy Community","Surrey",1,1
+"Dustin","Klingaman",NULL,"dklingaman@gmail.com","01523-775781","Maybury and Sheerwater Ward","Surrey",2,1
+"Lyndia","Moonshower",NULL,"lyndia_moonshower@moonshower.co.uk","01789-132579","Westgate Ward","Gloucestershire",2,1
+"Jules","Hiltner",NULL,"jules@yahoo.com","01814-878359","Conisbrough and Denaby Ward","South Yorkshire",2,0
+"Dong","Kopczynski",NULL,"dkopczynski@kopczynski.co.uk","01639-518104","Newbold and Brownsover Ward","Warwickshire",1,1
+"Justine","Salta",NULL,"justine_salta@yahoo.com","01376-851958","Middlewich","Cheshire",1,0
+"Chantay","Kamens",NULL,"ckamens@hotmail.com","01245-146126","St. Marys Ward","Greater Manchester",1,1
+"Tequila","Chisum",NULL,"tequila.chisum@chisum.co.uk","01702-946496","Gresham Ward","Middlesbrough",2,0
+"Maybelle","Consolazio",NULL,"mconsolazio@yahoo.com","01351-200904","Aldborough Ward","Greater London",2,1
+"Margarett","Bairo",NULL,"margarett@gmail.com","01903-424890","Royal Hospital Ward","Greater London",1,0
+"Janessa","Noonon",NULL,"jnoonon@yahoo.com","01841-979075","Woodstock Ward","Stirling",1,1
+"Sol","Cowser",NULL,"sol@gmail.com","01580-134516","Dunblane and Bridge of Allan W","Stirling",2,1
+"Louann","Smethers",NULL,"louann@gmail.com","01488-872531","Kempshott Ward","Hampshire",1,0
+"Lindsay","Yadao",NULL,"lindsay_yadao@yadao.co.uk","01481-295251","City and Hunslet Ward","West Yorkshire",1,1
+"Malika","Hanton",NULL,"malika@gmail.com","01705-208145","St. Marys Ward","Greater Manchester",1,0
+"Stefany","Ferenz",NULL,"stefany@hotmail.com","01704-986828","Gresham Ward","Middlesbrough",1,0
+"Abraham","Cratch",NULL,"acratch@gmail.com","01695-305111","Aldborough Ward","Greater London",3,0
+"Giuseppe","Rohaley",NULL,"giuseppe@yahoo.com","01866-845669","Royal Hospital Ward","Greater London",3,1
+"Kiera","Bassil",NULL,"kbassil@bassil.co.uk","01783-446052","Woodstock Ward","Greater London",1,0
+"Wendell","Rubano",NULL,"wendell_rubano@hotmail.com","01752-386691","Dunblane and Bridge of Allan W","Stirling",2,1
+"Stevie","Stifflemire",NULL,"stevie_stifflemire@stifflemire.co.uk","01411-169215","Kempshott Ward","Hampshire",3,1
+"Yun","Paletta",NULL,"yun_paletta@paletta.co.uk","01374-255198","City and Hunslet Ward","West Yorkshire",2,0

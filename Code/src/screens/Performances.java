@@ -55,7 +55,7 @@ public class Performances extends Screen {
                     //System.out.println("PerformanceID selected: " + performanceID);
 
                     String stringTemplate = user.getSqlQueries().get("get-performance-by-ID");
-                    String searchString = stringTemplate.replace("show-id-from-java", user.getIDValueForNextSearch());
+                    String searchString = stringTemplate.replace("performance-id-from-java", user.getIDValueForNextSearch());
                     searchString += ";";
                     SearchDB getSelectedPerformance = new SearchDB(searchString, db);
 
