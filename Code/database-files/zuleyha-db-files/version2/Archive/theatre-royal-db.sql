@@ -87,12 +87,13 @@ CREATE TABLE 	Performance	(
 						);
 						
 CREATE TABLE	Reservation	(				
+	ID	INT				,
 	CustomerID	INT				,
 	PerformanceID	INT				,
 	SeatID	INT				,
 	PaymentTypeID	INT				,
 	DeliveryTypeID	INT				,
-	Price	DOUBLE				,
+	Price	INT				,
 	ReservationDateTime	DATETIME				,
 	CancellationDateTime	DATETIME				,
 	PRIMARY KEY (	PerformanceID, SeatID, CancellationDateTime		)		,
@@ -118,9 +119,3 @@ CREATE TABLE 	Employee	(
 	ID	INT	PRIMARY KEY 			,
 	EmployeeName	VARCHAR(50)				
 						);END;
-						
-						
-						
-						
-						
-						

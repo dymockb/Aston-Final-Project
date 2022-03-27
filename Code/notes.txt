@@ -1,0 +1,21 @@
+Search for a show - user input k or d not working.
+* SQL needed for keyword search 
+* date range search
+
+Fix category table  heading (ordered by Category)
+
+Show detail screen - display ticket price range
+
+Performances Table: 
+* priceID column, replace with Price range data
+* make time column wider
+
+Peformance booking screen
+Stalls booking not working atm - fix.
+
+Performance row number select not working
+
+update database when buying ticket
+
+(maybe store card details (basic encryption))
+
