@@ -36,11 +36,12 @@ public class Basket {
         return tickets.size();
     }
 
-    public Boolean addTickets(ArrayList<Ticket> tickets){
+    public String addTickets(ArrayList<Ticket> tickets){
 
         //numberOfTicketsInBasket += tickets.size();
         for (Ticket ticket : tickets){
             basketTotal += ticket.getPrice();
+            this.tickets.add(ticket);
         }
 
         StaticPrinter.printBasketHeading(tickets.size());
@@ -54,18 +55,18 @@ public class Basket {
         if(userInput.equals("y")){
             System.out.println("1. ticket array size: " + tickets.size());
             startCheckout();
-            return true;
+            return "complete";
         } else if (userInput.equals("n")){
-            return false;
+            return "basket-saved";
         } else {
             System.out.println("basket.addTickets() method error -  invalid command");
-            return false;
+            return "invalid command";
         }
 
     }
 
     public Boolean startCheckout(){
-
+        System.out.println("1.5. ticket array size: " + tickets.size());
         Boolean returnValue = false;
 
         System.out.println("Please enter your card details." );
@@ -74,10 +75,11 @@ public class Basket {
             System.out.println("Your card details are confirmed.  Proceed with purchase?");
             System.out.println("y - purchase tickets");
             System.out.println("n - cancel purchase");
+            System.out.println("2. ticket array size: " + tickets.size());
             userInput = parser.getInputForMenu();
             if (userInput.equals("y")){
 
-                System.out.println("2. ticket array size: " + tickets.size());
+                System.out.println("3. ticket array size: " + tickets.size());
                 for (Ticket ticket : tickets){
 
                     System.out.println("make a ticket string");
@@ -115,6 +117,7 @@ VALUES (1, 2, 121, 1, 1, 40, "2022-03-27 10:50:00", 0)
                 basketTotal = 0;
                 //System.out.println("Basket summary. there are " + tickets.size() + " tickets in the basket");
                 returnValue = true;
+
             } else if (userInput.equals("n")){
                 System.out.println("Your purchase has been cancelled");
                 returnValue = false;

@@ -16,7 +16,7 @@ public class Booking {
     private User user;
     private String errorMessage;
     private Boolean bookingComplete;
-    private Boolean userWantsToCheckOut;
+    private String resultOfBookingProcess;
 
     public Booking(User user, Performance performance, Parser parser){
 
@@ -26,13 +26,13 @@ public class Booking {
 
         errorMessage = "No errors";
         bookingComplete = false;  
-        userWantsToCheckOut = false;      
 
     }
 
 
-    public Boolean getUserWantsToCheckOut(){
-        return userWantsToCheckOut;
+    public String getResultOfBookingProcess(){
+        System.out.println("resultofbookingprocess" + resultOfBookingProcess);
+        return resultOfBookingProcess;
     }
 
 
@@ -110,7 +110,8 @@ public class Booking {
                                 if (userInput.equals("y")){
                                     
                                     System.out.println("Add tickets to basket");
-                                    userWantsToCheckOut = user.getBasket().addTickets(tickets);
+                                    resultOfBookingProcess = user.getBasket().addTickets(tickets);
+                                    System.out.println("resultofbookingprocess" + resultOfBookingProcess);
                                     selectingSeats = false;
                                     bookingInProgress = false;
 
@@ -183,7 +184,7 @@ public class Booking {
                                 if (userInput.equals("y")){
                                     
                                     System.out.println("Add tickets to basket");
-                                    userWantsToCheckOut = user.getBasket().addTickets(tickets);
+                                    resultOfBookingProcess = user.getBasket().addTickets(tickets);
                                     selectingSeats = false;
                                     bookingInProgress = false;
 

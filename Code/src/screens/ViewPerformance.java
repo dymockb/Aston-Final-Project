@@ -66,16 +66,24 @@ public class ViewPerformance extends Screen {
                     
                     if (seatingAreaSelected.equals("c") || seatingAreaSelected.equals("s")){
 
-                        if(booking.getUserWantsToCheckOut()){
+                        System.out.println("result via performance: " + booking.getResultOfBookingProcess());
+
+                        if(booking.getResultOfBookingProcess().equals("complete")){
                         
-                            //booking.startCheckout();
                             booking.printSummary();
                                                   
+                        } else if (booking.getResultOfBookingProcess().equals("basket-saved")){
+                        
+                            System.out.println("User added tickets but did not checkout");
+
+                        } else if(booking.getResultOfBookingProcess().equals("payment-error")){
+                        
+                            System.out.println("Payment error");
+                                              
                         } else {
                             
-                            System.out.println("User added tickets but did not checkout");
-                            //return to user to homescreen 
-                            //nextScreen = "book-performance";           
+                            System.out.println("Something else");
+           
                         }
 
                     } else if (seatingAreaSelected.equals("r")){
