@@ -36,7 +36,7 @@ public class Performance {
 
         //setNumberOfSeatsAvailable();
         //System.out.println("Show hashmap: ");
-        System.out.println(performanceDetails);
+        //System.out.println(performanceDetails);
 
     }
 

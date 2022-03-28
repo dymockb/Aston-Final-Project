@@ -95,12 +95,12 @@ public class Booking {
                                 for(String seat : seatsArray){
                                     
                                     int price = getSeatPrice(seat);
-                                    System.out.println("Seat " + seat + ", price: " + price);
+                                    System.out.println("Seat " + seat + " - GBP " + price);
                                     totalPrice += price;
                                     Ticket ticket = new Ticket(price, Integer.valueOf(seat));
                                     tickets.add(ticket);
                                 }
-                                System.out.println("Total price: " + totalPrice);
+                                System.out.println("Total price - GBP " + totalPrice);
 
                                 System.out.println("Add these tickets to your basket? y / n");
                                 userInput = parser.getInputForMenu();
@@ -114,7 +114,7 @@ public class Booking {
 
                                 } else if (userInput.equals("n")){
                                     selectingSeats = false;
-                                    bookingInProgress = false;
+                                    //bookingInProgress = false;
 
                                 } else {
                                     StaticPrinter.invalidCommand();
@@ -167,12 +167,13 @@ public class Booking {
                                 for(String seat : seatsArray){
                                     
                                     int price = getSeatPrice(seat);
-                                    System.out.println("Seat " + seat + ", price: " + price);
+                                    System.out.println("Seat " + seat + ", GBP" + price);
                                     totalPrice += price;
                                     Ticket ticket = new Ticket(price, Integer.valueOf(seat));
                                     tickets.add(ticket);
                                 }
-                                System.out.println("Total price: " + totalPrice);
+
+                                System.out.println("Total price: GBP" + totalPrice);
 
                                 System.out.println("Add these tickets to your basket? y / n");
                                 userInput = parser.getInputForMenu();
@@ -186,7 +187,7 @@ public class Booking {
 
                                 } else if (userInput.equals("n")){
                                     selectingSeats = false;
-                                    bookingInProgress = false;
+                                    //bookingInProgress = false;
 
                                 } else {
                                     StaticPrinter.invalidCommand();
@@ -288,6 +289,7 @@ public class Booking {
         
     }
 
+    /** 
     public void createTickets(ArrayList<String> seatsArray){
 
         for(String seat : seatsArray){
@@ -295,19 +297,20 @@ public class Booking {
         }
 
     }
+    /** */
 
     public int getSeatPrice(String seat){
 
         int returnValue = 0;
 
         String performanceID = performance.getPerformanceDetails().get("ID");
-        String performanceTime = performance.getPerformanceDetails().get("ShowDateTime");
-        System.out.println("Performance time: Matinee (but db says this:) " + performanceTime);
-        performanceTime = "Matinee";
+        String performanceTimeName = performance.getPerformanceDetails().get("ShowTimeName");
+        //System.out.println("Performance time: " + performanceTimeName);
+        //performanceTime = "Matinee";
         String seatArea = Integer.valueOf(seat) <= 120 ? "Stalls" : "Circle";
 
         String stringTemplate = user.getSqlQueries().get("get-seat-price");
-        stringTemplate = stringTemplate.replace("performance-time-from-java", performanceTime);
+        stringTemplate = stringTemplate.replace("performance-time-from-java", performanceTimeName);
         stringTemplate = stringTemplate.replace("seat-area-from-java", seatArea);
         stringTemplate = stringTemplate.replace("performance-id-from-java", performanceID);
         stringTemplate += ";";

@@ -26,8 +26,10 @@ public class ViewPerformance extends Screen {
 
         HashMap<String, String> performanceDetails = performance.getPerformanceDetails();
         String showName = performanceDetails.get("ShowName");
-        String performanceTime = performanceDetails.get("ShowDateTime");
-        String performanceTitle = showName + " " + performanceTime;
+        String performanceDate = performanceDetails.get("ShowDate");
+        String performanceTime = performanceDetails.get("ShowTime");
+        String performanceTimeName = performanceDetails.get("ShowTimeName");
+        String performanceTitle = showName + " " + performanceDate + " " + performanceTime + " (" + performanceTimeName + ")";
         String description = performanceDetails.get("ShowDescription");
         String language = performanceDetails.get("LangugeName");
         String liveMusic = performanceDetails.get("Performaner");
