@@ -16,7 +16,7 @@ public class Booking {
     private User user;
     private String errorMessage;
     private Boolean bookingComplete;
-    private Boolean basketUpdated;
+    private Boolean userWantsToCheckOut;
 
     public Booking(User user, Performance performance, Parser parser){
 
@@ -26,13 +26,15 @@ public class Booking {
 
         errorMessage = "No errors";
         bookingComplete = false;  
-        basketUpdated = false;      
+        userWantsToCheckOut = false;      
 
     }
 
-    public Boolean getBasketUpdated(){
-        return basketUpdated;
+
+    public Boolean getUserWantsToCheckOut(){
+        return userWantsToCheckOut;
     }
+
 
     public String startBooking() throws NoSuchElementException {
 
@@ -108,7 +110,7 @@ public class Booking {
                                 if (userInput.equals("y")){
                                     
                                     System.out.println("Add tickets to basket");
-                                    basketUpdated = user.getBasket().addTickets(tickets);
+                                    userWantsToCheckOut = user.getBasket().addTickets(tickets);
                                     selectingSeats = false;
                                     bookingInProgress = false;
 
@@ -181,7 +183,7 @@ public class Booking {
                                 if (userInput.equals("y")){
                                     
                                     System.out.println("Add tickets to basket");
-                                    basketUpdated = user.getBasket().addTickets(tickets);
+                                    userWantsToCheckOut = user.getBasket().addTickets(tickets);
                                     selectingSeats = false;
                                     bookingInProgress = false;
 

@@ -40,7 +40,7 @@ public class User {
     }
 
     public void initialiseBasket(Parser inputParser){
-        basket = new Basket(inputParser, sqlQueries);
+        basket = new Basket(inputParser, sqlQueries, db);
     }
 
     public void start(){

@@ -5,18 +5,21 @@ import util.StaticPrinter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import util.DBConnector;
 
 public class Basket {
 
-    private int numberOfTicketsInBasket = 0;
+    //private int numberOfTicketsInBasket = 0;
     private double basketTotal = 0;
     private Parser parser;
+    private DBConnector db;
     private ArrayList<Ticket> tickets;
     private HashMap<String, String> sqlQueries;
 
-    public Basket(Parser parser, HashMap<String, String> sqlQueries){
+    public Basket(Parser parser, HashMap<String, String> sqlQueries, DBConnector db){
         this.parser = parser;
         this.sqlQueries = sqlQueries;
+        this.db = db;
         tickets = new ArrayList<Ticket>();
     }
 
@@ -29,19 +32,19 @@ public class Basket {
     }
 
     public int displayBasket(){
-        StaticPrinter.printBasketHeading(numberOfTicketsInBasket);
-        return numberOfTicketsInBasket;
+        StaticPrinter.printBasketHeading(tickets.size());
+        return tickets.size();
     }
 
     public Boolean addTickets(ArrayList<Ticket> tickets){
 
-        numberOfTicketsInBasket += tickets.size();
+        //numberOfTicketsInBasket += tickets.size();
         for (Ticket ticket : tickets){
-            basketTotal += ticket.getTicketPrice();
+            basketTotal += ticket.getPrice();
         }
 
-        StaticPrinter.printBasketHeading(numberOfTicketsInBasket);
-        System.out.println("There are " + numberOfTicketsInBasket + " ticket(s) in your basket.");
+        StaticPrinter.printBasketHeading(tickets.size());
+        System.out.println("There are " + tickets.size() + " ticket(s) in your basket.");
         System.out.println("The baske total is " + basketTotal); 
         System.out.println("Would you like to checkout now?");
         System.out.println("y - checkout.");
@@ -49,6 +52,8 @@ public class Basket {
 
         String userInput = parser.getInputForMenu();
         if(userInput.equals("y")){
+            System.out.println("1. ticket array size: " + tickets.size());
+            startCheckout();
             return true;
         } else if (userInput.equals("n")){
             return false;
@@ -71,11 +76,35 @@ public class Basket {
             System.out.println("n - cancel purchase");
             userInput = parser.getInputForMenu();
             if (userInput.equals("y")){
-                
+
+                System.out.println("2. ticket array size: " + tickets.size());
+                for (Ticket ticket : tickets){
+
+                    System.out.println("make a ticket string");
+                    String addTicketString = createTicketString(
+                        ticket.getCustomerID(),
+                        ticket.getPerformanceID(),
+                        ticket.getSeatID(),
+                        ticket.getPrice()
+                        );
+
+                    System.out.println(addTicketString);
+
+                    try {
+
+                    } catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    //db.runQuery(addTicketString);
+
+                }
 
                 // LOOP through tickets array and update Reservations table.
+                /** 
+                 INSERT INTO Reservation (CustomerID, PerformanceID, SeatID, PaymentTypeID, DeliveryTypeID, Price, ReservationDateTime, CancellationDateTime) 
+VALUES (1, 2, 121, 1, 1, 40, "2022-03-27 10:50:00", 0)
 
-
+                /** */
 
 
 
@@ -84,7 +113,7 @@ public class Basket {
                 System.out.println("Payment confirmed. Clear basket" );
                 tickets = new ArrayList<Ticket>();
                 basketTotal = 0;
-                System.out.println("Basket summary. there are " + tickets.size() + " tickets in the basket");
+                //System.out.println("Basket summary. there are " + tickets.size() + " tickets in the basket");
                 returnValue = true;
             } else if (userInput.equals("n")){
                 System.out.println("Your purchase has been cancelled");
@@ -106,6 +135,28 @@ public class Basket {
         System.out.println("Validating payment...");
         return true;
 
+    }
+
+    private String createTicketString(int customerID, int performanceID, int seatID, double price){
+
+        /**
+         *  INSERT INTO Reservation (CustomerID, PerformanceID, SeatID, PaymentTypeID, DeliveryTypeID, Price, ReservationDateTime, CancellationDateTime) 
+VALUES (1, 2, 121, 1, 1, 40, "2022-03-27 10:50:00", 0)
+         */
+
+        String ticketString = "INSERT INTO Reservation (CustomerID, PerformanceID, SeatID, PaymentTypeID, DeliveryTypeID, Price, ReservationDateTime, CancellationDateTime) VALUES (";
+
+        ticketString += customerID + ", ";
+        ticketString += performanceID + ", ";
+        ticketString += seatID + ", ";
+        ticketString += "1, ";
+        ticketString += "1, ";
+        ticketString += price + ", ";
+        ticketString += "2022-03-27 10:50:00" + ", ";
+        ticketString += "0);";
+
+        return ticketString;
+    
     }
 
 

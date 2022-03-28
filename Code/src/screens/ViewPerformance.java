@@ -66,9 +66,9 @@ public class ViewPerformance extends Screen {
                     
                     if (seatingAreaSelected.equals("c") || seatingAreaSelected.equals("s")){
 
-                        if(booking.getBasketUpdated()){
+                        if(booking.getUserWantsToCheckOut()){
                         
-                            booking.startCheckout();
+                            //booking.startCheckout();
                             booking.printSummary();
                                                   
                         } else {
