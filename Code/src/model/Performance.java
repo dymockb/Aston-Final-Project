@@ -59,7 +59,7 @@ public class Performance {
             stringTemplate = stringTemplate.replace("seat-id-from-java", String.valueOf(i));
             stringTemplate += ";";
             
-            System.out.println(stringTemplate);
+            //System.out.println(stringTemplate);
             SearchDB checkSeatAvailability = new SearchDB(stringTemplate, user.getDBConnector());
             ResultSet rs = checkSeatAvailability.runSearch();
             
@@ -67,7 +67,7 @@ public class Performance {
                 rs.beforeFirst();
                 rs.next();
                 int seatAvailable = rs.getInt(1);
-                System.out.println("seat: " + i + "rs.result: " + seatAvailable);
+                //System.out.println("seat: " + i + "rs.result: " + seatAvailable);
                 if (seatAvailable == 0){
                     stallsSeatsAvailable.add(i);
                 } 
@@ -85,7 +85,7 @@ public class Performance {
             stringTemplate = stringTemplate.replace("seat-id-from-java", String.valueOf(i));
             stringTemplate += ";";
             
-            System.out.println(stringTemplate);
+            //System.out.println(stringTemplate);
             SearchDB checkSeatAvailability = new SearchDB(stringTemplate, user.getDBConnector());
             ResultSet rs = checkSeatAvailability.runSearch();
             
@@ -93,7 +93,7 @@ public class Performance {
                 rs.beforeFirst();
                 rs.next();
                 int seatAvailable = rs.getInt(1);
-                System.out.println("seat: " + i + "rs.result: " + seatAvailable);
+                //System.out.println("seat: " + i + "rs.result: " + seatAvailable);
                 if (seatAvailable == 0){
                     circleSeatsAvailable.add(i);
                 } 
@@ -121,25 +121,3 @@ public class Performance {
         return circleSeatsAvailable;
     }
 }
-
-/**
- * 
-         int countOfAvailableSeats = 0;
-
-        String stringTemplate = user.getSqlQueries().get("get-number-of-stalls-seats-available");
-        stringTemplate = stringTemplate.replace("performance-id-from-java", performanceID);
-        stringTemplate += ";";
-        
-        SearchDB availableSeats = new SearchDB(stringTemplate, user.getDBConnector());
-        ResultSet rs = availableSeats.runSearch();
-
-        try {
-            rs.beforeFirst();
-            rs.next();
-            countOfAvailableSeats = rs.getInt(1);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        stallsSeatsAvailable = countOfAvailableSeats;
- */

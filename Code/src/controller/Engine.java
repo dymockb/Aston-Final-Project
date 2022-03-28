@@ -74,8 +74,8 @@ public class Engine {
 	public void openForBusiness(String inputType) throws FileNotFoundException {
 
 		db.connect();
-		//createdb();				
-		//addTableData(); 
+		createdb();				
+		addTableData(); 
 		selectdb();
 
 		if(inputType.equals("inputFromFile")){

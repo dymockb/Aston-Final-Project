@@ -82,8 +82,7 @@ CREATE TABLE	Seat	(
 CREATE TABLE 	Performance	(				
 	ID	INT	PRIMARY KEY AUTO_INCREMENT			,
 	ShowDetailID	INT				,
-	ShowDate	DATE				,
-	ShowTime	TIME				,
+	ShowDateTime	DATETIME				,
 	FOREIGN KEY (	ShowDetailID	) references	ShowDetail	(ID)	
 						);
 						
@@ -119,3 +118,9 @@ CREATE TABLE 	Employee	(
 	ID	INT	PRIMARY KEY 			,
 	EmployeeName	VARCHAR(50)				
 						);END;
+						
+						
+						
+						
+						
+						
