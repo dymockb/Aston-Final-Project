@@ -47,9 +47,14 @@ public class Parser
         testingOn = false;
     }
 
-    private void printInput(String input){
+    private void printInput(String input, Boolean descriptionOfInput){
         if(testingOn){
-            System.out.println(input);
+            if(descriptionOfInput){
+                System.out.print(input);
+            } else {
+                System.out.print(" - " + input + "\n");
+            }
+
         }
     }
 
@@ -59,19 +64,22 @@ public class Parser
         String inputLine = null;
         responder.displayCommands(request, keyword, switches);
         inputLine = reader.nextLine();
-        printInput(inputLine);
+        Boolean descriptionOfInput = false;
+        printInput(inputLine, descriptionOfInput);
         return inputLine;
  
     }
 
     public String getInputForMenu(){
+        Boolean descriptionOfInput = true;
         System.out.print("> ");
         String inputLine = null;
         inputLine = reader.nextLine();
-        printInput(inputLine);
+        printInput(inputLine, descriptionOfInput);
         while(inputLine.startsWith("*")){
+            descriptionOfInput = false;
             inputLine = reader.nextLine();
-            printInput(inputLine);
+            printInput(inputLine, descriptionOfInput);
         }
         return inputLine;
     }

@@ -63,6 +63,8 @@ public class Booking {
 
             if(seatingAreaChosen.equals("c")){
 
+
+
                 if (availableCircleSeats.size() > 0){         
 
                     Boolean selectingSeats = true;
@@ -76,6 +78,7 @@ public class Booking {
                         System.out.println("Available commands:");
                         System.out.println("r - return to previous screen");
                         System.out.println("Please type the seat numbers for your booking (eg: 14,15,16,18):");  
+                        
                         String userInput = parser.getInputForMenu(); 
 
                         if (userInput.equals("r")){
@@ -146,7 +149,13 @@ public class Booking {
                     System.out.println("There are no circle seats available.");
                 }
 
+
+
+
             } else if (seatingAreaChosen.equals("s")){
+
+
+
 
                 if (availableStallsSeats.size() > 0){         
 
@@ -180,10 +189,13 @@ public class Booking {
                             System.out.println("r - return to previous screen");
 
                             System.out.println("Please type the seat numbers for your booking (eg: 14,15,16,18):");  
+                            
                             userInput = parser.getInputForMenu(); 
+                            
                             if (userInput.equals("r")){
                                 selectingSeats = false;
                                 gettingSeatsFromUser = false;
+                            
                             } else if (!userInput.equals("r")){
                             
                                 seatsArray = convertInputToSeatsArray(userInput);
@@ -279,13 +291,18 @@ public class Booking {
                     System.out.println("There are no stalls seats available.");
                 }
 
+
+
+
             } else if (seatingAreaChosen.equals("r")){
                 seatingAreaChosen = "r";
                 bookingInProgress = false;
             }
 
         } catch (NoSuchElementException e){
+
             bookingInProgress = false;
+
         }
 
 

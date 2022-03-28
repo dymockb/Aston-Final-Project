@@ -1,6 +1,6 @@
 **** TEST 1 ****
 * browse shows and book tickets
-b
+s
 * browse shows by NAME
 n
 * select a show by row number
@@ -11,9 +11,20 @@ v
 1
 * book tickets for the performance
 b
-* book seats in the circle
-c
-* type in the seat numbers
-14,15,16
-* add tickets to the basket
-n
+* book seats in the stalls
+s
+* seats taken?
+3,4,5
+* seats ok
+1
+* add tickets to basket
+y
+* checkout now
+y
+* card details
+829157
+* purchase tickets
+y
+* quit
+q
+
