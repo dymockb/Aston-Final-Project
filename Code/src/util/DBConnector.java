@@ -62,8 +62,8 @@ public class DBConnector {
 			*/
 			return results;
 		} catch (SQLException e) {
-			System.out.println(sql + "\n failed to run.");
-			e.printStackTrace();
+			//System.out.println(sql + "\n failed to run.");
+			//e.printStackTrace();
 			return null;
 		}
 

@@ -89,7 +89,7 @@ public class Basket {
                     //System.out.println(addTicketString);
 
                     try {
-                        System.out.println("add ticket to ticket table");
+                        //System.out.println("add ticket to ticket table");
                         db.runQuery(addTicketString);
                     } catch (Exception e){
                         e.printStackTrace();

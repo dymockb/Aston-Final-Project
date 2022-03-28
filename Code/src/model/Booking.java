@@ -153,6 +153,7 @@ public class Booking {
                     Boolean selectingSeats = true;
                     while(selectingSeats) {
                         
+                        /** 
                         System.out.println("Stalls seats available:");
                         for(int seat : availableStallsSeats){
                             System.out.print(seat + " ");
@@ -160,17 +161,59 @@ public class Booking {
                         System.out.println("");
                         System.out.println("Available commands:");
                         System.out.println("r - return to previous screen");
-                        System.out.println("Please type the seat numbers for your booking (eg: 14,15,16,18):");  
-                        String userInput = parser.getInputForMenu(); 
+                        /** */
+                        
+                        Boolean gettingSeatsFromUser = true;
+                        ArrayList<String> seatsArray = new ArrayList<String>();
+                        Boolean allSeatsAvailable = false;
+                        Boolean userInputError = false;
+                        String userInput = "";
 
-                        if (userInput.equals("r")){
-                            selectingSeats = false;
+                        while(gettingSeatsFromUser){
+
+                            System.out.println("Stalls seats available:");
+                            for(int seat : availableStallsSeats){
+                                System.out.print(seat + " ");
+                            }
+                            System.out.println("");
+                            System.out.println("Available commands:");
+                            System.out.println("r - return to previous screen");
+
+                            System.out.println("Please type the seat numbers for your booking (eg: 14,15,16,18):");  
+                            userInput = parser.getInputForMenu(); 
+                            if (userInput.equals("r")){
+                                selectingSeats = false;
+                                gettingSeatsFromUser = false;
+                            } else if (!userInput.equals("r")){
                             
-                        } else {
+                                seatsArray = convertInputToSeatsArray(userInput);
 
+                                try{
+                                    allSeatsAvailable = checkSeatAvailability(seatsArray);
+                                    if (allSeatsAvailable){
+                                        gettingSeatsFromUser = false;
+                                    } else {
+                                        System.out.println("One of more of those seats is taken please try again.");
+                                    }
+
+                                } catch (Exception e){
+                                    userInputError = true;
+                                    System.out.println("** Seats not recognised please try again. **");
+                                }
+                            }
+
+                        }                        
+
+                        //if (userInput.equals("r")){
+                        //    selectingSeats = false;
+                            
+                        //} else {
+
+                            /** 
                             ArrayList<String> seatsArray = convertInputToSeatsArray(userInput);
 
                             Boolean allSeatsAvailable = checkSeatAvailability(seatsArray);
+                            /** */
                             if (allSeatsAvailable){
                                 
                                 System.out.println("Your selected seats are available. Selected seats:");
@@ -180,11 +223,24 @@ public class Booking {
                                 ArrayList<Ticket> tickets = new ArrayList<Ticket>();
                                 for(String seat : seatsArray){
                                     
-                                    int price = getSeatPrice(seat);
-                                    System.out.println("Seat " + seat + ", GBP" + price);
+                                    double price = getSeatPrice(seat);
+                                    int seatID = Integer.valueOf(seat);
+                                    String performanceID = performance.getPerformanceDetails().get("ID");
+                                    int customerID = 1;
+                                    String showName = performance.getPerformanceDetails().get("ShowName");
+                                    String performanceDate = performance.getPerformanceDetails().get("ShowDate");
+                                    String performanceTime = performance.getPerformanceDetails().get("ShowTime");
+                                    String performanceTimeName = performance.getPerformanceDetails().get("ShowTimeName");   
+
+                                    System.out.println("Seat " + seat + " - GBP " + price);
                                     totalPrice += price;
-                                    Ticket ticket = new Ticket(price, Integer.valueOf(seat));
-                                    tickets.add(ticket);
+
+                                    Ticket ticket = new Ticket(price,
+                                                        seatID, performanceID, customerID,
+                                                        showName, performanceDate, performanceTime,
+                                                        performanceTimeName);
+                                    
+                                                        tickets.add(ticket);
                                 }
 
                                 System.out.println("Total price: GBP" + totalPrice);
@@ -208,10 +264,14 @@ public class Booking {
                                 }
 
                             } else {
-                                System.out.println("Sorry one or more of the seat(s) you selected are not available.");                     
+
+                                if (!userInputError){
+                                    System.out.println("Sorry one or more of the seat(s) you selected are not available.");                     
+                                }
+
                             }
 
-                        }
+                        //}
 
                     }
 
@@ -261,15 +321,23 @@ public class Booking {
             Parser seatSelectionParser = new Parser();
             seatSelectionParser.inputFromString(userInput);
 
-            try {
-                String seat = seatSelectionParser.getUserSeat();
-                System.out.println(seat);
-            } catch (Exception e){
-
+            Boolean findingSeats = true;
+            String seat;
+            ArrayList<String> selectedSeats = new ArrayList<String>();
+            while(findingSeats){
+                try {
+                    seat = seatSelectionParser.getUserSeat();
+                    selectedSeats.add(seat);
+                } catch (Exception e){
+                    //e.printStackTrace();
+                    findingSeats = false;
+                }
             }
 
-            ArrayList<String> selectedSeats = new ArrayList<String>();
-            selectedSeats.add(userInput);
+
+            seatSelectionParser.closeScanner();
+
+            //selectedSeats.add("1");
             if (selectedSeats.size() > 0){
                 return selectedSeats;
             } else {
@@ -293,9 +361,8 @@ public class Booking {
                 
             SearchDB bookingsForThisSeatThisPeformance = new SearchDB(stringTemplate, user.getDBConnector());
     
-            ResultSet rs = bookingsForThisSeatThisPeformance.runSearch();
-    
             try {
+                ResultSet rs = bookingsForThisSeatThisPeformance.runSearch();
                 rs.beforeFirst();
                 rs.next();
                 int countBookedSeats = rs.getInt(1);
@@ -303,7 +370,7 @@ public class Booking {
                     allSeatsAreAvailable = false;
                 }    
             } catch (SQLException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
 
         }
