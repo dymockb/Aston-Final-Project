@@ -62,9 +62,10 @@ public class ViewShow extends Screen {
                     String searchString = stringTemplate.replace("show-id-from-java", show.getShowDetails().get("ID"));
                     searchString += "ORDER BY ShowDateTime;";
                     SearchDB showPerformancesByDate = new SearchDB(searchString, db);
+                    user.setPreviousSearch(searchString);
 
                     //user.saveNewSearch("shows-performances-by-date", showPerformancesByDate);
-                    //user.setPreviousSearch("shows-performances-by-date");
+                    
 
                     rs = showPerformancesByDate.runSearch();
 

@@ -79,8 +79,8 @@ public class User {
     }
     /** */
 
-    public void setPreviousSearch(String searchName){
-        previousSearch = searchName;
+    public void setPreviousSearch(String searchString){
+        previousSearch = searchString;
     }
 
     public String getPreviousSearch(){

@@ -34,8 +34,9 @@ public class Performance {
             e.printStackTrace();
         }
 
+        //setNumberOfSeatsAvailable();
         //System.out.println("Show hashmap: ");
-        //System.out.println(showDetails);
+        System.out.println(performanceDetails);
 
     }
 
@@ -58,6 +59,7 @@ public class Performance {
             stringTemplate = stringTemplate.replace("seat-id-from-java", String.valueOf(i));
             stringTemplate += ";";
             
+            System.out.println(stringTemplate);
             SearchDB checkSeatAvailability = new SearchDB(stringTemplate, user.getDBConnector());
             ResultSet rs = checkSeatAvailability.runSearch();
             
@@ -65,6 +67,7 @@ public class Performance {
                 rs.beforeFirst();
                 rs.next();
                 int seatAvailable = rs.getInt(1);
+                System.out.println("seat: " + i + "rs.result: " + seatAvailable);
                 if (seatAvailable == 0){
                     stallsSeatsAvailable.add(i);
                 } 
@@ -82,6 +85,7 @@ public class Performance {
             stringTemplate = stringTemplate.replace("seat-id-from-java", String.valueOf(i));
             stringTemplate += ";";
             
+            System.out.println(stringTemplate);
             SearchDB checkSeatAvailability = new SearchDB(stringTemplate, user.getDBConnector());
             ResultSet rs = checkSeatAvailability.runSearch();
             
@@ -89,6 +93,7 @@ public class Performance {
                 rs.beforeFirst();
                 rs.next();
                 int seatAvailable = rs.getInt(1);
+                System.out.println("seat: " + i + "rs.result: " + seatAvailable);
                 if (seatAvailable == 0){
                     circleSeatsAvailable.add(i);
                 } 

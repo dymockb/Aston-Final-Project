@@ -51,19 +51,33 @@ public class Performances extends Screen {
 
                     browsing = false;
         
-                    //System.out.println("Row " + selectedRowInt + " selected.");
-        
+                    System.out.println("Row " + selectedRowInt + " selected.");
                     String performanceID = performancesTable.getFirstCellofSelectedRowInResultSet(selectedRowInt);
-                    
-                    //System.out.println("PerformanceID selected: " + performanceID);
+                    System.out.println("PerformanceID selected: " + performanceID);
+
+                    /**
+                     * 
+select Performance.ID, ShowDateTime, TypeOfShowID, ShowName, ShowDescription, Duration, PriceID, Performaner, LangugeName,
+CASE  
+ WHEN ShowDateTime < "2022-04-20 16:00:00" THEN "Matinee"
+ ELSE "Evening"
+END AS ShowTimeType
+FROM Performance 
+JOIN ShowDetail ON Performance.ShowDetailID = ShowDetail.ID 
+JOIN LiveMusic ON ShowDetail.LiveMusicID = LiveMusic.ID 
+JOIN ShowLanguage ON ShowDetail.LanguageID = ShowLanguage.ID 
+WHERE Performance.ID = 2
+
+                     */
 
                     String stringTemplate = user.getSqlQueries().get("get-performance-by-ID");
                     String searchString = stringTemplate.replace("performance-id-from-java", performanceID);
                     searchString += ";";
+                    System.out.println(searchString); 
                     SearchDB getSelectedPerformance = new SearchDB(searchString, db);
 
                     //user.saveNewSearch("selected-performance-search", getSelectedPerformance);
-                    user.setPreviousSearch("selected-performance-search");
+                    //user.setPreviousSearch("selected-performance-search");
 
                     rs = getSelectedPerformance.runSearch();
                     //rs = db.runQuery(user.getSqlQueries().get("get-performance-by-ID") + performanceID + ";");  

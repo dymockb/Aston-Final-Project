@@ -9,6 +9,7 @@ import java.util.NoSuchElementException;
 import model.Performance;
 import model.Booking;
 import util.StaticPrinter;
+import superclass.SearchDB;
 
 public class ViewPerformance extends Screen {
 
@@ -39,8 +40,9 @@ public class ViewPerformance extends Screen {
         System.out.println("");
         System.out.println("Available commands:");
         System.out.println("b - Book tickets for this performance");
-        System.out.println("n - New search");
-        System.out.println("h - return to home screen");
+        System.out.println("r - Return to list of performances for this show");
+        System.out.println("h - Home Screen");
+
         displayBasketStatus();
         
 
@@ -59,6 +61,7 @@ public class ViewPerformance extends Screen {
                     Booking booking = new Booking(user, performance, parser);
                     
                     String seatingAreaSelected = booking.startBooking();
+                    
                     if (seatingAreaSelected.equals("c") || seatingAreaSelected.equals("s")){
 
                         if(booking.getBasketUpdated()){
@@ -74,8 +77,9 @@ public class ViewPerformance extends Screen {
                         }
 
                     } else if (seatingAreaSelected.equals("r")){
-                        System.out.println("return to peformance tbc");
+                        
                         nextScreen = "view-performance"; 
+
                     }
                     
                     
@@ -85,14 +89,25 @@ public class ViewPerformance extends Screen {
                 } else if (userInput.equals("h")) {
                     viewingPerformance = false;
                     
-                }else if (userInput.equals("n")) {
+                }else if (userInput.equals("r")) {
+
                     viewingPerformance = false;
     
-                    //rs = user.getSearchHistory().get(user.getPreviousSearch()).runSearch();
-                    //user.setSearchResultSet(rs);
-                    //nextScreen = "shows-screen";
+                    SearchDB savedSearch = new SearchDB(user.getPreviousSearch(), db);
+                        
+                    //String stringTemplate = user.getSqlQueries().get("all-performances-for-single-show");
+                    //String searchString = stringTemplate.replace("show-id-from-java", user.getIDValueForNextSearch());
+                    //String searchString = stringTemplate.replace("show-id-from-java", show.getShowDetails().get("ID"));
+                    //SearchDB showPerformancesByDate = new SearchDB(searchString, db);
+                    //user.setPreviousSearch(searchString);
+
+                    //user.saveNewSearch("shows-performances-by-date", showPerformancesByDate);
                     
-                    nextScreen = "search-screen";
+
+                    rs = savedSearch.runSearch();
+
+                    user.setSearchResultSet(rs);
+                    nextScreen = "performances-screen";
                     
                 } else {
                     StaticPrinter.invalidCommand();

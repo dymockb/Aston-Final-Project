@@ -7,16 +7,14 @@ public class Ticket {
     private int performanceID;
     private String performanceName;
     private String showName;
-    private int showID;
     private String performanceTime;
     private String performanceTimeType;
 
-    public Ticket(double price, int seatID, int performanceID, String showName, int showID, String performanceTime, String performanceTimeType){
+    public Ticket(double price, int seatID, int performanceID, String showName, String performanceTime, String performanceTimeType){
         this.price = price;
         this.seatID = seatID;
         this.performanceID = performanceID;
         this.showName = showName;
-        this.showID = showID;
         this.performanceTime = performanceTime;
         this.performanceTimeType = performanceTimeType;
     }

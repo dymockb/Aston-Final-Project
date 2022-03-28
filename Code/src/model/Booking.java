@@ -54,7 +54,7 @@ public class Booking {
             System.out.println("Available commands:");
             System.out.println("c - Circle - book seats");
             System.out.println("s - Stalls - book seats");
-            System.out.println("r - return to performance details");
+            System.out.println("r - Return to performance details");
 
             try{
 
@@ -65,7 +65,7 @@ public class Booking {
                 if (availableCircleSeats.size() > 0){         
 
                     Boolean selectingSeats = true;
-                    while(selectingSeats){
+                    while(selectingSeats) {
                         
                         System.out.println("Circle seats available:");
                         for(int seat : availableCircleSeats){
@@ -120,28 +120,89 @@ public class Booking {
                                     StaticPrinter.invalidCommand();
                                 }
 
-        
-                        } else {
-                            System.out.println("Sorry one or more of the seat(s) you selected are not available.");                     
+                            } else {
+                                System.out.println("Sorry one or more of the seat(s) you selected are not available.");                     
+                            }
+
                         }
 
                     }
 
-
+                } else {
+                    System.out.println("There are no circle seats available.");
                 }
-
-
-            } else {
-                System.out.println("There are no circle seats available.");
-            }
-
 
             } else if (seatingAreaChosen.equals("s")){
 
-                System.out.println("Stalls seats available:");
-                System.out.println("14, 15, 16, 17, 22, 87, 88");
-                System.out.println("Please type the seat numbers for your booking (eg: 14,15,16,18):");  
-                //String userInput = parser.getInputForMenu(); 
+                if (availableStallsSeats.size() > 0){         
+
+                    Boolean selectingSeats = true;
+                    while(selectingSeats) {
+                        
+                        System.out.println("Stalls seats available:");
+                        for(int seat : availableStallsSeats){
+                            System.out.print(seat + " ");
+                        }
+                        System.out.println("");
+                        System.out.println("Available commands:");
+                        System.out.println("r - return to previous screen");
+                        System.out.println("Please type the seat numbers for your booking (eg: 14,15,16,18):");  
+                        String userInput = parser.getInputForMenu(); 
+
+                        if (userInput.equals("r")){
+                            selectingSeats = false;
+                            
+                        } else {
+
+                            ArrayList<String> seatsArray = convertInputToSeatsArray(userInput);
+
+                            Boolean allSeatsAvailable = checkSeatAvailability(seatsArray);
+                            if (allSeatsAvailable){
+                                
+                                System.out.println("Your selected seats are available. Selected seats:");
+                               
+                                int totalPrice = 0;
+
+                                ArrayList<Ticket> tickets = new ArrayList<Ticket>();
+                                for(String seat : seatsArray){
+                                    
+                                    int price = getSeatPrice(seat);
+                                    System.out.println("Seat " + seat + ", price: " + price);
+                                    totalPrice += price;
+                                    Ticket ticket = new Ticket(price, Integer.valueOf(seat));
+                                    tickets.add(ticket);
+                                }
+                                System.out.println("Total price: " + totalPrice);
+
+                                System.out.println("Add these tickets to your basket? y / n");
+                                userInput = parser.getInputForMenu();
+
+                                if (userInput.equals("y")){
+                                    
+                                    System.out.println("Add tickets to basket");
+                                    basketUpdated = user.getBasket().addTickets(tickets);
+                                    selectingSeats = false;
+                                    bookingInProgress = false;
+
+                                } else if (userInput.equals("n")){
+                                    selectingSeats = false;
+                                    bookingInProgress = false;
+
+                                } else {
+                                    StaticPrinter.invalidCommand();
+                                }
+
+                            } else {
+                                System.out.println("Sorry one or more of the seat(s) you selected are not available.");                     
+                            }
+
+                        }
+
+                    }
+
+                } else {
+                    System.out.println("There are no stalls seats available.");
+                }
 
             } else if (seatingAreaChosen.equals("r")){
                 seatingAreaChosen = "r";
