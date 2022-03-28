@@ -40,6 +40,7 @@ public class DBConnector {
 	public ResultSet runQuery(String sql) {
 		PreparedStatement pst = null;
 		try {
+			//System.out.println(sql);
 			pst = conn.prepareStatement(sql,
 					ResultSet.TYPE_SCROLL_SENSITIVE, // allows us to move forward and back in the ResultSet
                     ResultSet.CONCUR_UPDATABLE);

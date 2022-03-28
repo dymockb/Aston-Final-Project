@@ -66,8 +66,6 @@ public class ViewPerformance extends Screen {
                     
                     if (seatingAreaSelected.equals("c") || seatingAreaSelected.equals("s")){
 
-                        System.out.println("result via performance: " + booking.getResultOfBookingProcess());
-
                         if(booking.getResultOfBookingProcess().equals("complete")){
                         
                             booking.printSummary();
@@ -75,6 +73,7 @@ public class ViewPerformance extends Screen {
                         } else if (booking.getResultOfBookingProcess().equals("basket-saved")){
                         
                             System.out.println("User added tickets but did not checkout");
+                            nextScreen = "search-screen"; 
 
                         } else if(booking.getResultOfBookingProcess().equals("payment-error")){
                         
@@ -82,7 +81,7 @@ public class ViewPerformance extends Screen {
                                               
                         } else {
                             
-                            System.out.println("Something else");
+                            System.out.println("There was an error");
            
                         }
 

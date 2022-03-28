@@ -4,21 +4,23 @@ public class Ticket {
 
     private double price;
     private int seatID;
-    private int performanceID;
+    private String performanceID;
     private int customerID;
     private String performanceName;
     private String showName;
+    private String performanceDate;
     private String performanceTime;
-    private String performanceTimeType;
+    private String performanceTimeName;
 
-    public Ticket(double price, int seatID, int performanceID, int customerID, String showName, String performanceTime, String performanceTimeType){
+    public Ticket(double price, int seatID, String performanceID, int customerID, String showName, String performanceDate, String performanceTime, String performanceTimeName){
         this.price = price;
         this.seatID = seatID;
         this.performanceID = performanceID;
         this.customerID = customerID;
         this.showName = showName;
+        this.performanceDate = performanceDate;
         this.performanceTime = performanceTime;
-        this.performanceTimeType = performanceTimeType;
+        this.performanceTimeName = performanceTimeName;
     }
 
     public Ticket(double price, int seatID){
@@ -34,7 +36,7 @@ public class Ticket {
         return price;
     }
 
-    public int getPerformanceID(){
+    public String getPerformanceID(){
         return performanceID;
     }
 

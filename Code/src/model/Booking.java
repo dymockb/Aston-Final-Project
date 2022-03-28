@@ -31,7 +31,6 @@ public class Booking {
 
 
     public String getResultOfBookingProcess(){
-        System.out.println("resultofbookingprocess" + resultOfBookingProcess);
         return resultOfBookingProcess;
     }
 
@@ -96,11 +95,24 @@ public class Booking {
                                 ArrayList<Ticket> tickets = new ArrayList<Ticket>();
                                 for(String seat : seatsArray){
                                     
-                                    int price = getSeatPrice(seat);
+                                    double price = getSeatPrice(seat);
+                                    int seatID = Integer.valueOf(seat);
+                                    String performanceID = performance.getPerformanceDetails().get("ID");
+                                    int customerID = 1;
+                                    String showName = performance.getPerformanceDetails().get("ShowName");
+                                    String performanceDate = performance.getPerformanceDetails().get("ShowDate");
+                                    String performanceTime = performance.getPerformanceDetails().get("ShowTime");
+                                    String performanceTimeName = performance.getPerformanceDetails().get("ShowTimeName");   
+
                                     System.out.println("Seat " + seat + " - GBP " + price);
                                     totalPrice += price;
-                                    Ticket ticket = new Ticket(price, Integer.valueOf(seat));
-                                    tickets.add(ticket);
+
+                                    Ticket ticket = new Ticket(price,
+                                                        seatID, performanceID, customerID,
+                                                        showName, performanceDate, performanceTime,
+                                                        performanceTimeName);
+                                    
+                                                        tickets.add(ticket);
                                 }
                                 System.out.println("Total price - GBP " + totalPrice);
 
@@ -111,7 +123,6 @@ public class Booking {
                                     
                                     System.out.println("Add tickets to basket");
                                     resultOfBookingProcess = user.getBasket().addTickets(tickets);
-                                    System.out.println("resultofbookingprocess" + resultOfBookingProcess);
                                     selectingSeats = false;
                                     bookingInProgress = false;
 
@@ -247,6 +258,15 @@ public class Booking {
 
         //process input to get a list of individual seat numbers.
         // then add each seat number to array list:
+            Parser seatSelectionParser = new Parser();
+            seatSelectionParser.inputFromString(userInput);
+
+            try {
+                String seat = seatSelectionParser.getUserSeat();
+                System.out.println(seat);
+            } catch (Exception e){
+
+            }
 
             ArrayList<String> selectedSeats = new ArrayList<String>();
             selectedSeats.add(userInput);

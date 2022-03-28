@@ -46,14 +46,13 @@ public class Basket {
 
         StaticPrinter.printBasketHeading(tickets.size());
         System.out.println("There are " + tickets.size() + " ticket(s) in your basket.");
-        System.out.println("The baske total is " + basketTotal); 
+        System.out.println("The basket total is " + basketTotal); 
         System.out.println("Would you like to checkout now?");
         System.out.println("y - checkout.");
         System.out.println("n - save basket and search again.");
 
         String userInput = parser.getInputForMenu();
         if(userInput.equals("y")){
-            System.out.println("1. ticket array size: " + tickets.size());
             startCheckout();
             return "complete";
         } else if (userInput.equals("n")){
@@ -66,7 +65,7 @@ public class Basket {
     }
 
     public Boolean startCheckout(){
-        System.out.println("1.5. ticket array size: " + tickets.size());
+
         Boolean returnValue = false;
 
         System.out.println("Please enter your card details." );
@@ -75,14 +74,11 @@ public class Basket {
             System.out.println("Your card details are confirmed.  Proceed with purchase?");
             System.out.println("y - purchase tickets");
             System.out.println("n - cancel purchase");
-            System.out.println("2. ticket array size: " + tickets.size());
             userInput = parser.getInputForMenu();
             if (userInput.equals("y")){
 
-                System.out.println("3. ticket array size: " + tickets.size());
                 for (Ticket ticket : tickets){
 
-                    System.out.println("make a ticket string");
                     String addTicketString = createTicketString(
                         ticket.getCustomerID(),
                         ticket.getPerformanceID(),
@@ -90,14 +86,15 @@ public class Basket {
                         ticket.getPrice()
                         );
 
-                    System.out.println(addTicketString);
+                    //System.out.println(addTicketString);
 
                     try {
-
+                        System.out.println("add ticket to ticket table");
+                        db.runQuery(addTicketString);
                     } catch (Exception e){
                         e.printStackTrace();
                     }
-                    //db.runQuery(addTicketString);
+                    
 
                 }
 
@@ -140,7 +137,7 @@ VALUES (1, 2, 121, 1, 1, 40, "2022-03-27 10:50:00", 0)
 
     }
 
-    private String createTicketString(int customerID, int performanceID, int seatID, double price){
+    private String createTicketString(int customerID, String performanceID, int seatID, double price){
 
         /**
          *  INSERT INTO Reservation (CustomerID, PerformanceID, SeatID, PaymentTypeID, DeliveryTypeID, Price, ReservationDateTime, CancellationDateTime) 
@@ -155,7 +152,7 @@ VALUES (1, 2, 121, 1, 1, 40, "2022-03-27 10:50:00", 0)
         ticketString += "1, ";
         ticketString += "1, ";
         ticketString += price + ", ";
-        ticketString += "2022-03-27 10:50:00" + ", ";
+        ticketString += "'2022-03-27 10:50:00'" + ", ";
         ticketString += "0);";
 
         return ticketString;

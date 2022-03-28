@@ -35,6 +35,10 @@ public class Parser
         testingOn();
     };
 
+    public void inputFromString(String inputString){
+        reader = new Scanner(inputString);
+    }
+
     public void testingOn(){
         testingOn = true;
     }
@@ -76,6 +80,12 @@ public class Parser
         reader.useDelimiter(";");       
         String inputLine = reader.next();
         return inputLine;
+    }
+
+    public String getUserSeat(){
+        reader.useDelimiter(",");
+        String seat = reader.next();
+        return seat;
     }
 
     public String createSqlDataFromCSV(String tableName){
