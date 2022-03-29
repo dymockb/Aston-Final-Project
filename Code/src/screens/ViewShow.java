@@ -78,7 +78,7 @@ public class ViewShow extends Screen {
         String searchString = user.getSqlQueries().get("get-all-prices-for-show");  
         searchString = searchString.replace("price-band-id-from-java", priceBandID + ";");
         
-        System.out.println(searchString);
+        //System.out.println(searchString);
         SearchDB getPrices = new SearchDB(searchString, db);
         rs = getPrices.runSearch();
 

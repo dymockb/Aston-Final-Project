@@ -11,7 +11,7 @@ import java.util.NoSuchElementException;
 public class Basket {
 
     //private int numberOfTicketsInBasket = 0;
-    private double basketTotal = 0;
+    //private double basketTotal = 0;
     private Parser parser;
     private DBConnector db;
     private ArrayList<Ticket> tickets;
@@ -29,7 +29,11 @@ public class Basket {
     }
 
     public double getBasketTotal(){
-        return basketTotal;
+        double total = 0;
+        for (Ticket ticket : tickets){
+            total += ticket.getPrice();
+        }
+        return total;
     }
 
     public int displayBasket(){
@@ -41,13 +45,13 @@ public class Basket {
 
         //numberOfTicketsInBasket += tickets.size();
         for (Ticket ticket : tickets){
-            basketTotal += ticket.getPrice();
+            //basketTotal += ticket.getPrice();
             this.tickets.add(ticket);
         }
 
-        StaticPrinter.printBasketHeading(tickets.size());
-        System.out.println("There are " + tickets.size() + " ticket(s) in your basket.");
-        System.out.println("The basket total is " + basketTotal); 
+        StaticPrinter.printBasketHeading(this.tickets.size());
+        System.out.println("There are " + this.tickets.size() + " ticket(s) in your basket.");
+        System.out.println("The basket total is " + getBasketTotal()); 
         System.out.println("Would you like to checkout now?");
         System.out.println("y - checkout.");
         System.out.println("n - save basket and search again.");
@@ -151,7 +155,7 @@ public class Basket {
         
                         System.out.println("Payment confirmed. Clear basket" );
                         tickets = new ArrayList<Ticket>();
-                        basketTotal = 0;
+                        //basketTotal = 0;
                         //System.out.println("Basket summary. there are " + tickets.size() + " tickets in the basket");
                         returnValue = "purchase-complete";
         

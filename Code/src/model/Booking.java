@@ -189,7 +189,7 @@ public class Booking {
                                         if (userInput.equals("y")){
                                         
                                             System.out.println("Add tickets to basket");
-
+                                            //System.out.println(user.getBasket().getNumberOfTicketsInBasket());
                                             resultOfBookingProcess = user.getBasket().addTickets(tickets);
                                             selectingSeats = false;
                                             bookingInProgress = false;                                                         
