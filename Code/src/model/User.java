@@ -22,6 +22,7 @@ public class User {
     private String previousSearch;
     private int IDValueForNextSearch;
     private String eventName;
+    private String showTicketPriceRange;
 
     private HashMap<String, String> sqlQueries;
 
@@ -78,6 +79,14 @@ public class User {
         return searchHistory;
     }
     /** */
+
+    public void setShowTicketPriceRange(String showTicketPriceRange){
+        this.showTicketPriceRange = showTicketPriceRange;
+    }
+
+    public String getShowTicketPriceRange(){
+        return showTicketPriceRange;
+    }
 
     public void setPreviousSearch(String searchString){
         previousSearch = searchString;

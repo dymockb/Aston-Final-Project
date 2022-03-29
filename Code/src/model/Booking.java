@@ -89,7 +89,8 @@ public class Booking {
                                 Boolean userInputError = false;    
                                 System.out.println("Circle seats available:");
                                 for(int seat : availableCircleSeats){
-                                    System.out.print(seat + " ");
+                                    int seatPrice = getSeatPrice(String.valueOf(seat));
+                                    System.out.println("Seat number: " +seat + " - GBP " + seatPrice);
                                 }
                                 System.out.println("");
                                 System.out.println("Available commands:");
@@ -223,17 +224,7 @@ public class Booking {
                         Boolean selectingSeats = true;
                         Boolean gettingSeatsFromUser = true;
                         while(selectingSeats) {
-                            
-                            /** 
-                            System.out.println("Stalls seats available:");
-                            for(int seat : availableStallsSeats){
-                                System.out.print(seat + " ");
-                            }
-                            System.out.println("");
-                            System.out.println("Available commands:");
-                            System.out.println("r - return to previous screen");
-                            /** */
-                            
+                                                        
                             ArrayList<String> seatsArray = new ArrayList<String>();
                             Boolean allSeatsAvailable = false;
                             Boolean fileReadError = false;
@@ -243,7 +234,8 @@ public class Booking {
                                 Boolean userInputError = false;    
                                 System.out.println("Stalls seats available:");
                                 for(int seat : availableStallsSeats){
-                                    System.out.print(seat + " ");
+                                    int seatPrice = getSeatPrice(String.valueOf(seat));
+                                    System.out.println("Seat number: " +seat + " - GBP " + seatPrice);
                                 }
                                 System.out.println("");
                                 System.out.println("Available commands:");

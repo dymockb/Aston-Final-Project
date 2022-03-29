@@ -30,7 +30,7 @@ public class Show {
         }
 
         //System.out.println("Show hashmap: ");
-        //System.out.println(showDetails);
+        System.out.println(showDetails);
 
     }
 

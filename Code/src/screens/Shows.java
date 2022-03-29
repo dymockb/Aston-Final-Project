@@ -35,7 +35,8 @@ public class Shows extends Screen {
         ArrayList<String> columnsToHide = new ArrayList<String>();
         columnsToHide.add("ID");
 
-        Table showsTable = new Table(rs, parser, eventName, tableName, orderedBy, columnNames, columnsToHide, false);
+        String noPriceRange = "";
+        Table showsTable = new Table(rs, parser, eventName, tableName, orderedBy, noPriceRange, columnNames, columnsToHide, false);
 
         Boolean browsing = true;
         Boolean hideTable = false;

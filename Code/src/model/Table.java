@@ -12,6 +12,7 @@ public class Table {
     private String eventName;
     private String tableName;
     private String orderedBy;
+    private String ticketPriceRange;
     private Boolean isBookingTable;
     private HashMap<String, String> columnNames;
 
@@ -33,7 +34,7 @@ public class Table {
  
     ArrayList<Boolean> switches = new ArrayList<Boolean>();
 
-    public Table(ResultSet rs, Parser parser, String eventName, String tableName, String orderedBy, HashMap<String, String> columnNames, ArrayList<String> columnsToHide, Boolean isBookingTable){
+    public Table(ResultSet rs, Parser parser, String eventName, String tableName, String orderedBy, String ticketPriceRange, HashMap<String, String> columnNames, ArrayList<String> columnsToHide, Boolean isBookingTable){
 
         this.rs = rs;
         this.parser = parser;
@@ -43,6 +44,7 @@ public class Table {
         this.columnNames = columnNames;
         this.columnsToHide = columnsToHide;
         this.isBookingTable = isBookingTable;
+        this.ticketPriceRange = ticketPriceRange;
 
         idxOfColumnsToHide = new ArrayList<Integer>();
 
@@ -152,8 +154,14 @@ public class Table {
     private void printTitle(){
 
         int adjStartingRow = numberOfRows == 0 ? 0 : startingRow + 1;
-        String titleText = eventName + ": " + tableName + " - " + (adjStartingRow) + " to " + endingRow + " out of " + numberOfRows + ", ordered by " + orderedBy;
-        StaticPrinter.printTableHeading(titleText);
+        if (!isBookingTable){
+            String titleText = eventName + ": " + tableName + " - " + (adjStartingRow) + " to " + endingRow + " out of " + numberOfRows + ", ordered by " + orderedBy;
+            StaticPrinter.printTableHeading(titleText);
+        } else {
+            String titleText = eventName + ": " + tableName + " - " + (adjStartingRow) + " to " + endingRow + " out of " + numberOfRows + ", ordered by " + orderedBy + "\n" + ticketPriceRange;
+            StaticPrinter.printTableHeading(titleText);            
+        }
+
 
     }
 

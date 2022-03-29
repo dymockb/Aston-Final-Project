@@ -4,6 +4,7 @@ import util.DBConnector;
 import util.Parser;
 import superclass.SearchDB;
 import java.util.HashMap;
+import java.sql.*;
 
 import java.util.NoSuchElementException;
 
@@ -19,23 +20,75 @@ public class ViewShow extends Screen {
     
     }
 
+    private double getMaxPrice(ResultSet rs, double startingPrice){
+
+        double outputPrice = startingPrice;
+        try {
+            rs.beforeFirst();
+            rs.next();
+            for (int i = 1; i <= 4; i ++){
+                if(rs.getInt(i) > outputPrice){
+                    outputPrice = rs.getInt(i);
+                }
+            }
+
+        } catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+        return outputPrice;
+
+    };
+
+    private double getMinPrice(ResultSet rs, double startingPrice){
+
+        double outputPrice = startingPrice;
+        try {
+            rs.beforeFirst();
+            rs.next();
+            for (int i = 1; i <= 4; i ++){
+                if(rs.getInt(i) < outputPrice){
+                    outputPrice = rs.getInt(i);
+                }
+            }
+
+        } catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+        return outputPrice;
+
+    };
+
+
     public void displayScreen() throws NoSuchElementException {
 
         show = new Show(user.getSearchResultSet());
         HashMap<String, String> showDetails = show.getShowDetails();
 
-
+        //String showID = showDetails.get("ID");
         String showName = showDetails.get("ShowName");
         String typeOfShow = showDetails.get("TypeName");
         String language = showDetails.get("LangugeName");
         String liveMusic = showDetails.get("Performaner");
         String duration = showDetails.get("Duration");
-        String ticketPrice = showDetails.get("PriceID");
+        String priceBandID = showDetails.get("PriceID");
         String showDescription = showDetails.get("ShowDescription");
-        
 
+        String searchString = user.getSqlQueries().get("get-all-prices-for-show");  
+        searchString = searchString.replace("price-band-id-from-java", priceBandID + ";");
+        
+        System.out.println(searchString);
+        SearchDB getPrices = new SearchDB(searchString, db);
+        rs = getPrices.runSearch();
+
+        double maxPrice = getMaxPrice(rs, 0);
+        double minPrice = getMinPrice(rs, maxPrice);
+
+        String ticketPrices = "GBP " + minPrice + " - GBP " + maxPrice ;
+ 
         StaticPrinter.printShowHeading(showName);
-        StaticPrinter.printShowDetails(showName, typeOfShow, language, liveMusic, duration, showDescription, ticketPrice);
+        StaticPrinter.printShowDetails(showName, typeOfShow, language, liveMusic, duration, showDescription, ticketPrices);
         //System.out.println(show.getShowDetails());
         System.out.println("");
         displayBasketStatus();
@@ -59,11 +112,11 @@ public class ViewShow extends Screen {
 
                     String stringTemplate = user.getSqlQueries().get("all-performances-for-single-show");
                     //String searchString = stringTemplate.replace("show-id-from-java", user.getIDValueForNextSearch());
-                    String searchString = stringTemplate.replace("show-id-from-java", show.getShowDetails().get("ID"));
+                    searchString = stringTemplate.replace("show-id-from-java", show.getShowDetails().get("ID"));
                     searchString += "ORDER BY ShowDate, ShowTime;";
                     SearchDB showPerformancesByDate = new SearchDB(searchString, db);
                     user.setPreviousSearch(searchString);
-
+                    user.setShowTicketPriceRange(ticketPrices);
                     //user.saveNewSearch("shows-performances-by-date", showPerformancesByDate);
                     
 

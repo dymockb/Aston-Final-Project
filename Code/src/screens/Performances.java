@@ -30,8 +30,11 @@ public class Performances extends Screen {
         ArrayList<String> columnsToHide = new ArrayList<String>();
         columnsToHide.add("ID");
         columnsToHide.add("ShowName");
+        columnsToHide.add("PriceID");
 
-        Table performancesTable = new Table(rs, parser, eventName, tableName, orderedBy, columnNames, columnsToHide, true);
+        String ticketPriceRange = user.getShowTicketPriceRange();
+
+        Table performancesTable = new Table(rs, parser, eventName, tableName, orderedBy, ticketPriceRange, columnNames, columnsToHide, true);
 
         Boolean browsing = true;
         Boolean hideRows = false;
