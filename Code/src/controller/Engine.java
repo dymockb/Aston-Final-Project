@@ -40,7 +40,7 @@ public class Engine {
 		Engine engine = new Engine();
 
 		//Run from file:
-		//engine.openForBusiness("inputFromFile");
+		//engine.openForBusiness("inputFromFile"); 
 
 		//Run with UserInput:
 		engine.openForBusiness("userInput");
