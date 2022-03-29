@@ -7,7 +7,7 @@ public class StaticPrinter {
     }
 
     public static void invalidCommand(String fromScreen){
-        System.out.println("** Invalid command from screen: " + fromScreen);
+        System.out.println("\n** Invalid command from screen: " + fromScreen);
     }
 
     public static void printLoginLogout(Boolean userLoggedIn){

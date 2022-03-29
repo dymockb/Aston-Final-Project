@@ -81,7 +81,7 @@ public class Shows extends Screen {
             
                     }
     
-                } else if (userInputFromTable.equals("n")) {
+                } else if (userInputFromTable.equals("b")) {
                     browsing = false;
                     nextScreen = "search-screen";
     

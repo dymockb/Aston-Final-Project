@@ -84,7 +84,11 @@ public class Table {
                 System.out.println("Navigation options:");
                 System.out.println("f - Forward");
                 System.out.println("r - Return to top of results");
-                System.out.println("n - New search");
+                if(isBookingTable){
+                    System.out.println("n - new search");
+                } else {
+                    System.out.println("b - back to search screen");                    
+                }
                 System.out.println("");                
                 StaticPrinter.printTableRowSelectionMsg(isBookingTable);
                 
@@ -116,6 +120,8 @@ public class Table {
                             switches.set(0, true);
                         }
     
+                    } else {
+                        browsingTable = false;
                     }
                     
                 } else {

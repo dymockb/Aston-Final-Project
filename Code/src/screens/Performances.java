@@ -38,59 +38,55 @@ public class Performances extends Screen {
 
         String nextScreen = "home-screen";
 
+        String userInputFromTable = null;
         while(browsing){
-
-            String userInputFromTable = null;
 
             userInputFromTable = performancesTable.startBrowsing(hideRows, user.getIsLoggedIn());
             
-            if(userInputFromTable == null){
+            if(userInputFromTable != null){
+
+                if (IsInteger.checkString(userInputFromTable)){
+
+                    int selectedRowInt = Integer.parseInt(userInputFromTable);                       
+    
+                    if (selectedRowInt <= performancesTable.getNumberOfRows()){
+    
+                        browsing = false;
+            
+                        //System.out.println("Row " + selectedRowInt + " selected.");
+                        String performanceID = performancesTable.getFirstCellofSelectedRowInResultSet(selectedRowInt);
+                        //System.out.println("PerformanceID selected: " + performanceID);
+    
+                        String stringTemplate = user.getSqlQueries().get("get-performance-by-ID");
+                        String searchString = stringTemplate.replace("performance-id-from-java", performanceID);
+                        searchString += ";";
+                        //System.out.println(searchString); 
+                        SearchDB getSelectedPerformance = new SearchDB(searchString, db);
+    
+                        rs = getSelectedPerformance.runSearch();
+    
+                        user.setSearchResultSet(rs);
+                        nextScreen = "view-performance";
+    
+                    } else {
+            
+                        printer.rowSelectionNotAvailableMessage();
+            
+                    }
+    
+                } else if (userInputFromTable.equals("n")) {
+                    browsing = false;
+                    nextScreen = "search-screen";
+                } else {
+                    StaticPrinter.invalidCommand("Performances"); 
+                    hideRows = true;
+                }                
+
+            } else {
                 browsing = false;
                 noUserTextFileErrors = false;
             }
             
-            if (IsInteger.checkString(userInputFromTable)){
-
-                int selectedRowInt = Integer.parseInt(userInputFromTable);                       
-
-                if (selectedRowInt <= performancesTable.getNumberOfRows()){
-
-                    browsing = false;
-        
-                    //System.out.println("Row " + selectedRowInt + " selected.");
-                    String performanceID = performancesTable.getFirstCellofSelectedRowInResultSet(selectedRowInt);
-                    //System.out.println("PerformanceID selected: " + performanceID);
-
-                    String stringTemplate = user.getSqlQueries().get("get-performance-by-ID");
-                    String searchString = stringTemplate.replace("performance-id-from-java", performanceID);
-                    searchString += ";";
-                    //System.out.println(searchString); 
-                    SearchDB getSelectedPerformance = new SearchDB(searchString, db);
-
-                    rs = getSelectedPerformance.runSearch();
-
-                    user.setSearchResultSet(rs);
-                    nextScreen = "view-performance";
-
-                } else {
-        
-                    printer.rowSelectionNotAvailableMessage();
-        
-                }
-
-            } else if (userInputFromTable != null) {
-
-                if (userInputFromTable.equals("n")){
-                    browsing = false;
-                    nextScreen = "search-screen";
-                } else {
-                    System.out.println("Perfomances - 1");
-                    StaticPrinter.invalidCommand("Performances"); 
-                    hideRows = true;
-                }
-
-            }
-
         }
         
         if(noUserTextFileErrors){
