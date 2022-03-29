@@ -1,0 +1,5 @@
+* s: search for shows, g: go to basket, l: login as admin user, q: quit
+s
+* k: keyword, d: date, n: name, c: category, g: go to basket, h: home
+n
+* END OF file

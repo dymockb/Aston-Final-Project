@@ -59,7 +59,15 @@ public class Booking {
 
             try{
 
-            seatingAreaChosen = parser.getInputForMenu();
+                seatingAreaChosen = parser.getInputForMenu();
+
+            } catch (NoSuchElementException e){
+
+                System.out.println("Booking Error - end of test file.");
+                seatingAreaChosen = "error";
+                bookingInProgress = false;
+
+            }
 
             if(seatingAreaChosen.equals("c")){
 
@@ -134,7 +142,7 @@ public class Booking {
                                     //bookingInProgress = false;
 
                                 } else {
-                                    StaticPrinter.invalidCommand();
+                                    StaticPrinter.invalidCommand("Booking");
                                 }
 
                             } else {
@@ -272,7 +280,7 @@ public class Booking {
                                     //bookingInProgress = false;
 
                                 } else {
-                                    StaticPrinter.invalidCommand();
+                                    StaticPrinter.invalidCommand("Booking");
                                 }
 
                             } else {
@@ -295,17 +303,9 @@ public class Booking {
 
 
             } else if (seatingAreaChosen.equals("r")){
-                seatingAreaChosen = "r";
+                //seatingAreaChosen = "r";
                 bookingInProgress = false;
             }
-
-        } catch (NoSuchElementException e){
-
-            bookingInProgress = false;
-
-        }
-
-
 
         }
 

@@ -38,11 +38,19 @@ public class Home extends Screen {
             displayLoginLogout(); // l - login  / logout
             System.out.println("q - quit");
             displayBasketStatus();
-            //StaticPrinter.printLoginFooter();
-
-
+            
             try {
+
                 userInput = parser.getInputForMenu();
+
+            } catch (NoSuchElementException e){
+                
+                System.out.println("ERROR - end of test file.");
+                gettingInput = false;
+                noUserTextFileErrors = false;
+            }
+
+            if (userInput != null){
 
                 if(userInput.equals("s")){
 
@@ -54,13 +62,13 @@ public class Home extends Screen {
     
                     nextScreen = "Quit";
                     gettingInput = false;
-
+    
     
                 } else if (userInput.equals("g")){
     
                     nextScreen = "basket-screen";
                     gettingInput = false;
-
+    
     
                 } else if (userInput.equals("l")){
                     
@@ -69,23 +77,17 @@ public class Home extends Screen {
                     System.out.println("login screen tbc");
     
                 } else {
-                    System.out.println("invalid command");                
+                    StaticPrinter.invalidCommand("Home");               
                 }
 
-            } catch (NoSuchElementException e){
-                
-                System.out.println("ERROR - end of test file.");
-                gettingInput = false;
-                noUserTextFileErrors = false;
             }
-
-            //userInput = parser.getInputForMenu();
 
         }
 
         if (nextScreen.equals("Quit")){
+
             System.out.println("Quit");
-            //user.newScreenRequest(nextScreen);
+        
         } else {
 
             if(noUserTextFileErrors){

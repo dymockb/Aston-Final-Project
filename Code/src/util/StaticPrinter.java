@@ -6,8 +6,8 @@ public class StaticPrinter {
 
     }
 
-    public static void invalidCommand(){
-        System.out.println("** Invalid command **");
+    public static void invalidCommand(String fromScreen){
+        System.out.println("** Invalid command from screen: " + fromScreen);
     }
 
     public static void printLoginLogout(Boolean userLoggedIn){

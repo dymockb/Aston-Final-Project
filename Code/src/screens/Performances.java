@@ -1,5 +1,6 @@
 package screens;
 import util.Parser;
+import util.StaticPrinter;
 import util.DBConnector;
 import superclass.Screen;
 import superclass.SearchDB;
@@ -39,13 +40,18 @@ public class Performances extends Screen {
 
         while(browsing){
 
-            try{
+            String userInputFromTable = null;
 
-            String userInput = performancesTable.startBrowsing(hideRows, user.getIsLoggedIn());
+            userInputFromTable = performancesTable.startBrowsing(hideRows, user.getIsLoggedIn());
+            
+            if(userInputFromTable == null){
+                browsing = false;
+                noUserTextFileErrors = false;
+            }
+            
+            if (IsInteger.checkString(userInputFromTable)){
 
-            if (IsInteger.checkString(userInput)){
-
-                int selectedRowInt = Integer.parseInt(userInput);                       
+                int selectedRowInt = Integer.parseInt(userInputFromTable);                       
 
                 if (selectedRowInt <= performancesTable.getNumberOfRows()){
 
@@ -72,27 +78,18 @@ public class Performances extends Screen {
         
                 }
 
-            } else if (userInput.equals("n")) {
-                browsing = false;
-                nextScreen = "search-screen";
-                //user.newScreenRequest("home-screen");
+            } else if (userInputFromTable != null) {
 
-            } else {
-
-                printer.invalidCommand(); 
-                hideRows = true;
+                if (userInputFromTable.equals("n")){
+                    browsing = false;
+                    nextScreen = "search-screen";
+                } else {
+                    System.out.println("Perfomances - 1");
+                    StaticPrinter.invalidCommand("Performances"); 
+                    hideRows = true;
+                }
 
             }
-
-
-            } catch (NoSuchElementException e){
-
-                System.out.println("ERROR - end of test file.");
-                browsing= false;
-                noUserTextFileErrors = false;
-            }
-
-
 
         }
         

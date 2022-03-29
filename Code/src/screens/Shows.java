@@ -2,6 +2,7 @@ package screens;
 import superclass.Screen;
 import util.DBConnector;
 import util.Parser;
+import util.StaticPrinter;
 
 import java.util.NoSuchElementException;
 
@@ -40,79 +41,72 @@ public class Shows extends Screen {
         Boolean hideTable = false;
 
         String nextScreen = "home-screen";
+        String userInputFromTable = null;
 
         while(browsing){
 
-            try{
+            userInputFromTable = showsTable.startBrowsing(hideTable, user.getIsLoggedIn());
+            
+            if(userInputFromTable != null){
 
-            String userInput = showsTable.startBrowsing(hideTable, user.getIsLoggedIn());
+                if (IsInteger.checkString(userInputFromTable)){
 
-            if (IsInteger.checkString(userInput)){
-
-                int selectedRowInt = Integer.parseInt(userInput);                       
-
-                if (selectedRowInt <= showsTable.getNumberOfRows()){
-
+                    int selectedRowInt = Integer.parseInt(userInputFromTable);                       
+    
+                    if (selectedRowInt <= showsTable.getNumberOfRows()){
+    
+                        browsing = false;
+            
+                        int showID = Integer.parseInt(showsTable.getFirstCellofSelectedRowInResultSet(selectedRowInt));
+                        
+                        String showName = getEventName(showID);
+    
+                        String searchString = user.getSqlQueries().get("get-show-by-ID") + showID + ";";
+                        rs = db.runQuery(searchString); 
+    
+                        //SearchDB allShowsByName = new SearchDB(searchString, db) ;
+                        //searchString = user.getSqlQueries().get("browse-shows") + "ORDER BY ShowName;";
+                        //user.saveNewSearch("all-shows-by-name", allShowsByName);
+    
+                        user.setPreviousSearch(user.getSqlQueries().get("browse-shows") + "ORDER BY ShowName;");
+    
+                        user.setEventName(showName);
+                        user.setIDValueForNextSearch(showID);
+                        user.setSearchResultSet(rs);      
+                        nextScreen = "view-show";
+    
+                    } else {
+            
+                        printer.rowSelectionNotAvailableMessage();
+            
+                    }
+    
+                } else if (userInputFromTable.equals("n")) {
                     browsing = false;
-        
-                    int showID = Integer.parseInt(showsTable.getFirstCellofSelectedRowInResultSet(selectedRowInt));
-                    
-                    String showName = getEventName(showID);
-
-                    String searchString = user.getSqlQueries().get("get-show-by-ID") + showID + ";";
-                    rs = db.runQuery(searchString); 
-
-                    //SearchDB allShowsByName = new SearchDB(searchString, db) ;
-                    //searchString = user.getSqlQueries().get("browse-shows") + "ORDER BY ShowName;";
-                    //user.saveNewSearch("all-shows-by-name", allShowsByName);
-
-                    user.setPreviousSearch(user.getSqlQueries().get("browse-shows") + "ORDER BY ShowName;");
-
-                    user.setEventName(showName);
-                    user.setIDValueForNextSearch(showID);
-                    user.setSearchResultSet(rs);      
-                    nextScreen = "view-show";
-
+                    nextScreen = "search-screen";
+    
                 } else {
-        
-                    printer.rowSelectionNotAvailableMessage();
-        
+    
+                    StaticPrinter.invalidCommand("Table - Shows screen"); 
+                    hideTable = true;
+    
                 }
 
-            } else if (userInput.equals("n")) {
-                browsing = false;
-                nextScreen = "search-screen";
-                //user.newScreenRequest("home-screen");
-
             } else {
-
-                printer.invalidCommand(); 
-                hideTable = true;
-
-            }
-
-
-            } catch (NoSuchElementException e){
-
-                System.out.println("ERROR - end of test file.");
-                browsing= false;
+                browsing = false;
                 noUserTextFileErrors = false;
             }
 
-
-
         }
+
         if (noUserTextFileErrors){
             user.newScreenRequest(nextScreen);
         }
         
-
-
     }
 
     public String getEventName(int idx){
 
-        //int idx = Integer.parseInt(IDindex);
         String output = "";
         try {
         

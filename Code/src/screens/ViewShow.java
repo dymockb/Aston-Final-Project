@@ -86,7 +86,7 @@ public class ViewShow extends Screen {
                     nextScreen = "shows-screen";
                     
                 } else {
-                    StaticPrinter.invalidCommand();
+                    StaticPrinter.invalidCommand("ViewShow");
                 }
 
             } catch (NoSuchElementException e){

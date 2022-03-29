@@ -81,6 +81,7 @@ public class Parser
             inputLine = reader.nextLine();
             printInput(inputLine, descriptionOfInput);
         }
+        //System.out.println("input returned: " + inputLine);
         return inputLine;
     }
 

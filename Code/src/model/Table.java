@@ -63,11 +63,9 @@ public class Table {
 
     public String startBrowsing(Boolean hideTable, Boolean loggedIn) {
 
-            String userInput;
+            String userInput = null;
             numberOfRows = getNumberOfRows();
             rowsToDisplay = 5;
-
-            userInput = "";
 
             Boolean browsingTable = true;
             
@@ -90,34 +88,44 @@ public class Table {
                 System.out.println("");                
                 StaticPrinter.printTableRowSelectionMsg(isBookingTable);
                 
-                
+                try {
 
-                userInput = parser.getInputForMenu();
+                    userInput = parser.getInputForMenu();
+
+                } catch (Exception e){
+
+                    System.out.println("Table ERROR - end of test file.");
+                    browsingTable = false;
+                    
+                }
+
+                if (userInput != null){
+
+                    if (userInput.equals("r")){
+
+                        startingRow = 0;
+                        switches.set(0, false);
     
-                if (userInput.equals("r")){
-
-                    startingRow = 0;
-                    switches.set(0, false);
-
-                } else if (userInput.equals("f")){
-
-                    if (startingRow + rowsToDisplay < numberOfRows){
-                        startingRow += rowsToDisplay;           
+                    } else if (userInput.equals("f")){
+    
+                        if (startingRow + rowsToDisplay < numberOfRows){
+                            startingRow += rowsToDisplay;           
+                        }
+    
+                        if (startingRow + rowsToDisplay >= numberOfRows){
+                            switches.set(0, true);
+                        }
+    
                     }
-
-                    if (startingRow + rowsToDisplay >= numberOfRows){
-                        switches.set(0, true);
-                    }
-
+                    
                 } else {
-                    return userInput;
-                } 
-                            
+                    browsingTable = false;
+                }
+                     
             }  
             
-            return userInput;
+        return userInput;
             
-
     }
 
     public int getNumberOfRows(){	
