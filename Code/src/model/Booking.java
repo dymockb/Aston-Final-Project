@@ -26,6 +26,7 @@ public class Booking {
 
         errorMessage = "No errors";
         bookingComplete = false;  
+        resultOfBookingProcess = null;
 
     }
 
@@ -65,6 +66,7 @@ public class Booking {
 
                 StaticPrinter.invalidCommand("End of text file in start Booking");
                 bookingInProgress = false;
+                seatingAreaChosen = null;
 
             }
 
@@ -164,6 +166,7 @@ public class Booking {
                     if (availableStallsSeats.size() > 0){         
     
                         Boolean selectingSeats = true;
+                        Boolean gettingSeatsFromUser = true;
                         while(selectingSeats) {
                             
                             /** 
@@ -176,7 +179,6 @@ public class Booking {
                             System.out.println("r - return to previous screen");
                             /** */
                             
-                            Boolean gettingSeatsFromUser = true;
                             ArrayList<String> seatsArray = new ArrayList<String>();
                             Boolean allSeatsAvailable = false;
                             Boolean userInputError = false;
@@ -202,7 +204,7 @@ public class Booking {
                                     gettingSeatsFromUser = false;
                                     selectingSeats = false;
                                     userInputError = true;
-                                    allSeatsAvailable = false; 
+                                    //allSeatsAvailable = false; 
                                     bookingInProgress = false;
                     
                                 }
@@ -279,28 +281,38 @@ public class Booking {
                                     System.out.println("Total price: GBP" + totalPrice);
     
                                     System.out.println("Add these tickets to your basket? y / n");
-                                    userInput = parser.getInputForMenu();
-    
-                                    if (userInput.equals("y")){
+
+                                    userInput = null;
+                                    try {
+                                        userInput = parser.getInputForMenu();
+                                    } catch (NoSuchElementException e){
+                                        System.out.println("Booking ERROR - end of test file.");
+                                        userInput = null;
+                                    }
+                                    
+                                    if (userInput != null){
+
+                                        if (userInput.equals("y")){
                                         
-                                        System.out.println("Add tickets to basket");
-                                        resultOfBookingProcess = user.getBasket().addTickets(tickets);
+                                            System.out.println("Add tickets to basket");
+
+                                            resultOfBookingProcess = user.getBasket().addTickets(tickets);
+                                            selectingSeats = false;
+                                            bookingInProgress = false;                                                         
+        
+                                        } else if (userInput.equals("n")){
+                                            selectingSeats = false;
+        
+                                        } else {
+                                            StaticPrinter.invalidCommand("Booking");
+                                        }
+
+                                    } else {
                                         selectingSeats = false;
                                         bookingInProgress = false;
-    
-                                    } else if (userInput.equals("n")){
-                                        selectingSeats = false;
-                                        //bookingInProgress = false;
-    
-                                    } else {
-                                        StaticPrinter.invalidCommand("Booking");
                                     }
     
-                                } else {
-    
-                                    if (!userInputError){
-                                        System.out.println("Sorry one or more of the seat(s) you selected are not available.");                     
-                                    }
+
     
                                 }
     
@@ -330,6 +342,7 @@ public class Booking {
 
     }
 
+    /** 
     public void startCheckout(){
 
         Boolean success = user.getBasket().startCheckout();
@@ -341,8 +354,8 @@ public class Booking {
             
         }
 
-
     }
+    /** */
 
     public void printSummary(){
         System.out.println("here is a summary of your booking - END OF PURCHASE CYCLE");

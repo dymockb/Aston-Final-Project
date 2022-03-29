@@ -78,26 +78,33 @@ public class ViewPerformance extends Screen {
                     if(seatingAreaSelected != null){
 
                         if (seatingAreaSelected.equals("c") || seatingAreaSelected.equals("s")){
-    
-                            if(booking.getResultOfBookingProcess().equals("complete")){
+
+                            if(booking.getResultOfBookingProcess() != null){
+
+                                if(booking.getResultOfBookingProcess().equals("purchase-complete")){
                             
-                                booking.printSummary();
-                                                        
-                            } else if (booking.getResultOfBookingProcess().equals("basket-saved")){
-                            
-                                System.out.println("User added tickets but did not checkout");
-                                nextScreen = "search-screen"; 
-        
-                            } else if(booking.getResultOfBookingProcess().equals("payment-error")){
-                            
-                                System.out.println("Payment error");
-                                                    
-                            } else {
+                                    booking.printSummary();
+                                                            
+                                } else if (booking.getResultOfBookingProcess().equals("basket-saved")){
                                 
-                                System.out.println("There was an error");
-                
+                                    System.out.println("Your basket has been saved.  Search for another show:");
+                                    nextScreen = "search-screen"; 
+            
+                                } else if(booking.getResultOfBookingProcess().equals("purchase-cancelled-by-user")){
+                                
+                                    System.out.println("Your purchase was cancelled.  Please start a new search.");
+                                                        
+                                } else if(booking.getResultOfBookingProcess().equals("payment-error")){
+                                
+                                    System.out.println("There was a payment error please contact your bank.");
+                                                        
+                                }
+
+                            } else {
+                                noUserTextFileErrors = false;
                             }
-        
+    
+
                         } else if (seatingAreaSelected.equals("r")){
                             
                             nextScreen = "view-performance"; 

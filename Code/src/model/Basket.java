@@ -6,6 +6,7 @@ import util.StaticPrinter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import util.DBConnector;
+import java.util.NoSuchElementException;
 
 public class Basket {
 
@@ -51,78 +52,109 @@ public class Basket {
         System.out.println("y - checkout.");
         System.out.println("n - save basket and search again.");
 
-        String userInput = parser.getInputForMenu();
-        if(userInput.equals("y")){
-            startCheckout();
-            return "complete";
-        } else if (userInput.equals("n")){
-            return "basket-saved";
-        } else {
-            System.out.println("basket.addTickets() method error -  invalid command");
-            return "invalid command";
+        String userInput = null;
+
+        try {
+            userInput = parser.getInputForMenu();
+        } catch (NoSuchElementException e){
+            System.out.println("ERROR - end of test file.");
+            
         }
+
+        if(userInput != null){
+            if(userInput.equals("y")){
+                String checkoutResult = startCheckout();
+                if (checkoutResult.equals("purchase-complete")){
+                    return "purchase-complete";
+                } else if (checkoutResult.equals("file-input-error")){
+                    return null;
+                } else if (checkoutResult.equals("purchase-cancelled-by-user")){
+                    return "purchase-cancelled-by-user";
+                } else if (checkoutResult.equals("payment-error")){
+                    return "payment-error";
+                } else {
+                    return null;
+                }
+            } else if (userInput.equals("n")){
+                return "basket-saved";
+            } else {
+                System.out.println("basket.addTickets() method error -  invalid command");
+                return "invalid-command";
+            }
+        } else {
+            return null;
+        }
+
+
 
     }
 
-    public Boolean startCheckout(){
+    public String startCheckout(){
 
-        Boolean returnValue = false;
+        String returnValue = null;
 
         System.out.println("Please enter your card details." );
-        String userInput = parser.getInputForMenu();
-        if(validateCardDetails(userInput)){
-            System.out.println("Your card details are confirmed.  Proceed with purchase?");
-            System.out.println("y - purchase tickets");
-            System.out.println("n - cancel purchase");
+
+        String userInput = null;
+
+        try {
             userInput = parser.getInputForMenu();
-            if (userInput.equals("y")){
+        } catch (NoSuchElementException e){
+            System.out.println("ERROR - end of test file.");
+            
+        }
 
-                for (Ticket ticket : tickets){
+        //String userInput = parser.getInputForMenu();
 
-                    String addTicketString = createTicketString(
-                        ticket.getCustomerID(),
-                        ticket.getPerformanceID(),
-                        ticket.getSeatID(),
-                        ticket.getPrice()
-                        );
+        if(userInput != null){
 
-                    //System.out.println(addTicketString);
-
-                    try {
-                        //System.out.println("add ticket to ticket table");
-                        db.runQuery(addTicketString);
-                    } catch (Exception e){
-                        e.printStackTrace();
+            if(validateCardDetails(userInput)){
+                System.out.println("Your card details are confirmed.  Proceed with purchase?");
+                System.out.println("y - purchase tickets");
+                System.out.println("n - cancel purchase");
+                userInput = parser.getInputForMenu();
+                if (userInput.equals("y")){
+    
+                    for (Ticket ticket : tickets){
+    
+                        String addTicketString = createTicketString(
+                            ticket.getCustomerID(),
+                            ticket.getPerformanceID(),
+                            ticket.getSeatID(),
+                            ticket.getPrice()
+                            );
+    
+                        //System.out.println(addTicketString);
+    
+                        try {
+                            //System.out.println("add ticket to ticket table");
+                            db.runQuery(addTicketString);
+                        } catch (Exception e){
+                            e.printStackTrace();
+                        }
+                        
+    
                     }
-                    
-
+    
+                    System.out.println("Payment confirmed. Clear basket" );
+                    tickets = new ArrayList<Ticket>();
+                    basketTotal = 0;
+                    //System.out.println("Basket summary. there are " + tickets.size() + " tickets in the basket");
+                    returnValue = "purchase-complete";
+    
+                } else if (userInput.equals("n")){
+                    System.out.println("Your purchase has been cancelled");
+                    returnValue = "purchase-cancelled-by-user";
                 }
-
-                // LOOP through tickets array and update Reservations table.
-                /** 
-                 INSERT INTO Reservation (CustomerID, PerformanceID, SeatID, PaymentTypeID, DeliveryTypeID, Price, ReservationDateTime, CancellationDateTime) 
-VALUES (1, 2, 121, 1, 1, 40, "2022-03-27 10:50:00", 0)
-
-                /** */
-
-
-
-
-
-                System.out.println("Payment confirmed. Clear basket" );
-                tickets = new ArrayList<Ticket>();
-                basketTotal = 0;
-                //System.out.println("Basket summary. there are " + tickets.size() + " tickets in the basket");
-                returnValue = true;
-
-            } else if (userInput.equals("n")){
-                System.out.println("Your purchase has been cancelled");
-                returnValue = false;
+    
+            } else {
+                System.out.println("Card payment error.");
+                returnValue = "payment-error";
             }
+        
 
         } else {
-            System.out.println("Card payment error.");
-            returnValue = false;
+            returnValue = "file-input-error";
         }
 
         return returnValue;
