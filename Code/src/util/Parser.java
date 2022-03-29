@@ -50,7 +50,7 @@ public class Parser
     private void printInput(String input, Boolean descriptionOfInput){
         if(testingOn){
             if(descriptionOfInput){
-                System.out.print(input);
+                System.out.println(input);
             } else {
                 System.out.print(" - " + input + "\n");
             }

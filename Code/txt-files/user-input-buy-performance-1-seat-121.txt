@@ -15,6 +15,14 @@ v
 * b: book tickets for this performance, r: return to a list of performances for this show, h: home screen
 b
 * c: book circle seats, s: book stalls seats, r: return to performance details
-s
+c
 * r: return to previous screen, seat-numbers: enter the seats to book
-d13
+121
+* y: add ickets to basket, n: don't add to basket
+y
+* y: checkout now, n: save basket and search again
+y
+* enter your card details:
+123452567
+* y: proceed with purchase, n: cancel purchase
+y

@@ -77,27 +77,71 @@ public class Booking {
                     if (availableCircleSeats.size() > 0){         
     
                         Boolean selectingSeats = true;
+                        Boolean gettingSeatsFromUser = true;
                         while(selectingSeats) {
-                            
-                            System.out.println("Circle seats available:");
-                            for(int seat : availableCircleSeats){
-                                System.out.print(seat + " ");
-                            }
-                            System.out.println("");
-                            System.out.println("Available commands:");
-                            System.out.println("r - return to previous screen");
-                            System.out.println("Please type the seat numbers for your booking (eg: 14,15,16,18):");  
-                            
-                            String userInput = parser.getInputForMenu(); 
+                                                        
+                            ArrayList<String> seatsArray = new ArrayList<String>();
+                            Boolean allSeatsAvailable = false;
+                            Boolean fileReadError = false;
+                            String userInput = null;
     
-                            if (userInput.equals("r")){
-                                selectingSeats = false;
+                            while(gettingSeatsFromUser){
+                                Boolean userInputError = false;    
+                                System.out.println("Circle seats available:");
+                                for(int seat : availableCircleSeats){
+                                    System.out.print(seat + " ");
+                                }
+                                System.out.println("");
+                                System.out.println("Available commands:");
+                                System.out.println("r - return to previous screen");
+    
+                                System.out.println("Please type the seat numbers for your booking (eg: 14,15,16,18):");  
                                 
-                            } else {
+                                try {
+                                    userInput = parser.getInputForMenu(); 
+                                } catch (NoSuchElementException e){
+                                    System.out.println("Booking ERROR - end of test file.");
+                                    gettingSeatsFromUser = false;
+                                    selectingSeats = false;
+                                    userInputError = true;
+                                    //allSeatsAvailable = false; 
+                                    bookingInProgress = false;
+                                    userInput = null;
+                    
+                                }
     
-                                ArrayList<String> seatsArray = convertInputToSeatsArray(userInput);
+                                if (userInput != null){
     
-                                Boolean allSeatsAvailable = checkSeatAvailability(seatsArray);
+                                    if (userInput.equals("r")){
+                                        selectingSeats = false;
+                                        gettingSeatsFromUser = false;
+                                    
+                                    } else if (!userInput.equals("r")){
+                                    
+                                        seatsArray = convertInputToSeatsArray(userInput);
+        
+                                        try{
+                                            allSeatsAvailable = checkSeatAvailability(seatsArray);
+                                            if (allSeatsAvailable){
+                                                gettingSeatsFromUser = false;
+                                            } else {
+                                                if(!userInputError){
+                                                    System.out.println("One of more of those seats is taken please try again.");
+                                                }
+                                            }
+        
+                                        } catch (Exception e){
+                                            userInputError = true;
+                                            System.out.println("** Seats not recognised please try again. **");
+                                        }
+                                    }
+    
+    
+                                }
+    
+    
+                            }                        
+    
                                 if (allSeatsAvailable){
                                     
                                     System.out.println("Your selected seats are available. Selected seats:");
@@ -126,31 +170,42 @@ public class Booking {
                                         
                                                             tickets.add(ticket);
                                     }
-                                    System.out.println("Total price - GBP " + totalPrice);
+    
+                                    System.out.println("Total price: GBP" + totalPrice);
     
                                     System.out.println("Add these tickets to your basket? y / n");
-                                    userInput = parser.getInputForMenu();
-    
-                                    if (userInput.equals("y")){
+
+                                    userInput = null;
+                                    try {
+                                        userInput = parser.getInputForMenu();
+                                    } catch (NoSuchElementException e){
+                                        System.out.println("Booking ERROR - end of test file.");
+                                        userInput = null;
+                                    }
+                                    
+                                    if (userInput != null){
+
+                                        if (userInput.equals("y")){
                                         
-                                        System.out.println("Add tickets to basket");
-                                        resultOfBookingProcess = user.getBasket().addTickets(tickets);
+                                            System.out.println("Add tickets to basket");
+
+                                            resultOfBookingProcess = user.getBasket().addTickets(tickets);
+                                            selectingSeats = false;
+                                            bookingInProgress = false;                                                         
+        
+                                        } else if (userInput.equals("n")){
+                                            selectingSeats = false;
+        
+                                        } else {
+                                            StaticPrinter.invalidCommand("Booking");
+                                        }
+
+                                    } else {
                                         selectingSeats = false;
                                         bookingInProgress = false;
-    
-                                    } else if (userInput.equals("n")){
-                                        selectingSeats = false;
-                                        //bookingInProgress = false;
-    
-                                    } else {
-                                        StaticPrinter.invalidCommand("Booking");
                                     }
     
-                                } else {
-                                    System.out.println("Sorry one or more of the seat(s) you selected are not available.");                     
                                 }
-    
-                            }
     
                         }
     
@@ -181,12 +236,11 @@ public class Booking {
                             
                             ArrayList<String> seatsArray = new ArrayList<String>();
                             Boolean allSeatsAvailable = false;
-                            Boolean userInputError = false;
                             Boolean fileReadError = false;
                             String userInput = null;
     
                             while(gettingSeatsFromUser){
-    
+                                Boolean userInputError = false;    
                                 System.out.println("Stalls seats available:");
                                 for(int seat : availableStallsSeats){
                                     System.out.print(seat + " ");
@@ -206,6 +260,7 @@ public class Booking {
                                     userInputError = true;
                                     //allSeatsAvailable = false; 
                                     bookingInProgress = false;
+                                    userInput = null;
                     
                                 }
     
@@ -224,7 +279,9 @@ public class Booking {
                                             if (allSeatsAvailable){
                                                 gettingSeatsFromUser = false;
                                             } else {
-                                                System.out.println("One of more of those seats is taken please try again.");
+                                                if(!userInputError){
+                                                    System.out.println("One of more of those seats is taken please try again.");
+                                                }
                                             }
         
                                         } catch (Exception e){
@@ -358,7 +415,7 @@ public class Booking {
     /** */
 
     public void printSummary(){
-        System.out.println("here is a summary of your booking - END OF PURCHASE CYCLE");
+        System.out.println("here is a summary of your booking. TBC");
     }
 
     public ArrayList<String> convertInputToSeatsArray(String userInput){

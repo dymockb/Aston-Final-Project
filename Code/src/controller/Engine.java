@@ -79,7 +79,7 @@ public class Engine {
 		selectdb();
 
 		if(inputType.equals("inputFromFile")){
-			inputParser.addFile("./txt-files/user-input2.txt");
+			inputParser.addFile("./txt-files/user-input3.txt");
 			user.setAutomated(true);
 		} 
 		

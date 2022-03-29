@@ -112,40 +112,57 @@ public class Basket {
                 System.out.println("Your card details are confirmed.  Proceed with purchase?");
                 System.out.println("y - purchase tickets");
                 System.out.println("n - cancel purchase");
-                userInput = parser.getInputForMenu();
-                if (userInput.equals("y")){
-    
-                    for (Ticket ticket : tickets){
-    
-                        String addTicketString = createTicketString(
-                            ticket.getCustomerID(),
-                            ticket.getPerformanceID(),
-                            ticket.getSeatID(),
-                            ticket.getPrice()
-                            );
-    
-                        //System.out.println(addTicketString);
-    
-                        try {
-                            //System.out.println("add ticket to ticket table");
-                            db.runQuery(addTicketString);
-                        } catch (Exception e){
-                            e.printStackTrace();
-                        }
-                        
-    
-                    }
-    
-                    System.out.println("Payment confirmed. Clear basket" );
-                    tickets = new ArrayList<Ticket>();
-                    basketTotal = 0;
-                    //System.out.println("Basket summary. there are " + tickets.size() + " tickets in the basket");
-                    returnValue = "purchase-complete";
-    
-                } else if (userInput.equals("n")){
-                    System.out.println("Your purchase has been cancelled");
-                    returnValue = "purchase-cancelled-by-user";
+
+                userInput = null;
+
+                try {
+                    userInput = parser.getInputForMenu();
+                } catch (NoSuchElementException e){
+                    System.out.println("ERROR - end of test file.");
+                    
                 }
+
+                //userInput = parser.getInputForMenu();
+
+                if (userInput != null){
+
+                    if (userInput.equals("y")){
+    
+                        for (Ticket ticket : tickets){
+        
+                            String addTicketString = createTicketString(
+                                ticket.getCustomerID(),
+                                ticket.getPerformanceID(),
+                                ticket.getSeatID(),
+                                ticket.getPrice()
+                                );
+        
+                            //System.out.println(addTicketString);
+        
+                            try {
+                                //System.out.println("add ticket to ticket table");
+                                db.runQuery(addTicketString);
+                            } catch (Exception e){
+                                e.printStackTrace();
+                            }
+                            
+        
+                        }
+        
+                        System.out.println("Payment confirmed. Clear basket" );
+                        tickets = new ArrayList<Ticket>();
+                        basketTotal = 0;
+                        //System.out.println("Basket summary. there are " + tickets.size() + " tickets in the basket");
+                        returnValue = "purchase-complete";
+        
+                    } else if (userInput.equals("n")){
+                        returnValue = "purchase-cancelled-by-user";
+                    }
+
+                } else {
+                    returnValue = "file-input-error";
+                }
+
     
             } else {
                 System.out.println("Card payment error.");
@@ -165,7 +182,14 @@ public class Basket {
     private Boolean validateCardDetails(String userInput){
 
         System.out.println("Validating payment...");
-        return true;
+        if(userInput.length() == 16){
+            return true;
+        } else {
+            return false;
+        }
+
+
+
 
     }
 
