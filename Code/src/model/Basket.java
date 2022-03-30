@@ -36,6 +36,10 @@ public class Basket {
         return total;
     }
 
+    public ArrayList<Ticket> getTickets(){
+        return tickets;
+    }
+
     public int displayBasket(){
         StaticPrinter.printBasketHeading(tickets.size());
         return tickets.size();

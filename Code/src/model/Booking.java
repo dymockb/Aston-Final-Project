@@ -17,6 +17,7 @@ public class Booking {
     private String errorMessage;
     private Boolean bookingComplete;
     private String resultOfBookingProcess;
+    Boolean seatChosenAlreadyInBasket;
 
     public Booking(User user, Performance performance, Parser parser){
 
@@ -27,6 +28,7 @@ public class Booking {
         errorMessage = "No errors";
         bookingComplete = false;  
         resultOfBookingProcess = null;
+        seatChosenAlreadyInBasket = false;
 
     }
 
@@ -272,7 +274,12 @@ public class Booking {
                                                 gettingSeatsFromUser = false;
                                             } else {
                                                 if(!userInputError){
-                                                    System.out.println("One of more of those seats is taken please try again.");
+                                                    if (seatChosenAlreadyInBasket){
+                                                        System.out.println("You already have one or more of those seats in your basket please try again.");
+                                                    } else {
+                                                        System.out.println("One of more of those seats is taken please try again.");
+                                                    }
+ 
                                                 }
                                             }
         
@@ -448,6 +455,10 @@ public class Booking {
 
         Boolean allSeatsAreAvailable = true;
 
+        ArrayList<Ticket> ticketsAlreadyInBasket = user.getBasket().getTickets();
+        
+        seatChosenAlreadyInBasket = false;
+
         for (String seat : selectedSeats){
 
             String stringTemplate = user.getSqlQueries().get("check-seat-available");
@@ -469,7 +480,17 @@ public class Booking {
                 //e.printStackTrace();
             }
 
+            if ( ticketsAlreadyInBasket.size() > 0 ){
+                for (Ticket ticket : ticketsAlreadyInBasket){
+                    if (ticket.getSeatID() == Integer.valueOf(seat)){
+                        seatChosenAlreadyInBasket = true;
+                        allSeatsAreAvailable = false;
+                    }
+                }
+            }
+
         }
+
 
         return allSeatsAreAvailable;
         

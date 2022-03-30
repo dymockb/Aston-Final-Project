@@ -70,16 +70,6 @@ public class User {
         return eventName;
     }
 
-    /** 
-    public void saveNewSearch(String searchName, SearchDB search){
-        searchHistory.put(searchName, search);
-    }
-
-    public HashMap<String, SearchDB> getSearchHistory(){
-        return searchHistory;
-    }
-    /** */
-
     public void setShowTicketPriceRange(String showTicketPriceRange){
         this.showTicketPriceRange = showTicketPriceRange;
     }
