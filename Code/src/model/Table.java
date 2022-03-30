@@ -155,10 +155,10 @@ public class Table {
 
         int adjStartingRow = numberOfRows == 0 ? 0 : startingRow + 1;
         if (!isBookingTable){
-            String titleText = eventName + ": " + tableName + " - " + (adjStartingRow) + " to " + endingRow + " out of " + numberOfRows + ", ordered by " + orderedBy;
+            String titleText = eventName + ": " + tableName + " - " + (adjStartingRow) + " to " + endingRow + " out of " + numberOfRows;
             StaticPrinter.printTableHeading(titleText);
         } else {
-            String titleText = eventName + ": " + tableName + " - " + (adjStartingRow) + " to " + endingRow + " out of " + numberOfRows + ", ordered by " + orderedBy + "\n" + ticketPriceRange;
+            String titleText = eventName + ": " + tableName + " - " + (adjStartingRow) + " to " + endingRow + " out of " + numberOfRows + "\n" + ticketPriceRange;
             StaticPrinter.printTableHeading(titleText);            
         }
 

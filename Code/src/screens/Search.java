@@ -73,22 +73,23 @@ public class Search extends Screen {
                     
                     String keyword = parser.getText("Please enter a keyword:");
                  
-                	 if (keyword.isEmpty() || keyword.isBlank()) {
-                		 System.out.println("Please enter a show name");
-                	 }
-                	 String searchString = user.getSqlQueries().get("select-by-keyword") +"'"+ "%" + keyword + "%"+"';";
-                     SearchDB keywordSearch = new SearchDB(searchString, db) ;
-                     //user.saveNewSearch("all-shows-by-name", allShowsByName);
-                     
-                     //user.setPreviousSearch("all-shows-by-name");
+                	//if (keyword.isEmpty() || keyword.isBlank()) {
+                	//	System.out.println("Please enter a show name");
+                	//}
 
+                	 String searchString = user.getSqlQueries().get("select-by-keyword") +"'"+ "%" + keyword + "%"+"';";
+                     //System.out.println(searchString);
+                     SearchDB keywordSearch = new SearchDB(searchString, db) ;
                      rs = keywordSearch.runSearch();
+
+                     user.setPreviousSearch(searchString);
 
                      user.setSearchResultSet(rs);
                      nextScreen = "shows-screen";
                      
                 } else if (userInput.equals("d")){
                     
+                    gettingInput = false;
                     /*
                     
                     System.out.println("Please enter a start date for the search range (dd-mm-yy):");
@@ -104,17 +105,25 @@ public class Search extends Screen {
                     String StartDate = getDate();
                     System.out.println("**End Date**");
                     String EndDate = getDate();
+
+                    /**
+                    select ShowDetail.ID, ShowName, TypeName, Duration, ShowDate, ShowTime from showDetail 
+JOIN TypeOfShow ON TypeOfShow.ID = ShowDetail.TypeOfShowID
+join performance on showDetail.ID = performance.ShowDetailID  where ShowDate between'2022-4-2' And '2022-5-10' order by ShowDate, ShowTime 
+                     */
                     
                     System.out.println("Fetching results from "+ StartDate + " to " + EndDate );
                     
-                	String searchString = user.getSqlQueries().get("select-by-date") + StartDate + " And " + EndDate + " order by ShowDate, ShowTime";              
-                    		                    
-                    SearchDB allShowsByName = new SearchDB(searchString, db) ;
-                    //user.saveNewSearch("all-shows-by-name", allShowsByName);
-                    user.setPreviousSearch("all-shows-by-name");
+                	String searchString = "select ShowDetail.ID, ShowName, TypeName, Duration, ShowDate, ShowTime from showDetail JOIN TypeOfShow ON TypeOfShow.ID = ShowDetail.TypeOfShowID join performance on showDetail.ID = performance.ShowDetailID  where ShowDate between'2022-4-2' And '2022-5-10' order by ShowDate, ShowTime";
+                    
+                    //String searchString = user.getSqlQueries().get("select-by-date") + StartDate + " And " + EndDate + " order by ShowDate, ShowTime";              
 
-                    rs = allShowsByName.runSearch();
-                
+                    System.out.println(searchString);
+                    SearchDB searchByDateRange = new SearchDB(searchString, db) ;
+                    //user.saveNewSearch("all-shows-by-name", allShowsByName);
+                    user.setPreviousSearch(searchString);
+
+                    rs = searchByDateRange.runSearch();               
                     
                     user.setSearchResultSet(rs);
                     nextScreen = "shows-screen";
@@ -127,7 +136,7 @@ public class Search extends Screen {
                     String searchString = user.getSqlQueries().get("browse-shows") + "ORDER BY ShowName;";
                     SearchDB allShowsByName = new SearchDB(searchString, db) ;
                     //user.saveNewSearch("all-shows-by-name", allShowsByName);
-                    user.setPreviousSearch("all-shows-by-name");
+                    user.setPreviousSearch(searchString);
 
                     rs = allShowsByName.runSearch();
 
@@ -142,7 +151,7 @@ public class Search extends Screen {
                     String searchString = user.getSqlQueries().get("browse-shows") + "ORDER BY TypeName;";
                     SearchDB allShowsByName = new SearchDB(searchString, db) ;
                     //user.saveNewSearch("all-shows-by-typeName", allShowsByName);
-                    user.setPreviousSearch("all-shows-by-TypeName");
+                    user.setPreviousSearch(searchString);
 
                     rs = allShowsByName.runSearch();
 
