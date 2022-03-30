@@ -84,6 +84,11 @@ public class Parser
         //System.out.println("input returned: " + inputLine);
         return inputLine;
     }
+    
+    public String getText(String prompt){
+        System.out.println(prompt);
+        return reader.nextLine();
+    }
 
     public String getSQL() {
         reader.useDelimiter(";");       

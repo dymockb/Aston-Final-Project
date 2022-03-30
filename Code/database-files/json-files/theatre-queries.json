@@ -7,7 +7,8 @@
     "check-seat-available": "SELECT COUNT(SeatID) AS CountBookedSeats FROM Reservation WHERE PerformanceID = performance-id-from-java AND SeatID = seat-id-from-java And CancellationDateTime = 0 ",
     "get-number-of-stalls-seats-available": "SELECT 120 - COUNT(SeatID) AS AvailableSeats FROM Reservation WHERE PerformanceID = performance-id-from-java AND CancellationDateTime = 0 AND SeatID <= 120 ",
     "get-number-of-circle-seats-available": "SELECT 80 - COUNT(SeatID) AS AvailableSeats FROM Reservation WHERE PerformanceID = performance-id-from-java AND CancellationDateTime = 0 AND SeatID >= 121 ",
-    "get-seat-price":"SELECT seat-area-from-javaperformance-time-from-java FROM Performance JOIN ShowDetail ON Performance.ShowDetailID = ShowDetail.ID JOIN PriceBand ON ShowDetail.PriceID = PriceBand.ID WHERE Performance.ID = performance-id-from-java ", 
-    "add-ticket-to-ticket-table":"INSERT...",
+    "get-seat-price":"SELECT seat-area-from-javaperformance-time-from-java FROM Performance JOIN ShowDetail ON Performance.ShowDetailID = ShowDetail.ID JOIN PriceBand ON ShowDetail.PriceID = PriceBand.ID WHERE Performance.ID = performance-id-from-java ",
+    "select-by-keyword":"select * from showDetail where showName like",
+    "select-by-date": "select * from showDetail join performance on showDetail.ID = performance.ShowDetailID  where ShowDate between",
     "get-all-prices-for-show":"SELECT CircleMatinee, StallsMatinee, CircleEvening, StallsEvening FROM PriceBand WHERE ID = price-band-id-from-java"
 }
