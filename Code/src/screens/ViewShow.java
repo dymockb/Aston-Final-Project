@@ -65,8 +65,7 @@ public class ViewShow extends Screen {
 
         show = new Show(user.getSearchResultSet());
         HashMap<String, String> showDetails = show.getShowDetails();
-        //System.out.println(showDetails);
-        //String showID = showDetails.get("ID");
+
         String showName = showDetails.get("ShowName");
         String typeOfShow = showDetails.get("TypeName");
         String language = showDetails.get("LangugeName");
@@ -143,7 +142,7 @@ public class ViewShow extends Screen {
                 }
 
             } catch (NoSuchElementException e){
-                System.out.println("ERROR - end of test file.");
+                System.out.println("End of test file.");
                 viewingShow = false;
                 noUserTextFileErrors = false;
             }

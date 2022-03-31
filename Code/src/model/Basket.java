@@ -65,7 +65,7 @@ public class Basket {
         try {
             userInput = parser.getInputForMenu();
         } catch (NoSuchElementException e){
-            System.out.println("ERROR - end of test file.");
+            System.out.println("End of test file.");
             
         }
 
@@ -79,11 +79,7 @@ public class Basket {
                 } else if (checkoutResult.equals("purchase-cancelled-by-user")){
                     return "purchase-cancelled-by-user";
                 } 
-                /** 
-                else if (checkoutResult.equals("payment-error")){
-                    return "payment-error";
-                } 
-                /** */
+
                 else {
                     return null;
                 }

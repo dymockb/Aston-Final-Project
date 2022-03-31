@@ -59,7 +59,7 @@ public class Search extends Screen {
                 
             } catch (NoSuchElementException e){
                 
-                System.out.println("ERROR - end of test file.");
+                System.out.println("End of test file.");
                 gettingInput = false;
                 noUserTextFileErrors = false;
             }
@@ -91,37 +91,19 @@ public class Search extends Screen {
                 } else if (userInput.equals("d")){
                     
                     gettingInput = false;
-                    /*
-                    
-                    System.out.println("Please enter a start date for the search range (dd-mm-yy):");
-                    String startDate = parser.getInputForMenu();
 
-                    System.out.println("Please enter an end date for the search range (dd-mm-yy):");
-                    String endDate = parser.getInputForMenu();
-
-                    System.out.println("Now run a search for PERFORMANCES between " + startDate + " and " + endDate);
-                    */
 
                	    System.out.println("**Start Date for the search:**");
                     String StartDate = getDate();
                     System.out.println("**End Date for the search**");
                     String EndDate = getDate();
 
-                    /**
-                    select ShowDetail.ID, ShowName, TypeName, Duration, ShowDate, ShowTime from showDetail 
-JOIN TypeOfShow ON TypeOfShow.ID = ShowDetail.TypeOfShowID
-join performance on showDetail.ID = performance.ShowDetailID  where ShowDate between'2022-4-2' And '2022-5-10' order by ShowDate, ShowTime 
-                     */
-                    
                     System.out.println("Fetching results from "+ StartDate + " to " + EndDate );
-                    
-                	//String searchString = "select Performance.ID, ShowName, ShowDate, ShowTime, PriceID from ShowDetail JOIN TypeOfShow ON TypeOfShow.ID = ShowDetail.TypeOfShowID join Performance on ShowDetail.ID = Performance.ShowDetailID where ShowDate between'2022-4-2' And '2022-5-10' order by ShowDate, ShowTime";
-                    
+                                                       
                     String searchString = user.getSqlQueries().get("select-by-date") + StartDate + " And " + EndDate + " order by ShowDate, ShowTime;";              
 
-                    System.out.println(searchString);
                     SearchDB searchByDateRange = new SearchDB(searchString, db) ;
-                    //user.saveNewSearch("all-shows-by-name", allShowsByName);
+                    
                     user.setEventName("Theatre Royal");
                     user.setPreviousSearch(searchString);
                     user.setIsDateSearch(true);
@@ -138,7 +120,7 @@ join performance on showDetail.ID = performance.ShowDetailID  where ShowDate bet
                     
                     String searchString = user.getSqlQueries().get("browse-shows") + "ORDER BY ShowName;";
                     SearchDB allShowsByName = new SearchDB(searchString, db) ;
-                    //user.saveNewSearch("all-shows-by-name", allShowsByName);
+                    
                     user.setPreviousSearch(searchString);
                     user.setIsDateSearch(false);
 

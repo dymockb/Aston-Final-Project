@@ -15,14 +15,6 @@ public class Home extends Screen {
 
     public void displayScreen() throws NoSuchElementException {
 
-        /** navHistory stuff
-        Object[] viewHistory = user.getNavHistory().retreiveFromHistory(0);
-        SearchDB lastSearch = (SearchDB)viewHistory[0];
-        Screen lastScreen = (Screen)viewHistory[1];
-        System.out.println(lastSearch.getSearchString());
-        System.out.println(lastScreen.getScreenName());
-        /** */
-
         Boolean gettingInput = true;
         String userInput = null;
 
@@ -45,7 +37,7 @@ public class Home extends Screen {
 
             } catch (NoSuchElementException e){
                 
-                System.out.println("ERROR - end of test file.");
+                System.out.println("End of test file.");
                 gettingInput = false;
                 noUserTextFileErrors = false;
             }
@@ -56,7 +48,7 @@ public class Home extends Screen {
 
                     gettingInput = false;
                     nextScreen = "search-screen";
-                    //user.newScreenRequest("search-screen");
+                   
     
                 } else if (userInput.equals("q")){
     

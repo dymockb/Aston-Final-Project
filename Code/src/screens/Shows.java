@@ -64,11 +64,7 @@ public class Shows extends Screen {
     
                         String searchString = user.getSqlQueries().get("get-show-by-ID") + showID + ";";
                         rs = db.runQuery(searchString); 
-    
-                        //SearchDB allShowsByName = new SearchDB(searchString, db) ;
-                        //searchString = user.getSqlQueries().get("browse-shows") + "ORDER BY ShowName;";
-                        //user.saveNewSearch("all-shows-by-name", allShowsByName);
-    
+        
                         user.setPreviousSearch(user.getSqlQueries().get("browse-shows") + "ORDER BY ShowName;");
     
                         user.setEventName(showName);

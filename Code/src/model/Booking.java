@@ -103,7 +103,7 @@ public class Booking {
                                 try {
                                     userInput = parser.getInputForMenu(); 
                                 } catch (NoSuchElementException e){
-                                    System.out.println("Booking ERROR - end of test file.");
+                                    System.out.println("End of test file.");
                                     gettingSeatsFromUser = false;
                                     selectingSeats = false;
                                     userInputError = true;
@@ -182,7 +182,7 @@ public class Booking {
                                     try {
                                         userInput = parser.getInputForMenu();
                                     } catch (NoSuchElementException e){
-                                        System.out.println("Booking ERROR - end of test file.");
+                                        System.out.println("End of test file.");
                                         userInput = null;
                                     }
                                     
@@ -398,20 +398,7 @@ public class Booking {
 
     }
 
-    /** 
-    public void startCheckout(){
 
-        Boolean success = user.getBasket().startCheckout();
-        if (success){
-            
-            //returnValue = true;
-        } else {
-            System.out.println("Sorry there was an error - your booking was not completed.");
-            
-        }
-
-    }
-    /** */
 
     public void printSummary(){
         //System.out.println("here is a summary of your booking. TBC");
@@ -496,15 +483,7 @@ public class Booking {
         
     }
 
-    /** 
-    public void createTickets(ArrayList<String> seatsArray){
 
-        for(String seat : seatsArray){
-            getSeatPrice(seat);
-        }
-
-    }
-    /** */
 
     public int getSeatPrice(String seat){
 

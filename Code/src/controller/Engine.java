@@ -24,6 +24,10 @@ import screens.Performances;
 import screens.ViewPerformance;
 import screens.BasketScreen;
 
+/**
+ * Group 2 Final Project: Kwok, Dymock, Zuhela, Lavina, Olanrewaju
+ */
+
 public class Engine {
 
 	private ObjectMapper mapper; 
@@ -36,10 +40,10 @@ public class Engine {
 		
 		Engine engine = new Engine();
 
-		//Run from file (uncomment the line below, add comments if using UserInput below):
+		//Run from file (uncomment the line below, or comment it out if using UserInput below):
 		//engine.openForBusiness("inputFromFile"); 
 
-		//Run with UserInput (uncomment the below, add comments if using InputFile above):
+		//Run with UserInput (uncomment the line below, or comment it out if using InputFile above):
 		engine.openForBusiness("userInput");
 
 	}

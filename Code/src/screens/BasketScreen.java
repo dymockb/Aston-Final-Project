@@ -50,7 +50,7 @@ public class BasketScreen extends Screen {
 
         } catch (NoSuchElementException e){
 
-            System.out.println("error - end of text file");
+            System.out.println("End of text file");
             noUserTextFileErrors = false;
         }
 
