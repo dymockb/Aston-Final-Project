@@ -10,7 +10,7 @@ CREATE TABLE	ShowLanguage	(
 						
 CREATE TABLE	LiveMusic	(				
 	ID	INT	PRIMARY KEY			,
-	Performer	VARCHAR(50)				
+	Performaner	VARCHAR(25)				
 						);
 						
 CREATE TABLE	TypeOfShow	(				
