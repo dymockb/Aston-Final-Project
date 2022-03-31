@@ -32,7 +32,7 @@ public class ViewPerformance extends Screen {
         String performanceTitle = showName + " " + performanceDate + " " + performanceTime + " (" + performanceTimeName + ")";
         String description = performanceDetails.get("ShowDescription");
         String language = performanceDetails.get("LangugeName");
-        String liveMusic = performanceDetails.get("Performaner");
+        String liveMusic = performanceDetails.get("Performer");
         int numberOfAvailableSeats = performance.getTotalNumberOfAvailableSeats();
         
         StaticPrinter.printPerformanceHeading(performanceTitle);

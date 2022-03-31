@@ -41,8 +41,8 @@ public class Search extends Screen {
             StaticPrinter.printSearchScreenHeader();
 
             System.out.println("Search for Shows By:");
-            System.out.println("k - Keyword or Name. (not working)");
-            System.out.println("d - Date (not working)");
+            System.out.println("k - Keyword or Name.");
+            System.out.println("d - Date");
             System.out.println("");
             System.out.println("Browse Shows By:");
             System.out.println("n - Name");
@@ -101,9 +101,9 @@ public class Search extends Screen {
                     System.out.println("Now run a search for PERFORMANCES between " + startDate + " and " + endDate);
                     */
 
-               	    System.out.println("**Start Date**");
+               	    System.out.println("**Start Date for the search:**");
                     String StartDate = getDate();
-                    System.out.println("**End Date**");
+                    System.out.println("**End Date for the search**");
                     String EndDate = getDate();
 
                     /**
@@ -114,19 +114,20 @@ join performance on showDetail.ID = performance.ShowDetailID  where ShowDate bet
                     
                     System.out.println("Fetching results from "+ StartDate + " to " + EndDate );
                     
-                	String searchString = "select ShowDetail.ID, ShowName, TypeName, Duration, ShowDate, ShowTime from showDetail JOIN TypeOfShow ON TypeOfShow.ID = ShowDetail.TypeOfShowID join performance on showDetail.ID = performance.ShowDetailID  where ShowDate between'2022-4-2' And '2022-5-10' order by ShowDate, ShowTime";
+                	//String searchString = "select Performance.ID, ShowName, ShowDate, ShowTime, PriceID from ShowDetail JOIN TypeOfShow ON TypeOfShow.ID = ShowDetail.TypeOfShowID join Performance on ShowDetail.ID = Performance.ShowDetailID where ShowDate between'2022-4-2' And '2022-5-10' order by ShowDate, ShowTime";
                     
-                    //String searchString = user.getSqlQueries().get("select-by-date") + StartDate + " And " + EndDate + " order by ShowDate, ShowTime";              
+                    String searchString = user.getSqlQueries().get("select-by-date") + StartDate + " And " + EndDate + " order by ShowDate, ShowTime;";              
 
                     System.out.println(searchString);
                     SearchDB searchByDateRange = new SearchDB(searchString, db) ;
                     //user.saveNewSearch("all-shows-by-name", allShowsByName);
+                    user.setEventName("Theatre Royal");
                     user.setPreviousSearch(searchString);
 
                     rs = searchByDateRange.runSearch();               
                     
                     user.setSearchResultSet(rs);
-                    nextScreen = "shows-screen";
+                    nextScreen = "performances-screen";
                     
 
                 } else if (userInput.equals("n")){
@@ -189,7 +190,7 @@ join performance on showDetail.ID = performance.ShowDetailID  where ShowDate bet
     
     private String getDate() {
     	 String date = "";
-    	 String day = parser.getText("Enter Day number: ?");
+    	 String day = parser.getText("Please enter a day number: ");
     	 String[] months = {
     			 			"Jan", "Feb", "Mar","Apr", 
     			            "May", "Jun", "Jul", "Aug",
@@ -201,8 +202,8 @@ join performance on showDetail.ID = performance.ShowDetailID  where ShowDate bet
     		 String month = months[i];
     		 System.out.println((i+1) + " - "+ month);
     	 }
-    	 String monthNum = parser.getText("Enter Month number: ?");
-    	 String year  = parser.getText("Year: ?");
+    	 String monthNum = parser.getText("Please enter a month number:");
+    	 String year  = parser.getText("Please enter a year:");
     	 if(Integer.parseInt(year) < 2022 || Integer.parseInt(year) == 0) {
     		 System.out.println("Invalid date input");
     	 }else if(Integer.parseInt(monthNum) < 1 || Integer.parseInt(monthNum) > 12) {

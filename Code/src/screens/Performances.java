@@ -22,7 +22,7 @@ public class Performances extends Screen {
 
         rs = user.getSearchResultSet();
 
-        String tableName = "All Performances";
+        String tableName = "Performances";
         String eventName = user.getEventName();
         String orderedBy = "Date";
 

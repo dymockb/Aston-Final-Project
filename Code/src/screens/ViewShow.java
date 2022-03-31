@@ -70,7 +70,7 @@ public class ViewShow extends Screen {
         String showName = showDetails.get("ShowName");
         String typeOfShow = showDetails.get("TypeName");
         String language = showDetails.get("LangugeName");
-        String liveMusic = showDetails.get("Performaner");
+        String liveMusic = showDetails.get("Performer");
         String duration = showDetails.get("Duration");
         String priceBandID = showDetails.get("PriceID");
         String showDescription = showDetails.get("ShowDescription");

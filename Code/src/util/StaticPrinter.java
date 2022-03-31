@@ -79,7 +79,9 @@ public class StaticPrinter {
     public static void printShowDetails(String showName, String typeOfShow, String language, String liveMusic, String duration, String showDescription, String ticketPrice){
 
         System.out.println(String.format("%-80s", showName + " - " + typeOfShow + " (" + language + ")"));
-        System.out.println(String.format("%-80s", "Live music: " + liveMusic));
+        if(liveMusic.length() > 0){
+            System.out.println(String.format("%-80s", "Live music: " + liveMusic));
+        }
         System.out.println(String.format("%-80s", "Show duration: " + duration));
         System.out.println(String.format("%-80s", "Ticket price: " + ticketPrice));
         System.out.println(String.format("%-80s", ""));
