@@ -39,10 +39,10 @@ public class Engine {
 		
 		Engine engine = new Engine();
 
-		//Run from file:
+		//Run from file (uncomment the line below, add comments if using UserInput below):
 		engine.openForBusiness("inputFromFile"); 
 
-		//Run with UserInput:
+		//Run with UserInput (uncomment the below, add comments if using InputFile above):
 		//engine.openForBusiness("userInput");
 
 	}
@@ -98,7 +98,7 @@ public class Engine {
 	private void createdb() throws FileNotFoundException {
 
 		Parser createDbParser = new Parser();
-		createDbParser.addFile("./database-files/zuleyha-db-files/version2/theatre-royal-db.sql");
+		createDbParser.addFile("./database-files/version2/theatre-royal-db.sql");
 
 		boolean sqlrunning = true;
 		while (sqlrunning){
@@ -124,42 +124,42 @@ public class Engine {
 		// Customer, DeliveryType, Gender, LiveMusic, PaymentType, Peformance, PriceBand, Reservation, Seat, ShowDetail, ShowLanguage, TypeOfShow
 
 
-		addTableDataParser.addFile("./database-files/zuleyha-db-files/version2/csv-files/Gender.csv");
+		addTableDataParser.addFile("./database-files/version2/csv-files/Gender.csv");
 		db.runQuery(addTableDataParser.createSqlDataFromCSV("Gender"));
 
-			addTableDataParser.addFile("./database-files/zuleyha-db-files/version2/csv-files/Customer.csv");
+			addTableDataParser.addFile("./database-files/version2/csv-files/Customer.csv");
 			db.runQuery(addTableDataParser.createSqlDataFromCSV("Customer"));
 
 
-		addTableDataParser.addFile("./database-files/zuleyha-db-files/version2/csv-files/LiveMusic.csv");
+		addTableDataParser.addFile("./database-files/version2/csv-files/LiveMusic.csv");
 		db.runQuery(addTableDataParser.createSqlDataFromCSV("LiveMusic"));
 
-		addTableDataParser.addFile("./database-files/zuleyha-db-files/version2/csv-files/ShowLanguage.csv");
+		addTableDataParser.addFile("./database-files/version2/csv-files/ShowLanguage.csv");
 		db.runQuery(addTableDataParser.createSqlDataFromCSV("ShowLanguage"));
 
-		addTableDataParser.addFile("./database-files/zuleyha-db-files/version2/csv-files/TypeOfShow.csv");
+		addTableDataParser.addFile("./database-files/version2/csv-files/TypeOfShow.csv");
 		db.runQuery(addTableDataParser.createSqlDataFromCSV("TypeOfShow"));
 
-		addTableDataParser.addFile("./database-files/zuleyha-db-files/version2/csv-files/PriceBand.csv");
+		addTableDataParser.addFile("./database-files/version2/csv-files/PriceBand.csv");
 		db.runQuery(addTableDataParser.createSqlDataFromCSV("PriceBand"));
 
-			addTableDataParser.addFile("./database-files/zuleyha-db-files/version2/csv-files/ShowDetail.csv");
+			addTableDataParser.addFile("./database-files/version2/csv-files/ShowDetail.csv");
 			db.runQuery(addTableDataParser.createSqlDataFromCSV("ShowDetail"));
 
-				addTableDataParser.addFile("./database-files/zuleyha-db-files/version2/csv-files/Performance.csv");
+				addTableDataParser.addFile("./database-files/version2/csv-files/Performance.csv");
 				db.runQuery(addTableDataParser.createSqlDataFromCSV("Performance"));
 
 
-				addTableDataParser.addFile("./database-files/zuleyha-db-files/version2/csv-files/Seat.csv");
+				addTableDataParser.addFile("./database-files/version2/csv-files/Seat.csv");
 				db.runQuery(addTableDataParser.createSqlDataFromCSV("Seat"));
 
-				addTableDataParser.addFile("./database-files/zuleyha-db-files/version2/csv-files/DeliveryType.csv");
+				addTableDataParser.addFile("./database-files/version2/csv-files/DeliveryType.csv");
 				db.runQuery(addTableDataParser.createSqlDataFromCSV("DeliveryType"));
 		
-				addTableDataParser.addFile("./database-files/zuleyha-db-files/version2/csv-files/PaymentType.csv");
+				addTableDataParser.addFile("./database-files/version2/csv-files/PaymentType.csv");
 				db.runQuery(addTableDataParser.createSqlDataFromCSV("PaymentType"));
 
-					addTableDataParser.addFile("./database-files/zuleyha-db-files/version2/csv-files/Reservation.csv");
+					addTableDataParser.addFile("./database-files/version2/csv-files/Reservation.csv");
 					db.runQuery(addTableDataParser.createSqlDataFromCSV("Reservation"));
 
 		addTableDataParser.closeScanner();

@@ -5,9 +5,23 @@ romeo
 1
 v
 1
+*book tickets:
 b
+*choose stalls:
 s
 1
+y
+n
+k
+romeo
+1
+v
+1
+*book tickets:
+b
+*choose circle:
+c
+121
 y
 y
 1234123412341234

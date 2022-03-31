@@ -201,6 +201,7 @@ public class Basket {
                     System.out.println("   Seat Number:" + ticket.getSeatID());
                     System.out.println("   Price: " + ticket.getPrice());
                     totalPurchase += ticket.getPrice();
+                    ticketNumber++;
                 }
 
                 System.out.println("Total purchase: " + totalPurchase);
