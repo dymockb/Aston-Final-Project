@@ -1,13 +1,19 @@
-package util;
+package model;
 
 import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.ArrayList;
-import java.lang.Integer;
+//import java.lang.Integer;
 
-//import model.Explore;
-import model.Browse;
-import model.PerformanceTable;
+//import model.Browse;
+//import model.Table;
+//import model.Show;
+//import util.IsInteger;
+import util.DBConnector;
+import util.Parser;
+//import util.User;
+import util.ScreenPrinter;
+import superclass.Screen;
 
 /**
  * 
@@ -23,10 +29,11 @@ public class UserInterface
     private DBConnector db;
     private ScreenPrinter printer;
     private HashMap<String,String> sqlQueries;
+	private HashMap<String, Screen> screens;
     private Parser parser;
-    private ResultProcessor resultProcessor;
+    //private ResultProcessor resultProcessor;
     private ArrayList<Boolean> switches;
-    private Browse browse;
+    //private Browse browse;
     /**
      * .    
      * */ 
@@ -35,7 +42,8 @@ public class UserInterface
         this.db = db;
         this.printer = printer;
         this.sqlQueries = sqlQueries;
-        resultProcessor = new ResultProcessor();
+        screens = new HashMap<String, Screen>();
+        //resultProcessor = new ResultProcessor();
 
         switches = new ArrayList<Boolean>();
         switches.add(false);
@@ -44,6 +52,30 @@ public class UserInterface
 
     public void setInputParser(Parser parser){
         this.parser = parser;
+    }
+    
+    public void addScreen(Screen screen){
+        screens.put(screen.getScreenName(), screen);
+    }
+
+    public void start(){
+
+        //Router router = new Router();
+        //router.goToScreen("home-screen");
+        goToScreen("home-screen");
+
+         
+    }
+
+    public void goToScreen(String screenName){
+
+        Screen screen = screens.get(screenName);
+
+        //screen.displayContent();
+        //screen.setCurrentScreen();
+        //screen.displayMenu();
+        //screen.getUserInput();
+
     }
 
     public Boolean mainMenu(){
@@ -56,10 +88,14 @@ public class UserInterface
             returnType = false;
         } else if (command.equals("b")){
  
-            browseShows();
+            //browseShows();
    
         } else if (command.equals("l")){
             System.out.println("The admin login interface isn't built yet.");
+        } else if (command.equals("t")) {
+
+            System.out.println("Code for buying a ticket in progress");
+
         } else {
             printer.invalidCommand();
         }
@@ -68,6 +104,7 @@ public class UserInterface
 
     }
 
+    /** 
     private void browseShows(){
 
         Boolean browsing = true;
@@ -80,149 +117,58 @@ public class UserInterface
 
                 System.out.println("Search for show by name or keyword not built yet"); 
 
-            } else if (userInput.equals("a")) {
+            } else if (userInput.equals("n")) {
 
-                browse = new Browse(db, sqlQueries.get("browse-shows-in-alphabetical-order"));
+                //browse = new Browse(db, sqlQueries.get("browse-shows"), "ORDER BY ShowName;");
 
-                browse.fetchData();
-                ResultSet results = browse.returnResults();
-                PerformanceTable allPerformances = new PerformanceTable(results);
-                int numberOfRows = allPerformances.getNumberOfRows();
+                //browse.fetchData();
+                //ResultSet results = browse.returnResults();
+                rs = db.runQuery(sqlQueries.get("browse-shows") + "ORDER BY ShowName;");
+                String tableName = "All Shows";
+                Table allShows = new Table(rs, parser, tableName);
+                int selectedShowID = allShows.startBrowsing();
 
-                Boolean browsingTable = true;
-                int startingRow = 0;
-                int rowsToDisplay = 2;
-        
-                while(browsingTable){
+                if (selectedShowID != -1){
+                    System.out.println("The selected show is: " + selectedShowID);
+                    rs = db.runQuery(sqlQueries.get("get-show-by-ID") + selectedShowID + ";");  
 
-                    allPerformances.startBrowsing(startingRow, rowsToDisplay);
+                    //tableName = "Selected Show";
+                    //Table selectedShow = new Table(rs, parser, tableName);
+                    //selectedShow.startBrowsing();
+                    Show aShowClass = new Show(rs);
+                    aShowClass.getPerformances();
 
-                    /** */
-                    userInput = parser.getInput("browse-table", "show", switches);
-
-                    if (userInput.equals("b")){
-
-                        browsingTable = false;
-
-                    } else if (userInput.equals("r")){
-
-                        startingRow = 0;
-                        switches.set(0, false);
-
-                    } else if (userInput.equals("f")){
-
-                        if (startingRow + rowsToDisplay < numberOfRows){
-                            startingRow += rowsToDisplay;           
-                        }
-
-                        if (startingRow + rowsToDisplay >= numberOfRows){
-                            switches.set(0, true);
-                        }
-
-                    //} else if (Integer.valueOf(userInput) instanceof Integer){
-                    } else if (isInteger(userInput)){
-                            
-                        int selectedRow = Integer.parseInt(userInput);                       
-
-                        if (selectedRow <= numberOfRows){
-
-                            System.out.println("Row " + selectedRow + " selected. SQL needed to fetch the show.");
-
-                            int showID = Integer.parseInt(resultProcessor.getShowByRowNumber(rs, selectedRow));
-
-                            viewUniqueShow(showID);
-
-                        } else {
-
-                            printer.rowSelectionNotAvailableMessage();
-
-                        }
-
-                    } else {
-
-                        printer.invalidCommand();
-                        //browsingTable = false;
-
-                    }
-                    /** */
-
-                }                
-
-
-
-
-                /** 
-
-                rs = db.runQuery(sqlQueries.get("browse-shows-in-alphabetical-order"));
-                int numberOfRows = resultProcessor.getNumberOfRows(rs);
-
-                Boolean browsingTable = true;
-                int startingRow = 0;
-                int rowsToDisplay = 2;
-        
-                while(browsingTable){
-
-                    resultProcessor.browseTable(rs, startingRow, rowsToDisplay);
-                    userInput = parser.getInput("browse-table", "show", switches);
-        
-                    if (userInput.equals("b")){
-
-                        browsingTable = false;
-
-                    } else if (userInput.equals("r")){
-
-                        startingRow = 0;
-                        switches.set(0, false);
-
-                    } else if (userInput.equals("f")){
-
-                        if (startingRow + rowsToDisplay < numberOfRows){
-                            startingRow += rowsToDisplay;           
-                        }
-
-                        if (startingRow + rowsToDisplay >= numberOfRows){
-                            switches.set(0, true);
-                        }
-
-                    //} else if (Integer.valueOf(userInput) instanceof Integer){
-                    } else if (isInteger(userInput)){
-                            
-                        int selectedRow = Integer.parseInt(userInput);                       
-
-                        if (selectedRow <= numberOfRows){
-
-                            System.out.println("Row " + selectedRow + " selected. SQL needed to fetch the show.");
-
-                            int showID = Integer.parseInt(resultProcessor.getShowByRowNumber(rs, selectedRow));
-
-                            viewUniqueShow(showID);
-
-                        } else {
-
-                            printer.rowSelectionNotAvailableMessage();
-
-                        }
-
-                    } else {
-
-                        printer.invalidCommand();
-                        //browsingTable = false;
-
-                    }
-        
                 }
+                
 
-                 */
+
+
+                //browse = new Browse(db, sqlQueries.get("get-show-by-ID") + theSelectedShowIs, ";");
+                //browse.fetchData();
+                //results = browse.returnResults();
+
 
             } else if (userInput.equals("c")) {
 
-                System.out.println("Display shows by category not built yet");
+                rs = db.runQuery(sqlQueries.get("browse-shows") + "ORDER BY TypeName;");
+                String tableName = "All Shows";
+                Table allShows = new Table(rs, parser, tableName);
+                int selectedShowID = allShows.startBrowsing();
+
+                if (selectedShowID != -1){
+                    System.out.println("The selected show is: " + selectedShowID);
+                    rs = db.runQuery(sqlQueries.get("get-show-by-ID") + selectedShowID + ";");                
+
+                    tableName = "Selected Show";
+                    Table selectedShow = new Table(rs, parser, tableName);
+                    selectedShow.startBrowsing();
+                }
 
             } else if (userInput.equals("d")) {
 
                 System.out.println("Display shows by performance date not built yet");
 
-            } else if (userInput.equals("b")) {
+            } else if (userInput.equals("x")) {
 
                 browsing = false;
 
@@ -235,6 +181,7 @@ public class UserInterface
         }
 
     }
+    /** */
 
     public void viewUniqueShow(int showID){
 
@@ -264,6 +211,8 @@ public class UserInterface
 
     }
 
+    /** 
+
     public boolean isInteger( String input ) {
         try {
             Integer.parseInt( input );
@@ -273,5 +222,5 @@ public class UserInterface
             return false;
         }
     }
-
+    /** */
 }

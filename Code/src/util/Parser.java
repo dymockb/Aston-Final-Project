@@ -16,7 +16,7 @@ public class Parser
     private Scanner reader;
     private File file;
     private boolean testingOn;
-    private Responder responder;
+    //private Responder responder;
 
     /**
      * Create a parser to read from the terminal window.
@@ -25,7 +25,7 @@ public class Parser
     {
         reader = new Scanner(System.in);
         testingOn = false;
-        responder = new Responder();
+        //responder = new Responder();
     }
     
 
@@ -62,7 +62,7 @@ public class Parser
     {
 
         String inputLine = null;
-        responder.displayCommands(request, keyword, switches);
+        //responder.displayCommands(request, keyword, switches);
         inputLine = reader.nextLine();
         Boolean descriptionOfInput = false;
         printInput(inputLine, descriptionOfInput);

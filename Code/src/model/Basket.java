@@ -134,19 +134,6 @@ public class Basket {
             }
         }
 
-
-        //String userInput = parser.getInputForMenu();
-        /** 
-        if(userInput != null){} else {
-            returnValue = "file-input-error";
-        }
-
-        if(validateCardDetails(userInput)){} else {
-            System.out.println("Card payment error.");
-            returnValue = "payment-error";
-        }
-        /** */
-
         System.out.println("Your card details are confirmed.  Proceed with purchase?");
         System.out.println("y - purchase tickets");
         System.out.println("n - cancel purchase");
@@ -159,8 +146,6 @@ public class Basket {
             System.out.println("ERROR - end of test file.");
             
         }
-
-        //userInput = parser.getInputForMenu();
 
         if (userInput != null){
 
@@ -240,11 +225,6 @@ public class Basket {
 
     private String createTicketString(int customerID, String performanceID, int seatID, double price){
 
-        /**
-         *  INSERT INTO Reservation (CustomerID, PerformanceID, SeatID, PaymentTypeID, DeliveryTypeID, Price, ReservationDateTime, CancellationDateTime) 
-VALUES (1, 2, 121, 1, 1, 40, "2022-03-27 10:50:00", 0)
-         */
-
         String ticketString = "INSERT INTO Reservation (CustomerID, PerformanceID, SeatID, PaymentTypeID, DeliveryTypeID, Price, ReservationDateTime, CancellationDateTime) VALUES (";
 
         ticketString += customerID + ", ";
@@ -253,6 +233,7 @@ VALUES (1, 2, 121, 1, 1, 40, "2022-03-27 10:50:00", 0)
         ticketString += "1, ";
         ticketString += "1, ";
         ticketString += price + ", ";
+        //the actual time of the booking is not captured
         ticketString += "'2022-03-27 10:50:00'" + ", ";
         ticketString += "0);";
 

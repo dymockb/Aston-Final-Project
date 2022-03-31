@@ -1,7 +1,7 @@
 package model;
 
 import java.util.HashMap;
-import model.History;
+//import model.History;
 import superclass.Screen;
 import superclass.SearchDB;
 import java.sql.*;
@@ -27,7 +27,7 @@ public class User {
 
     private HashMap<String, String> sqlQueries;
 
-    private History navHistory;
+    //private History navHistory;
 
     //private HashMap<String, SearchDB> searchHistory;
     //private HashMap<String, Screen> screenHistory;
@@ -38,7 +38,7 @@ public class User {
         screens = new HashMap<String, Screen>();
         isDateSearch = false;
         //searchHistory = new HashMap<String, SearchDB>();
-        navHistory = new History();
+        //navHistory = new History();
         isLoggedIn = false;      
     }
 
@@ -96,13 +96,13 @@ public class User {
         return previousSearch;
     }
 
-    public History getNavHistory(){
-        return navHistory;
-    }
+    //public History getNavHistory(){
+     //   return navHistory;
+   // }
 
-    public void updateNavHistory(int index, SearchDB search, Screen screen){
-        navHistory.addToHistory(index, search, screen);
-    }
+    //public void updateNavHistory(int index, SearchDB search, Screen screen){
+    //    navHistory.addToHistory(index, search, screen);
+   // }
 
     public void setSearchResultSet(ResultSet rs){
         searchResultSet = rs;

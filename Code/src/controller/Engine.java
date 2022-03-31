@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.File;
 import java.util.HashMap;
 
+//http://tutorials.jenkov.com/java-json/jackson-objectmapper.html
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -12,7 +13,6 @@ import com.fasterxml.jackson.core.JsonGenerationException;
 
 import util.DBConnector;
 import util.Parser;
-//import util.ScreenPrinter;
 import model.User;
 
 import superclass.Screen;
@@ -28,9 +28,6 @@ public class Engine {
 
 	private ObjectMapper mapper; 
 	private HashMap<String, String> sqlQueries;
-	//http://tutorials.jenkov.com/java-json/jackson-objectmapper.html
-
-	//private ScreenPrinter printer;
 	private DBConnector db;
 	private User user;
 	private Parser inputParser;
@@ -120,9 +117,6 @@ public class Engine {
 	private void addTableData() throws FileNotFoundException {
 				
 		Parser addTableDataParser = new Parser();
-
-		// Customer, DeliveryType, Gender, LiveMusic, PaymentType, Peformance, PriceBand, Reservation, Seat, ShowDetail, ShowLanguage, TypeOfShow
-
 
 		addTableDataParser.addFile("./database-files/version2/csv-files/Gender.csv");
 		db.runQuery(addTableDataParser.createSqlDataFromCSV("Gender"));
