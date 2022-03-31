@@ -41,7 +41,7 @@ public class Search extends Screen {
             StaticPrinter.printSearchScreenHeader();
 
             System.out.println("Search for Shows By:");
-            System.out.println("k - Keyword or Name.");
+            System.out.println("k - Keyword");
             System.out.println("d - Date");
             System.out.println("");
             System.out.println("Browse Shows By:");

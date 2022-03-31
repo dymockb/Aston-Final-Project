@@ -17,8 +17,12 @@ public class DBConnector {
 		try {
 
 			ArrayList<Boolean> switches = new ArrayList<Boolean>();
-			String username = parser.getInput("username", "database", switches);
-			String password = parser.getInput("password", "database", switches);
+			System.out.println("Please enter your database username:");
+			//String username = parser.getInput("username", "database", switches);
+			String username = parser.getInputForMenu();
+			System.out.println("Please enter your database password:");
+			//String password = parser.getInput("password", "database", switches);
+			String password = parser.getInputForMenu();
 			
 			//String username = "pi";
 			//String password = "raspberry";

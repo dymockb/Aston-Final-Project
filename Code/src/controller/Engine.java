@@ -37,10 +37,10 @@ public class Engine {
 		Engine engine = new Engine();
 
 		//Run from file (uncomment the line below, add comments if using UserInput below):
-		engine.openForBusiness("inputFromFile"); 
+		//engine.openForBusiness("inputFromFile"); 
 
 		//Run with UserInput (uncomment the below, add comments if using InputFile above):
-		//engine.openForBusiness("userInput");
+		engine.openForBusiness("userInput");
 
 	}
 
