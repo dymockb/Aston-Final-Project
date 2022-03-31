@@ -71,10 +71,8 @@ public class Home extends Screen {
     
     
                 } else if (userInput.equals("l")){
-                    
-                    //user.setLoggedInStatus(true);
-    
-                    System.out.println("login screen tbc");
+
+                    System.out.println("Login facility is not active yet.");
     
                 } else {
                     StaticPrinter.invalidCommand("Home");               

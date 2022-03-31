@@ -23,7 +23,7 @@ public class Shows extends Screen {
     public void displayScreen() throws NoSuchElementException {
 
         rs = user.getSearchResultSet();
-        String tableName = "All Shows";
+        String tableName = "Shows";
         String eventName = "Theatre Royal";
         String orderedBy = "Name";
 
