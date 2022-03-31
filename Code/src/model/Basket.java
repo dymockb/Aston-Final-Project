@@ -78,9 +78,13 @@ public class Basket {
                     return null;
                 } else if (checkoutResult.equals("purchase-cancelled-by-user")){
                     return "purchase-cancelled-by-user";
-                } else if (checkoutResult.equals("payment-error")){
+                } 
+                /** 
+                else if (checkoutResult.equals("payment-error")){
                     return "payment-error";
-                } else {
+                } 
+                /** */
+                else {
                     return null;
                 }
             } else if (userInput.equals("n")){
@@ -101,9 +105,53 @@ public class Basket {
 
         String returnValue = null;
 
-        System.out.println("Please enter your card details." );
+        Boolean gettingCardDetails = true;
 
         String userInput = null;
+        while(gettingCardDetails){
+            System.out.println("Please enter your 16-digit card number:" );
+            System.out.println("c - cancel and exit booking." );
+    
+            try {
+                userInput = parser.getInputForMenu();
+            } catch (NoSuchElementException e){
+                System.out.println("ERROR - end of test file.");
+                
+            }
+
+            if (userInput != null){
+                if(userInput.equals("c")){
+                    gettingCardDetails = false;
+                    return "purchase-cancelled-by-user";
+                } else if(validateCardDetails(userInput)){
+                    gettingCardDetails = false;
+                } else {
+                    System.out.println("Card payment error. Please try again.");
+                }
+            } else {
+                gettingCardDetails = false;
+                System.out.println("No input");
+            }
+        }
+
+
+        //String userInput = parser.getInputForMenu();
+        /** 
+        if(userInput != null){} else {
+            returnValue = "file-input-error";
+        }
+
+        if(validateCardDetails(userInput)){} else {
+            System.out.println("Card payment error.");
+            returnValue = "payment-error";
+        }
+        /** */
+
+        System.out.println("Your card details are confirmed.  Proceed with purchase?");
+        System.out.println("y - purchase tickets");
+        System.out.println("n - cancel purchase");
+
+        userInput = null;
 
         try {
             userInput = parser.getInputForMenu();
@@ -112,71 +160,59 @@ public class Basket {
             
         }
 
-        //String userInput = parser.getInputForMenu();
+        //userInput = parser.getInputForMenu();
 
-        if(userInput != null){
+        if (userInput != null){
 
-            if(validateCardDetails(userInput)){
-                System.out.println("Your card details are confirmed.  Proceed with purchase?");
-                System.out.println("y - purchase tickets");
-                System.out.println("n - cancel purchase");
+            if (userInput.equals("y")){
 
-                userInput = null;
+                for (Ticket ticket : tickets){
 
-                try {
-                    userInput = parser.getInputForMenu();
-                } catch (NoSuchElementException e){
-                    System.out.println("ERROR - end of test file.");
+                    String addTicketString = createTicketString(
+                        ticket.getCustomerID(),
+                        ticket.getPerformanceID(),
+                        ticket.getSeatID(),
+                        ticket.getPrice()
+                        );
+
                     
-                }
 
-                //userInput = parser.getInputForMenu();
-
-                if (userInput != null){
-
-                    if (userInput.equals("y")){
-    
-                        for (Ticket ticket : tickets){
-        
-                            String addTicketString = createTicketString(
-                                ticket.getCustomerID(),
-                                ticket.getPerformanceID(),
-                                ticket.getSeatID(),
-                                ticket.getPrice()
-                                );
-        
-                            //System.out.println(addTicketString);
-        
-                            try {
-                                //System.out.println("add ticket to ticket table");
-                                db.runQuery(addTicketString);
-                            } catch (Exception e){
-                                e.printStackTrace();
-                            }
-                            
-        
-                        }
-        
-                        System.out.println("Payment confirmed. Clear basket" );
-                        tickets = new ArrayList<Ticket>();
-                        //basketTotal = 0;
-                        //System.out.println("Basket summary. there are " + tickets.size() + " tickets in the basket");
-                        returnValue = "purchase-complete";
-        
-                    } else if (userInput.equals("n")){
-                        returnValue = "purchase-cancelled-by-user";
+                    try {
+                        
+                        db.runQuery(addTicketString);
+                    } catch (Exception e){
+                        e.printStackTrace();
                     }
+                    
 
-                } else {
-                    returnValue = "file-input-error";
                 }
 
-    
-            } else {
-                System.out.println("Card payment error.");
-                returnValue = "payment-error";
+                System.out.println("Payment confirmed." );
+                System.out.println("Here is a summary of your purchase:" );
+
+                double totalPurchase = 0;
+                int ticketNumber = 1;
+                for(Ticket ticket: tickets){
+                    System.out.println("Ticket number " + ticketNumber + ": " + ticket.getShowName());
+                    System.out.println("   Date: " + ticket.getPerformanceDate());
+                    System.out.println("   Time: " + ticket.getPerformanceTime());
+                    String seatingArea = ticket.getSeatID() <= 120 ? "Stalls" : "Circle";
+                    System.out.println("   Seating Area: " + seatingArea);
+                    System.out.println("   Seat Number:" + ticket.getSeatID());
+                    System.out.println("   Price: " + ticket.getPrice());
+                    totalPurchase += ticket.getPrice();
+                }
+
+                System.out.println("Total purchase: " + totalPurchase);
+
+
+            
+                tickets = new ArrayList<Ticket>();
+                returnValue = "purchase-complete";
+
+            } else if (userInput.equals("n")){
+                returnValue = "purchase-cancelled-by-user";
             }
-        
 
         } else {
             returnValue = "file-input-error";

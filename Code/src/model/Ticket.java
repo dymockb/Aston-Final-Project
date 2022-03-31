@@ -44,5 +44,17 @@ public class Ticket {
         return customerID;
     }
 
+    public String getShowName(){
+        return showName;
+    }
+
+    public String getPerformanceDate(){
+        return performanceDate;
+    }
+
+    public String getPerformanceTime(){
+        return performanceTime;
+    }
+
     
 }

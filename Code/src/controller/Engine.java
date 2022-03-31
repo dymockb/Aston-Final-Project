@@ -40,10 +40,10 @@ public class Engine {
 		Engine engine = new Engine();
 
 		//Run from file:
-		//engine.openForBusiness("inputFromFile"); 
+		engine.openForBusiness("inputFromFile"); 
 
 		//Run with UserInput:
-		engine.openForBusiness("userInput");
+		//engine.openForBusiness("userInput");
 
 	}
 
@@ -79,7 +79,7 @@ public class Engine {
 		selectdb();
 
 		if(inputType.equals("inputFromFile")){
-			inputParser.addFile("./txt-files/user-input3.txt");
+			inputParser.addFile("./txt-files/user-input.txt");
 			user.setAutomated(true);
 		} 
 		

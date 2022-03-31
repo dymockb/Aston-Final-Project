@@ -94,11 +94,14 @@ public class ViewPerformance extends Screen {
                                 
                                     System.out.println("Your purchase was cancelled.  Please start a new search.");
                                                         
-                                } else if(booking.getResultOfBookingProcess().equals("payment-error")){
+                                } 
+                                /** 
+                                else if(booking.getResultOfBookingProcess().equals("payment-error")){
                                 
                                     System.out.println("There was a payment error please contact your bank.");
                                                         
                                 }
+                                /** */
 
                             } else {
                                 noUserTextFileErrors = false;

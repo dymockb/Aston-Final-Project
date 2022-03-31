@@ -1,25 +1,14 @@
-**** TEST 1 ****
-* browse shows and book tickets
-b
-* browse shows by NAME
-n
-* select a show by row number
-15
-* view performances
-v
-* select a peformance by row number
+* buy romeo and juliet seat number 1
+s
+k
+romeo
 1
-* book tickets for the performance
+v
+1
 b
-* book seats in the circle
-c
-* type in the seat numbers
-14,15,16
-* add tickets to the basket
+s
+1
 y
-* checkout
 y
-* card details
-5467876543213456
-* proceed with purchase
+1234123412341234
 y

@@ -65,7 +65,7 @@ public class ViewShow extends Screen {
 
         show = new Show(user.getSearchResultSet());
         HashMap<String, String> showDetails = show.getShowDetails();
-        System.out.println(showDetails);
+        //System.out.println(showDetails);
         //String showID = showDetails.get("ID");
         String showName = showDetails.get("ShowName");
         String typeOfShow = showDetails.get("TypeName");

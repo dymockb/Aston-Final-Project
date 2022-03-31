@@ -414,7 +414,7 @@ public class Booking {
     /** */
 
     public void printSummary(){
-        System.out.println("here is a summary of your booking. TBC");
+        //System.out.println("here is a summary of your booking. TBC");
     }
 
     public ArrayList<String> convertInputToSeatsArray(String userInput){

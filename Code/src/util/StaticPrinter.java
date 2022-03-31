@@ -85,6 +85,7 @@ public class StaticPrinter {
         System.out.println(String.format("%-80s", "Show duration: " + duration));
         System.out.println(String.format("%-80s", "Ticket price: " + ticketPrice));
         System.out.println(String.format("%-80s", ""));
+
         System.out.println(String.format("%-80s", showDescription));
     }
 
@@ -99,6 +100,7 @@ public class StaticPrinter {
 
 
     public static void printPerformanceDetails(String description, String liveMusic, String language, int numberOfAvailableSeats){
+
 
         System.out.println(String.format("%-80s", description));
         System.out.println(String.format("%-80s", "(" + language +  ")"));
