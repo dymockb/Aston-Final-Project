@@ -1,0 +1,19 @@
+ShowName,TypeOfShowID,ShowDescription,Duration,LanguageID,StartDate,EndDate,LiveMusicID,PriceID
+"Romeo and Juliet",1,"Theatre show",120,1,"2022-04-01","2022-05-03",3,1
+"Beauty and the Beast'",2,"Musical show",150,1,"2022-04-01","2022-05-13",2,3
+"Phantom of the Opera",3,"Opera Show",130,2,"2022-04-01","2022-05-13",1,4
+"Les Miserables",2,"Musical show",100,2,"2022-04-05","2022-05-13",1,1
+"Charlie and the Chocolate Factory",1,"Theatre show","00:01:00",1,"2022-04-03","2022-05-13",1,2
+"Paint Drying",2,"Musical show",125,1,"2022-04-20","2022-05-13",2,2
+"ABBA",2," ABBA & Musical show","00:01:30",1,"2022-04-28","2022-05-19",2,3
+"The Mousetrap",2,"Theatre show","00:01:30",2,"2022-04-17","2022-05-13",3,2
+"Rolling Stones Live",1,"Rolling Stones Concert","00:01:30",1,"2022-04-24","2022-05-13",2,2
+"Barry Manilow Live",2,"Musical Show",100,1,"2022-06-01","2022-06-13",2,2
+"Michael Buble Live",4,"Michael Buble Concert",100,1,"2022-05-23","2022-05-23",1,4
+"Waitress Featuring Gillian Anderson Live",1,"Theatre Show",110,1,"2022-06-04","2022-06-10",1,1
+"Spice Girls Live",4,"Spice Girls  Show",105,1,"2022-05-10","2022-05-17",1,2
+"Live Earth",1,"Various Artists",120,1,"2022-04-30","2022-04-30",1,3
+"Annie Live",1,"Theatre Show",100,1,"2022-06-02","2022-06-30",1,1
+"A Mid Summers Night Live",1,"Ballet",110,2,"2022-07-01","2022-07-14",1,2
+"Phantom",3,"Phantom of the Opera Starring Ian Mckeller",105,3,"2022-08-01","2022-08-31",2,3
+"Back to the Future Live",1,"Michael J Fox as Marty McFly + Musical",120,1,"2022-09-10","2022-09-15",3,2

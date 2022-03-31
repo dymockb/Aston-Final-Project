@@ -102,7 +102,9 @@ public class StaticPrinter {
 
         System.out.println(String.format("%-80s", description));
         System.out.println(String.format("%-80s", "(" + language +  ")"));
-        System.out.println(String.format("%-80s", "Live music: " + liveMusic));
+        if(liveMusic != null){
+            System.out.println(String.format("%-80s", "Live music: " + liveMusic));
+        }
         System.out.println(String.format("%-80s", "Number of tickets available: " + numberOfAvailableSeats));
     }
 

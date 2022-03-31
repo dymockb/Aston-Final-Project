@@ -29,10 +29,14 @@ public class Performances extends Screen {
         HashMap<String, String> columnNames = new HashMap<String, String>();
         ArrayList<String> columnsToHide = new ArrayList<String>();
         columnsToHide.add("ID");
-        columnsToHide.add("ShowName");
+        if(!user.getIsDateSearch()){
+            columnsToHide.add("ShowName");
+        }
         columnsToHide.add("PriceID");
 
         String ticketPriceRange = user.getShowTicketPriceRange();
+
+        ticketPriceRange = ticketPriceRange == null ? "" : ticketPriceRange;
 
         Table performancesTable = new Table(rs, parser, eventName, tableName, orderedBy, ticketPriceRange, columnNames, columnsToHide, true);
 

@@ -23,6 +23,7 @@ public class User {
     private int IDValueForNextSearch;
     private String eventName;
     private String showTicketPriceRange;
+    private Boolean isDateSearch;
 
     private HashMap<String, String> sqlQueries;
 
@@ -35,6 +36,7 @@ public class User {
         this.sqlQueries = sqlQueries;
         this.db = db;
         screens = new HashMap<String, Screen>();
+        isDateSearch = false;
         //searchHistory = new HashMap<String, SearchDB>();
         navHistory = new History();
         isLoggedIn = false;      
@@ -60,6 +62,14 @@ public class User {
 
     public HashMap<String, String> getSqlQueries(){
         return sqlQueries;
+    }
+
+    public void setIsDateSearch(Boolean isDateSearch){
+        this.isDateSearch = isDateSearch;
+    }
+
+    public Boolean getIsDateSearch(){
+        return isDateSearch;
     }
 
     public void setEventName(String eventName){

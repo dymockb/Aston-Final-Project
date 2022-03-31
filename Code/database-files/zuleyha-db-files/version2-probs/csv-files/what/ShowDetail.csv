@@ -1,6 +1,0 @@
-ShowName,TypeOfShowID,ShowDescription,Duration,LanguageID,StartDate,EndDate,LiveMusicID,PriceID
-"Romeo and Juliet",1,"Romeo and Juliet is a tragedy written by William Shakespeare early in his career about two young Italian star-crossed lovers whose deaths ultimately reconcile their feuding families.","01:30:00",1,"2022-04-01","2022-05-03",1,1
-"Beauty and the Beast'",2,"Belle, a beautiful young woman, agrees to live with the Beast in exchange for the return of her abducted father. Soon, Belle discovers that her hideous captor is actually an enchanted prince.","01:40:00",1,"2022-04-01","2022-05-13",2,3
-"Phantom of the Opera",3,"The Phantom of the Opera is a musical with music by Andrew Lloyd Webber and lyrics by Charles Hart. It is based on the 1910 eponymous French novel by Gaston Leroux. ","01:30:00",2,"2022-04-01","2022-05-13",3,4
-"Les Miserables",2,"Jean Valjean, a prisoner, breaks parole in order to start life anew. He soon becomes the caretaker of a young girl but his past comes back to catch up with him.","01:40:00",2,"2022-04-05","2022-05-13",4,1
-"Charlie and the Chocolate Factory",1,"Charlie, a young boy from an impoverished family, and four other kids win a tour of an amazing chocolate factory run by an imaginative chocolatier, Willy Wonka, and his staff of Oompa-Loompas.","01:40:00",1,"2022-04-03","2022-05-13",5,2

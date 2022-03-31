@@ -83,6 +83,7 @@ public class Search extends Screen {
                      rs = keywordSearch.runSearch();
 
                      user.setPreviousSearch(searchString);
+                     user.setIsDateSearch(false);
 
                      user.setSearchResultSet(rs);
                      nextScreen = "shows-screen";
@@ -123,6 +124,7 @@ join performance on showDetail.ID = performance.ShowDetailID  where ShowDate bet
                     //user.saveNewSearch("all-shows-by-name", allShowsByName);
                     user.setEventName("Theatre Royal");
                     user.setPreviousSearch(searchString);
+                    user.setIsDateSearch(true);
 
                     rs = searchByDateRange.runSearch();               
                     
@@ -138,6 +140,7 @@ join performance on showDetail.ID = performance.ShowDetailID  where ShowDate bet
                     SearchDB allShowsByName = new SearchDB(searchString, db) ;
                     //user.saveNewSearch("all-shows-by-name", allShowsByName);
                     user.setPreviousSearch(searchString);
+                    user.setIsDateSearch(false);
 
                     rs = allShowsByName.runSearch();
 
@@ -153,6 +156,7 @@ join performance on showDetail.ID = performance.ShowDetailID  where ShowDate bet
                     SearchDB allShowsByName = new SearchDB(searchString, db) ;
                     //user.saveNewSearch("all-shows-by-typeName", allShowsByName);
                     user.setPreviousSearch(searchString);
+                    user.setIsDateSearch(false);
 
                     rs = allShowsByName.runSearch();
 
